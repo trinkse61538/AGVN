@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hành Trình & Di Sản - Tập Đoàn Nông Nghiệp AGVN Group</title>
+    
+    <link rel="icon" type="image/jpeg" href="https://raw.githubusercontent.com/trinkse61538/AGVN/30296636a7ee0c0bfabb7c6d8c4da9a8182d45c2/AGVN_Logo.jpg">
+    <link rel="shortcut icon" type="image/jpeg" href="https://raw.githubusercontent.com/trinkse61538/AGVN/30296636a7ee0c0bfabb7c6d8c4da9a8182d45c2/AGVN_Logo.jpg">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #007A33; 
+            --secondary-color: #8DC63F; 
+            --accent-color: #FFD700; 
+            --text-dark: #222222;
+            --text-light: #FFFFFF;
+            --bg-light: #F4F9F4;
+            --overlay: rgba(13, 46, 20, 0.88);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Lexend', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            color: var(--text-dark);
+            background-color: #fff;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        section {
+            padding: 90px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 50px;
+            position: relative;
+            font-weight: 700;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--secondary-color);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        /* HEADER */
+        header {
+            background: var(--text-light);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 20px;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover, .nav-menu a.active {
+            color: var(--primary-color);
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        /* HERO BANNER PARALLAX */
+        .hero-banner {
+            background: linear-gradient(rgba(13, 46, 20, 0.75), var(--overlay)), 
+                        url('https://raw.githubusercontent.com/trinkse61538/AGVN/c754eafe559f3903c26ef784231fd86d50da8c39/AGVN%20Banner%202.jpg') no-repeat center center/cover;
+            background-attachment: fixed;
+            color: var(--text-light);
+            text-align: center;
+            padding: 150px 20px;
+            position: relative;
+        }
+
+        .hero-banner h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .hero-banner p {
+            font-size: 1.4rem;
+            color: var(--secondary-color);
+            max-width: 800px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        /* KHỐI TRÍCH DẪN */
+        .quote-section {
+            background: #fff;
+            text-align: center;
+            padding-bottom: 40px;
+        }
+        .quote-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .quote-wrapper i {
+            font-size: 3rem;
+            color: rgba(141, 198, 63, 0.2);
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .quote-text {
+            font-size: 1.5rem;
+            font-style: italic;
+            color: #444;
+            line-height: 1.8;
+            padding-top: 40px;
+        }
+
+        /* VỀ CHÚNG TÔI & THỐNG KÊ */
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .intro-text h2 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .intro-text p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            color: #444;
+            text-align: justify;
+        }
+
+        .counter-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .counter-box {
+            background: var(--bg-light);
+            padding: 35px 20px;
+            border-radius: 16px;
+            text-align: center;
+            border-left: 5px solid var(--primary-color);
+            transition: all 0.4s ease;
+        }
+
+        .counter-box:hover {
+            transform: translateY(-8px);
+            background: #fff;
+            box-shadow: 0 10px 30px rgba(0,78,26,0.08);
+        }
+
+        .counter-box h3 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .counter-box p {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #555;
+        }
+
+        /* SỬA TRIỆT ĐỂ LỖI TIMELINE (CỘT MỐC PHÁT TRIỂN) */
+        .timeline-section {
+            background-color: var(--bg-light);
+        }
+        .timeline-container {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 0;
+        }
+        /* Đường trục giữa độc lập, căn chuẩn 50% */
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #e2e8f0;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+        .timeline-row {
+            display: flex;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
+        }
+        .timeline-row:last-child {
+            margin-bottom: 0;
+        }
+        .timeline-col {
+            width: 50%;
+            padding: 0 40px;
+        }
+        /* Định vị tuyệt đối dấu chấm đúng tâm trục */
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 30px; /* Định vị theo chiều cao của box nội dung */
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            border: 4px solid var(--secondary-color);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 3;
+            transition: all 0.3s ease;
+        }
+        .timeline-row:hover .timeline-dot {
+            background: var(--primary-color);
+            border-color: var(--accent-color);
+            transform: translate(-50%, -50%) scale(1.3);
+        }
+        .timeline-card {
+            background: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            transition: all 0.3s ease;
+        }
+        .timeline-row:hover .timeline-card {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.07);
+        }
+        .timeline-date {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+        }
+        /* Đẩy box sang phải hoặc trái xen kẽ */
+        .row-left { justify-content: flex-start; }
+        .row-right { justify-content: flex-end; }
+
+        /* GIÁ TRỊ CỐT LÕI */
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        .value-card {
+            background: #fff;
+            padding: 40px 25px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            border-top: 4px solid var(--secondary-color);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+            border-top-color: var(--primary-color);
+            box-shadow: 0 15px 40px rgba(0, 122, 51, 0.12);
+        }
+
+        .value-card i {
+            font-size: 2.8rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .value-card:hover i {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .value-card h3 {
+            font-size: 1.3rem;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .value-card p {
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        /* HỆ SINH THÁI GIẢI PHÁP */
+        .ecosystem-section {
+            background: linear-gradient(180deg, #fff 0%, var(--bg-light) 100%);
+        }
+        .eco-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+        }
+        .eco-box {
+            background: #fff;
+            border: 1px solid #e2f0d9;
+            padding: 35px;
+            border-radius: 16px;
+            transition: all 0.3s;
+        }
+        .eco-box:hover {
+            background: var(--primary-color);
+            color: #fff;
+        }
+        .eco-box:hover h3 { color: var(--accent-color); }
+        .eco-box:hover p { color: #e0f2e5; }
+        
+        .eco-icon i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        .eco-box:hover .eco-icon i { color: #fff; }
+        .eco-box h3 {
+            font-size: 1.4rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        /* CÂU HỎI THƯỜNG GẶP */
+        .faq-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .faq-item {
+            border-bottom: 1px solid #e2e8f0;
+            padding: 20px 0;
+        }
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .faq-question:hover {
+            color: var(--primary-color);
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            color: #555;
+            font-size: 1rem;
+            margin-top: 0;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+            margin-top: 15px;
+        }
+        .faq-question i {
+            transition: transform 0.3s;
+            font-size: 0.9rem;
+        }
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+            color: var(--primary-color);
+        }
+
+        /* FOOTER */
+        footer {
+            background: #11341a;
+            color: #e0f2e5;
+            padding: 60px 20px 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 40px;
+        }
+
+        .footer-about h3 {
+            color: #fff;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-about p {
+            color: #a3cbb1;
+            margin-bottom: 15px;
+        }
+
+        .footer-links h4, .footer-contact h4 {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links ul li a {
+            color: #a3cbb1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links ul li a:hover {
+            color: #fff;
+        }
+
+        .footer-contact-item {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 15px;
+            align-items: flex-start;
+        }
+
+        .footer-contact-item i {
+            color: var(--secondary-color);
+            margin-top: 5px;
+            flex-shrink: 0;
+        }
+
+        .footer-contact-item a {
+            color: #e0f2e5;
+            text-decoration: none;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            font-size: 0.9rem;
+            color: #719b80;
+        }
+
+        /* FLOATING BUTTONS */
+        .floating-buttons {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 9999;
+        }
+
+        .float-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            font-size: 1.6rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s;
+        }
+
+        .float-btn:hover { transform: scale(1.15); }
+        .float-phone { background: #FF3B30; animation: flash-red 1.8s infinite ease-in-out; }
+        .float-zalo { background: #0068FF; animation: flash-blue 1.8s infinite ease-in-out; }
+        .float-messenger { background: #0084FF; animation: flash-messenger 1.8s infinite ease-in-out; }
+
+        @keyframes flash-red { 0%, 100% { box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.7); } 50% { box-shadow: 0 0 20px 10px rgba(255, 59, 48, 0); } }
+        @keyframes flash-blue { 0%, 100% { box-shadow: 0 0 0 0 rgba(0, 104, 255, 0.7); } 50% { box-shadow: 0 0 20px 10px rgba(0, 104, 255, 0); } }
+        @keyframes flash-messenger { 0%, 100% { box-shadow: 0 0 0 0 rgba(0, 132, 255, 0.7); } 50% { box-shadow: 0 0 20px 10px rgba(0, 132, 255, 0); } }
+
+        /* RESPONSIVE TOÀN DIỆN CHO DESKTOP NHỎ VÀ MOBILE */
+        @media (max-width: 1024px) {
+            .value-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+            .eco-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            section { padding: 60px 15px; }
+            .hamburger { display: block; }
+            .nav-menu { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: #fff; flex-direction: column; padding: 20px; gap: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); z-index: 999; }
+            .nav-menu.open { display: flex; }
+            .intro-grid { grid-template-columns: 1fr; gap: 40px; }
+            .value-grid, .eco-grid { grid-template-columns: 1fr; }
+            .hero-banner h1 { font-size: 2.2rem; }
+            .hero-banner p { font-size: 1.1rem; }
+            .section-title { font-size: 1.8rem; }
+            .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+            .floating-buttons { right: 16px; bottom: 16px; gap: 10px; }
+            .float-btn { width: 48px; height: 48px; font-size: 1.3rem; }
+
+            /* Responsive chuẩn xác cho Timeline Mobile */
+            .timeline-line { left: 20px; transform: none; }
+            .timeline-row { margin-bottom: 30px; }
+            .timeline-col { width: 100%; padding-left: 45px; padding-right: 0; }
+            .timeline-dot { left: 20px; top: 30px; transform: translate(-50%, -50%); }
+            .timeline-row:hover .timeline-dot { transform: translate(-50%, -50%) scale(1.2); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="nav-container">
+            <a href="https://agvngroup.com" class="logo">AGVN <span>GROUP</span></a>
+            <button class="hamburger" onclick="toggleMenu()" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="https://agvngroup.com">Trang Chủ</a></li>
+                <li><a href="#" class="active">Giới Thiệu</a></li>
+                <li><a href="https://agvngroup.com#flagship">Sản Phẩm Chủ Lực</a></li>
+                <li><a href="https://agvngroup.com#products">Sản Phẩm Tiên Tiến</a></li>
+                <li><a href="https://agvngroup.com#footer">Liên Hệ</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- HERO BANNER -->
+    <div class="hero-banner">
+        <div class="container">
+            <h1 data-aos="zoom-in" data-aos-duration="1200">Hành Trình Kiến Tạo Di Sản</h1>
+            <p data-aos="fade-up" data-aos-delay="300">Tự hào sát cánh cùng hàng triệu nông gia Việt, bảo vệ môi trường sinh thái và tối ưu hóa giá trị nông sản.</p>
+        </div>
+    </div>
+
+    <!-- KHỐI TRÍCH DẪN -->
+    <section class="quote-section">
+        <div class="container">
+            <div class="quote-wrapper" data-aos="fade-up">
+                <i class="fa-solid fa-quote-left"></i>
+                <p class="quote-text">"Nông nghiệp không chỉ là sinh kế, đó là cội nguồn của sự sống. Tại AGVN Group, chúng tôi tin rằng đất mẹ khỏe mạnh là khởi nguồn cho những vụ mùa ấm no thịnh vượng bền vững."</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- VỀ CHÚNG TÔI & THỐNG KÊ -->
+    <section class="intro-section">
+        <div class="container">
+            <div class="intro-grid">
+                <div class="intro-text" data-aos="fade-right">
+                    <h2>Người Bạn Đồng Hành Đáng Tin Cậy Của Nhà Nông</h2>
+                    <p>Tập Tập Đoàn Nông Nghiệp AGVN Group tự hào là doanh nghiệp tiên phong định hình xu hướng phát triển vật tư công nghệ cao tại Việt Nam. Không dừng lại ở việc cung cấp các chế phẩm thuần túy, chúng tôi mang tới một giải pháp quản lý cây trồng khép kín và an toàn.</p>
+                    <p>Chúng tôi tập trung nguồn lực để nghiên cứu, cải tiến liên tục các dòng phân bón hữu cơ giàu mùn thực vật, kết hợp cùng các công thức bảo vệ thực vật sinh học dạng huyền phù thân thiện. Từ đó giúp tối giản chi phí đầu tư trên từng sào đất, đồng thời giải bài toán nông sản sạch đạt tiêu chí xuất khẩu.</p>
+                </div>
+                <div class="intro-stats">
+                    <div class="counter-grid">
+                        <div class="counter-box" data-aos="fade-up" data-aos-delay="100">
+                            <h3>100%</h3>
+                            <p>Đạt chuẩn an toàn sinh học</p>
+                        </div>
+                        <div class="counter-box" data-aos="fade-up" data-aos-delay="200">
+                            <h3>24/7</h3>
+                            <p>Hỗ trợ kỹ thuật tại ruộng</p>
+                        </div>
+                        <div class="counter-box" data-aos="fade-up" data-aos-delay="300">
+                            <h3>30%</h3>
+                            <p>Tiết kiệm lượng phân bón</p>
+                        </div>
+                        <div class="counter-box" data-aos="fade-up" data-aos-delay="400">
+                            <h3>Hàng Triệu</h3>
+                            <p>Bà con trọn đời đồng hành</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DÒNG THỜI GIAN PHÁT TRIỂN (ĐÃ SỬA LỖI ĐÚNG TÂM TRỤC) -->
+    <section class="timeline-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">CỘT MỐC PHÁT TRIỂN</h2>
+            <div class="timeline-container">
+                <div class="timeline-line"></div>
+                
+                <!-- Mốc 1: Bên trái (Trên Mobile tự động chuyển sang layout dọc chuẩn xác) -->
+                <div class="timeline-row row-left" data-aos="fade-right">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-col">
+                        <div class="timeline-card">
+                            <div class="timeline-date">Khởi Nguyên</div>
+                            <p>Thành lập với khát vọng thay đổi phương thức canh tác truyền thống, định hướng nông sản sạch và bền vững từ những ngày đầu.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mốc 2: Bên phải -->
+                <div class="timeline-row row-right" data-aos="fade-left">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-col">
+                        <div class="timeline-card">
+                            <div class="timeline-date">Bứt Phá</div>
+                            <p>Nghiên cứu thành công bộ sản phẩm chủ lực tiên phong, giúp giải quyết triệt để các vấn đề sâu bệnh nan y tại vựa lúa Miền Tây.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mốc 3: Bên trái -->
+                <div class="timeline-row row-left" data-aos="fade-right">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-col">
+                        <div class="timeline-card">
+                            <div class="timeline-date">Phủ Sóng</div>
+                            <p>Mở rộng mạng lưới đại lý chuyển giao kỹ thuật trên khắp cả nước, hỗ trợ hàng triệu hộ nông dân nâng tầm chất lượng nông sản.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mốc 4: Bên phải -->
+                <div class="timeline-row row-right" data-aos="fade-left">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-col">
+                        <div class="timeline-card">
+                            <div class="timeline-date">Vươn Tầm Quốc Tế</div>
+                            <p>Tập trung phát triển công nghệ sinh học xanh bền vững, hướng đến năm 2026 trở thành điểm tựa niềm tin lớn nhất của nền nông nghiệp sạch.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- GIÁ TRỊ CỐT LÕI -->
+    <section class="values-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">GIÁ TRỊ CỐT LÕI</h2>
+            <div class="value-grid">
+                <div class="value-card" data-aos="zoom-in" data-aos-delay="100">
+                    <i class="fa-solid fa-rocket"></i>
+                    <h3>Sứ Mệnh</h3>
+                    <p>Giúp bà con nhà nông hiện thực hóa mục tiêu "Tăng Năng Suất - Giảm Chi Phí", tối ưu biên độ lợi nhuận.</p>
+                </div>
+                <div class="value-card" data-aos="zoom-in" data-aos-delay="200">
+                    <i class="fa-solid fa-eye"></i>
+                    <h3>Tầm Nhìn</h3>
+                    <p>Trở thành tập đoàn dẫn dắt giải pháp sinh học an toàn hàng đầu, biểu tượng vững chắc của nông sản sạch.</p>
+                </div>
+                <div class="value-card" data-aos="zoom-in" data-aos-delay="300">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <h3>An Toàn</h3>
+                    <p>Tuyệt đối thân thiện với kết cấu lý hóa của đất mỡ màu, bảo vệ sức khỏe con người và thiên nhiên.</p>
+                </div>
+                <div class="value-card" data-aos="zoom-in" data-aos-delay="400">
+                    <i class="fa-solid fa-wheat-awn"></i>
+                    <h3>Hiệu Quả</h3>
+                    <p>Giá trị thực tiễn vượt trội, được chứng minh trực quan sinh động trên từng cánh đồng vàng qua nhiều mùa vụ.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HỆ SINH THÁI GIẢI PHÁP -->
+    <section class="ecosystem-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">HỆ SINH THÁI KHÉP KÍN</h2>
+            <div class="eco-grid">
+                <div class="eco-box" data-aos="fade-up" data-aos-delay="100">
+                    <div class="eco-icon"><i class="fa-solid fa-seedling"></i></div>
+                    <h3>Cải Tạo & Kích Rễ</h3>
+                    <p>Nền tảng hữu cơ sinh học cao cấp giúp hạ phèn nhanh, giải độc hữu cơ, thúc rễ mập cắm sâu hút trọn dưỡng chất đất trồng.</p>
+                </div>
+                <div class="eco-box" data-aos="fade-up" data-aos-delay="200">
+                    <div class="eco-icon"><i class="fa-solid fa-flask-vial"></i></div>
+                    <h3>Dinh Dưỡng Đa Tầng</h3>
+                    <p>Cung cấp tổ hợp vi lượng đa lượng thông minh, điều tiết cây đứng lá, đẻ nhánh hữu hiệu, thúc đòng to, trổ thoát đồng loạt mượt mà.</p>
+                </div>
+                <div class="eco-box" data-aos="fade-up" data-aos-delay="300">
+                    <div class="eco-icon"><i class="fa-solid fa-shield"></i></div>
+                    <h3>Bảo Vệ Đa Lớp</h3>
+                    <p>Hệ thống phòng trừ sâu bệnh nấm khuẩn lưu dẫn nội hấp thế hệ mới, cô lập mầm bệnh nhanh chóng nhưng cực kỳ mát bông và an toàn.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CÂU HỎI THƯỜNG GẶP -->
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">BÀ CON HỎI - AGVN TRẢ LỜI</h2>
+            <div class="faq-wrapper" data-aos="fade-up">
+                <div class="faq-item">
+                    <div class="faq-question">Sản phẩm của AGVN Group có giúp giảm chi phí đầu tư thực tế không? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">Có. Nhờ tích hợp các hoạt chất sinh học tiên tiến giúp tăng tối đa hiệu suất hấp thụ, bà con có thể giảm đến 30% lượng phân bón thông thường mà vẫn đảm bảo cây khỏe mạnh và đạt năng suất vượt trội.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Khi gặp sự cố kỹ thuật trên đồng ruộng, tôi có thể liên hệ hỗ trợ bằng cách nào? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">AGVN Group duy trì đội ngũ kỹ sư hỗ trợ 24/7. Bà con có thể bấm trực tiếp vào biểu tượng Gọi điện hoặc nhắn Zalo/Messenger trên màn hình để được tư vấn phác đồ xử lý kịp thời tại ruộng miễn phí.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Dòng thuốc bảo vệ thực vật của AGVN có gây nóng cây hay rụng bông không? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">Các dòng sản phẩm trừ bệnh tiên tiến của AGVN chủ yếu sử dụng công nghệ SC (huyền phục đậm đặc) và hoạt chất hữu cơ kháng sinh mới, đặc tính rất mát cây, an toàn tuyệt đối ngay cả ở giai đoạn lúa trổ bông nhạy cảm.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="footer">
+        <div class="footer-grid">
+            <div class="footer-about">
+                <h3>AGVN GROUP</h3>
+                <p>Bộ sản phẩm tiên tiến hàng đầu Việt Nam giúp thúc đẩy nền nông nghiệp xanh bền vững, mang lại vụ mùa ấm no cho mọi gia đình nhà nông.</p>
+                <p style="color: var(--accent-color); font-weight: 600;"><i class="fa-solid fa-clock"></i> Thời gian làm việc: 24/7 (Hỗ trợ kỹ thuật bất cứ khi nào bà con cần)</p>
+            </div>
+            <div class="footer-links">
+                <h4>Chuyên Mục</h4>
+                <ul>
+                    <li><a href="https://agvngroup.com"><i class="fa-solid fa-angle-right"></i> Trang chủ</a></li>
+                    <li><a href="https://agvngroup.com#flagship"><i class="fa-solid fa-angle-right"></i> Sản phẩm chủ lực</a></li>
+                    <li><a href="https://agvngroup.com#products"><i class="fa-solid fa-angle-right"></i> Sản phẩm tiên tiến</a></li>
+                    <li><a href="https://agvngroup.com#testimonials"><i class="fa-solid fa-angle-right"></i> Kết quả thực tế</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Thông Tin Liên Hệ</h4>
+                <div class="footer-contact-item">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Số+12+Đường+Dự+Định+Khóm+Đông+Thịnh+9+Phường+Long+Xuyên+Long+Xuyên+Việt+Nam" target="_blank">
+                        <span>Số 12 Đường Dự Định, Khóm Đông Thịnh 9, Phường Long Xuyên, Long Xuyên, Vietnam</span>
+                    </a>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fa-solid fa-phone-volume"></i>
+                    <span><a href="tel:0869980098"><strong>0869 980 098</strong></a></span>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span><a href="mailto:agvngroup2025@gmail.com">agvngroup2025@gmail.com</a></span>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Tập Đoàn Nông Nghiệp AGVN Group. Thiết kế chuyên nghiệp vì nhà nông.</p>
+        </div>
+    </footer>
+
+    <!-- FLOATING BUTTONS -->
+    <div class="floating-buttons">
+        <a href="tel:0969882442" class="float-btn float-phone" title="Gọi ngay tư vấn kỹ thuật">
+            <i class="fa-solid fa-phone"></i>
+        </a>
+        <a href="https://zalo.me/0969882442" target="_blank" class="float-btn float-zalo" title="Chat qua Zalo">
+            <span style="font-size: 0.75rem; font-weight: bold; letter-spacing: -0.5px;">ZALO</span>
+        </a>
+        <a href="https://m.me/agvngroup" target="_blank" class="float-btn float-messenger" title="Chat qua Facebook Messenger">
+            <i class="fa-brands fa-facebook-messenger"></i>
+        </a>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        function toggleMenu() {
+            var m = document.getElementById('navMenu');
+            m.classList.toggle('open');
+            var icon = document.querySelector('.hamburger i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        }
+
+        document.querySelectorAll('.faq-question').forEach(item => {
+            item.addEventListener('click', () => {
+                const parent = item.parentElement;
+                if(parent.classList.contains('active')) {
+                    parent.classList.remove('active');
+                } else {
+                    document.querySelectorAll('.faq-item').forEach(child => child.classList.remove('active'));
+                    parent.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
