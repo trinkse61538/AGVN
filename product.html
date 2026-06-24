@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sản Phẩm Tiên Tiến - Tập Đoàn Nông Nghiệp AGVN Group</title>
+    
+    <!-- Khai báo Favicon -->
+    <link rel="icon" type="image/jpeg" href="https://raw.githubusercontent.com/trinkse61538/AGVN/30296636a7ee0c0bfabb7c6d8c4da9a8182d45c2/AGVN_Logo.jpg">
+    <link rel="shortcut icon" type="image/jpeg" href="https://raw.githubusercontent.com/trinkse61538/AGVN/30296636a7ee0c0bfabb7c6d8c4da9a8182d45c2/AGVN_Logo.jpg">
+    
+    <!-- Nhúng Google Font và Thư viện CSS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+
+        /* Hệ màu CSS Variables gốc */
+        :root {
+            --primary-color: #007A33; 
+            --secondary-color: #8DC63F; 
+            --accent-color: #FFD700; 
+            --text-dark: #222222;
+            --text-light: #FFFFFF;
+            --bg-light: #F4F9F4;
+            --thuoc-color: #FFB81C;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Lexend', sans-serif;
+        }
+
+        /* Floating Buttons với hiệu ứng chớp nháy */
+        .floating-buttons { position: fixed; bottom: 30px; right: 30px; display: flex; flex-direction: column; gap: 15px; z-index: 9999; }
+        .float-btn { display: flex; align-items: center; justify-content: center; width: 55px; height: 55px; border-radius: 50%; color: white; text-decoration: none; font-size: 1.6rem; box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: transform 0.3s; animation: pulse-animation 2s infinite; }
+        .float-btn:hover { transform: scale(1.15); animation: none; }
+        .float-phone { background: #FF3B30; }
+        .float-zalo { background: #0068FF; font-size: 1rem; font-weight: bold; }
+        .float-messenger { background: #0084FF; }
+
+        @keyframes pulse-animation {
+            0% { box-shadow: 0 0 0 0 rgba(0, 122, 51, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(0, 122, 51, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 122, 51, 0); }
+        }
+
+        body {
+            color: var(--text-dark);
+            background-color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        section {
+            padding: 60px 20px;
+        }
+        /* CSS cho Floating Buttons */
+        .floating-buttons { position: fixed; bottom: 30px; right: 30px; display: flex; flex-direction: column; gap: 15px; z-index: 9999; }
+        .float-btn { display: flex; align-items: center; justify-content: center; width: 55px; height: 55px; border-radius: 50%; color: white; text-decoration: none; font-size: 1.6rem; box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: transform 0.3s; }
+        .float-btn:hover { transform: scale(1.15); }
+        .float-phone { background: #FF3B30; }
+        .float-zalo { background: #0068FF; font-size: 1rem; font-weight: bold; }
+        .float-messenger { background: #0084FF; }
+
+        /* Đảm bảo mọi card features đều có chiều cao cố định khi chưa nhấn */
+        .card-features {
+            position: relative;
+            overflow: hidden;
+            max-height: 120px; /* Điều chỉnh chiều cao này tùy ý bạn */
+            transition: max-height 0.4s ease;
+        }
+
+        /* Class này sẽ được thêm bởi JS khi nhấn nút */
+        .card-features.expanded {
+            max-height: 2000px; /* Chiều cao đủ lớn để chứa toàn bộ nội dung */
+        }
+
+        /* Làm mờ phần cuối nội dung khi bị ẩn (tạo hiệu ứng chuyên nghiệp) */
+        .card-features::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background: linear-gradient(transparent, #fff);
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        .card-features.expanded::after {
+            opacity: 0;
+        }
+        /* Thiết kế nút "Xem thêm" mới */
+        .toggle-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary-color);
+        }
+
+        .toggle-btn:hover {
+            background-color: transparent;
+            color: var(--primary-color);
+            box-shadow: 0 4px 10px rgba(0, 122, 51, 0.3);
+        }
+
+        /* Thêm icon mũi tên nhỏ để người dùng dễ nhận biết */
+        .toggle-btn::after {
+            content: ' \f078'; /* Mã icon FontAwesome */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            font-size: 0.8rem;
+            margin-left: 8px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 40px;
+            position: relative;
+            font-weight: 700;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--secondary-color);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        /* HEADER & NAVIGATION */
+        header {
+            background: var(--text-light);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 20px;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary-color);
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        /* GIỎ HÀNG / DANH MỤC TIÊU ĐỀ SẢN PHẨM */
+        .category-title {
+            font-size: 1.6rem;
+            color: var(--text-dark);
+            margin: 40px 0 20px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 5px solid var(--primary-color);
+            padding-left: 15px;
+        }
+        .category-title.thuoc-border {
+            border-left-color: var(--thuoc-color);
+        }
+
+        /* BỐ CỤC LƯỚI GRID MỚI (THAY THẾ CAROUSEL) */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 13fr); /* 3 Cột vững chãi trên Desktop */
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .product-card {
+            background: #fff; 
+            border-radius: 12px; 
+            overflow: hidden; 
+            border: 1px solid #e2f0d9; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .card-img { 
+            width: 100%; 
+            height: 280px; 
+            background: #f9fdf9; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 20px;
+        }
+        .card-img img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: contain; 
+        }
+        
+        .card-info { 
+            padding: 20px; 
+            border-top: 1px solid #edf5e8; 
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1; 
+        }
+        
+        .card-title { 
+            font-size: 1.25rem; 
+            font-weight: 700; 
+            color: var(--primary-color); 
+            margin: 10px 0; 
+            min-height: 30px;
+        }
+        
+        .card-features {
+            list-style: none;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+        .card-features li {
+            font-size: 0.95rem;
+            color: #444;
+            margin-bottom: 10px;
+            line-height: 1.5;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            text-align: justify;
+        }
+        .card-features li span {
+            flex-shrink: 0;
+            color: var(--primary-color);
+        }
+
+        .badge-green { background: var(--primary-color); color: #fff; font-size: 0.75rem; padding: 4px 12px; border-radius: 6px; display: inline-block; font-weight: 700; width: fit-content; }
+        .badge-yellow { background: var(--thuoc-color); color: #fff; font-size: 0.75rem; padding: 4px 12px; border-radius: 6px; display: inline-block; font-weight: 700; width: fit-content; }
+
+        /* FOOTER GIỮ NGUYÊN BẢN GỐC CỦA AGVN_v1.html */
+        footer {
+            background-color: #0c2914;
+            color: var(--text-light);
+            padding: 60px 20px 20px;
+            font-size: 0.95rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+
+        .footer-col h3 {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            position: relative;
+            font-weight: 700;
+            color: var(--secondary-color);
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+
+        .footer-col p {
+            margin-bottom: 15px;
+            color: #cbd5e1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--secondary-color);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            color: var(--text-light);
+            background: rgba(255,255,255,0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        .map-container {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            height: 180px;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 40px auto 0;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 1024px) {
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr); /* 2 Cột trên Tablet */
+            }
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger { display: block; }
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #fff;
+                padding: 20px;
+                box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+                gap: 15px;
+            }
+            .nav-menu.open { display: flex; }
+            
+            .product-grid {
+                grid-template-columns: 1fr; /* 1 Cột duy nhất trên Mobile cực dễ xem */
+                gap: 20px;
+            }
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+    </style>
+
+
+</head>
+    <div class="floating-buttons">
+        <a href="tel:0869980098" class="float-btn float-phone"><i class="fa-solid fa-phone"></i></a>
+        <a href="https://zalo.me/0869980098" target="_blank" class="float-btn float-zalo">ZALO</a>
+        <a href="https://m.me/agvngroup" target="_blank" class="float-btn float-messenger"><i class="fa-brands fa-facebook-messenger"></i></a>
+    </div>    
+<body>
+
+    <!-- NAV HEADER -->
+    <header>
+        <div class="nav-container">
+            <a href="https://agvngroup.com" class="logo">AGVN <span>GROUP</span></a>
+            <button class="hamburger" onclick="toggleMenu()">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="https://agvngroup.com/">Trang Chủ</a></li>
+                <li><a href="https://agvngroup.com/#flagship">Sản Phẩm</a></li>
+                <li><a href="https://agvngroup.com/#footer">Liên Hệ</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- KHU VỰC THAY THẾ CAROUSEL THÀNH DANH SÁCH LƯỚI TỔNG QUAN -->
+    <section id="products">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">SẢN PHẨM TIÊN TIẾN</h2>
+
+            <!-- 🌱 PHÂN BÓN HỮU CƠ GRID -->
+            <div class="category-title" data-aos="fade-right">
+                <span>🌱 Phân Bón Hữu Cơ & Vi Lượng</span>
+            </div>
+            
+            <div class="product-grid" data-aos="fade-up">
+                <!-- Sản phẩm 1 -->
+                <div class="product-card">
+                    <div class="card-img"><img src="https://raw.githubusercontent.com/trinkse61538/AGVN/f5e2f8dbc11f37d8da517c358be1be68b7d6285c/Phan%20bon%20Duong%20Dong%20Vang.jpg" alt="DƯỠNG ĐÒNG VÀNG" loading="lazy"></div>
+                    <div class="card-info">
+                        <span class="badge-green">Phân bón hữu cơ</span>
+                        <div class="card-title">DƯỠNG ĐÒNG VÀNG</div>
+                        <ul class="card-features">
+                            <li><span>✅</span> Bổ sung toàn diện: Cung cấp đầy đủ chất hữu cơ, đa lượng NPK và các trung vi lượng thiết yếu, giúp lúa khỏe mạnh, cứng cáp và tăng sức đề kháng.</li>
+                            <li><span>✅</span> Cải tạo đất, chắc hạt: Thành phần hữu cơ giúp cải tạo đất, kích thích rễ phát triển mạnh, từ đó hấp thụ dinh dưỡng tốt hơn, giúp cây đứng lá và hạt chắc.</li>
+                            <li><span>✅</span> Kích thích đòng to, bông dài, hạt nhiều, lúa trổ thoát nhanh và đồng loạt.</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Sản phẩm 2 -->
+                <div class="product-card">
+                    <div class="card-img"><img src="https://raw.githubusercontent.com/trinkse61538/AGVN/f5e2f8dbc11f37d8da517c358be1be68b7d6285c/Phan%20bon%20Hat%20Vang.jpg" alt="HẠT VÀNG" loading="lazy"></div>
+                    <div class="card-info">
+                        <span class="badge-green">Phân bón hữu cơ</span>
+                        <div class="card-title">HẠT VÀNG</div>
+                        <ul class="card-features">
+                            <li><span>✅</span> Vô gạo thần tốc, tăng tỉ lệ hạt chắc – sáng bông.</li>
+                            <li><span>✅</span> Giữ xanh bộ lá đòng → quang hợp mạnh, chín chắc tới cậy.</li>
+                            <li><span>✅</span> Bông chín lá xanh, lúa tươi nặng ký.</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Sản phẩm 3 -->
+                <div class="product-card">
+                    <div class="card-img"><img src="https://raw.githubusercontent.com/trinkse61538/AGVN/f5e2f8dbc11f37d8da517c358be1be68b7d6285c/Phan%20bon%20Sieu%20re%20no%20bui.jpg" alt="SIÊU RỄ NỞ BỤI" loading="lazy"></div>
+                    <div class="card-info">
+                        <span class="badge-green">Phân bón hữu cơ</span>
+                        <div class="card-title">SIÊU RỄ NỞ BỤI</div>
+                        <ul class="card-features">
+                            <li><span>✅</span> Axit Humic, P₂O₅ & K₂O: Tăng khả năng hấp thụ, giúp cây lúa khỏe thân, cứng cây và lá xanh bền vững.</li>
+                            <li><span>✅</span> Hormone thực vật NAA & Cytokinin: Kích thích cây đẻ nhánh mạnh, nở bụi to đồng đều, tăng số bông.</li>
+                            <li><span>✅</span> Chất hữu cơ 35%: Là nền tảng giúp cải tạo đất, cung cấp dinh dưỡng, làm rễ mập và cắm sâu.</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Sản phẩm 4 -->
+                <div class="product-card">
+                    <div class="card-img"><img src="https://raw.githubusercontent.com/trinkse61538/AGVN/91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/Humic%20Zn.jpg" alt="HUMIC Zn++" loading="lazy"></div>
+                    <div class="card-info">
+                        <span class="badge-green">Phân bón hữu cơ</span>
+                        <div class="card-title">HUMIC Zn++</div>
+                        <ul class="card-features">
+                            <li><span>✅</span> Kích hoạt bộ rễ phát triển cực mạnh, cắm sâu, giúp cây lúa hấp thụ dinh dưỡng hiệu quả gấp đôi.</li>
+                            <li><span>✅</span> Tăng mật độ chồi hữu hiệu, đảm bảo lúa nở bụi to.</li>
+                            <li><span>✅</span> Giúp lúa mập đòng, lớn bông, gia tăng cả về số lượng và trọng lượng hạt.</li>
+                            <li><span>✅</span> Cải tạo đất, hạ phèn, giải độc hữu cơ.</li>
+                            <li><span>✅</span> Giảm đến 30% lượng phân bón nhưng vẫn đảm bảo đạt năng suất tối đa.</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Sản phẩm 5 -->
+                <div class="product-card">
+                    <div class="card-img"><img src="https://raw.githubusercontent.com/trinkse61538/AGVN/91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/BOSIMAX.jpg" alt="BOSIMAX" loading="lazy"></div>
+                    <div class="card-info">
+                        <span class="badge-green">Phân bón vi lượng</span>
+                        <div class="card-title">BOSIMAX</div>
+                        <ul class="card-features">
+                            <li><span>✅</span> Cứng cây, ngắn lóng, đứng lá: Nhờ kiểm soát chiều cao cây lúa giúp cây cứng cáp, làm ngắn thân rạ, lá thẳng đứng, làm giảm nguy cơ đổ ngã do gió hoặc mưa lớn ở giai đoạn đòng và trổ bông.</li>
+                            <li><span>✅</span> Tăng cường hệ rễ: Không gây ức chế sự phát triển của bộ rễ, đồng thời có thể kích thích sự phát triển của rễ giúp lúa tập trung dinh dưỡng đẻ nhánh mạnh, nuôi đòng to, bông lớn, tăng khả năng chống chịu thời tiết bất lợi.</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Sản phẩm 6 -->
+                <div class="product-card">
+                    <div class="card-img"><img src="https://raw.githubusercontent.com/trinkse61538/AGVN/91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/Silic%20K.jpg" alt="SILIC K++" loading="lazy"></div>
+                    <div class="card-info">
+                        <span class="badge-green">Phân bón vi lượng</span>
+                        <div class="card-title">SILIC K++</div>
+                        <ul class="card-features">
+                            <li><span>✅</span> Vô gạo thần tốc, to chắc hạt: Giúp lúa chín chắc tới cây, hạn chế đổ ngã.</li>
+                            <li><span>✅</span> Siêu lớn trái, ngọt trái: Trái to, đẹp màu, xanh gai, nặng ký; hạn chế rụng hoa/trái non.</li>
+                            <li><span>✅</span> Ra rễ cực mạnh, cứng cây: Tạo lớp giáp bảo vệ đa tầng, chống chịu phèn, hạn, mặn và thời tiết bất lợi.</li>
+                            <li><span>✅</span> Tăng năng suất: Tối ưu hấp thụ phân bón và giữ nước, gia tăng chất lượng nông sản.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 🧪 THUỐC BẢO VỆ THỰC VẬT GRID -->
+            <div class="category-title thuoc-border" style="margin-top: 60px;" data-aos="fade-right">
+                <span>🧪 Thuốc Bảo Vệ Thực Vật</span>
+            </div>
+
+            <div class="product-grid" data-aos="fade-up">
+                <!-- Thuốc 1 -->
+                <div class="product-card">
+                    <div class="card-img"><img src="https://raw.githubusercontent.com/trinkse61538/AGVN/f5e2f8dbc11f37d8da517c358be1be68b7d6285c/Thuoc%20tru%20benh%20Feno%20Super.jpg" alt="FENO SUPER" loading="lazy"></div>
+                    <div class="card-info">
+                        <span class="badge-yellow">Thuốc Trừ Bệnh</span>
+                        <div class="card-title">FENO SUPER</div>
+                        <ul class="card-features">
+                            <li><span>✅</span> Nội hấp, lưu dẫn mạnh: Thuốc thấm sâu vào cây, bảo vệ toàn diện từ gốc đến ngọn.</li>
+                            <li><span>✅</span> Hiệu lực kéo dài, thấm sâu nhanh giúp bảo vệ toàn diện các mô cây non mới ra.</li>
+                            <li><span>✅</span> An toàn cho lúa: Sản phẩm dạng SC (huyền phục đậm đặc) không gây nóng, an toàn cho cây trồng ở mọi giai đoạn.</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Thuốc 2 -->
+                <div class="product-card">
+                    <div class="card-img"><img src="https://raw.githubusercontent.com/trinkse61538/AGVN/f5e2f8dbc11f37d8da517c358be1be68b7d6285c/Thuoc%20tru%20benh%20Vang%20la.jpg" alt="VÀNG LÁ" loading="lazy"></div>
+                    <div class="card-info">
+                        <span class="badge-yellow">Thuốc Trừ Bệnh</span>
+                        <div class="card-title">VÀNG LÁ</div>
+                        <ul class="card-features">
+                            <li><span>✅</span> Cô lập mầm bệnh – Ngăn không cho lây lan.</li>
+                            <li><span>✅</span> Diệt nấm tận gốc – Hiệu quả nhanh chóng.</li>
+                            <li><span>✅</span> Giúp cây khỏe, xanh lá, phục hồi sức đề kháng, chống tái nhiễm.</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Thuốc 3 -->
+                <div class="product-card">
+                    <div class="card-img"><img src="https://raw.githubusercontent.com/trinkse61538/AGVN/91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/ANWN%20Zn.jpg" alt="ANWN Zn+ Ấn Độ" loading="lazy"></div>
+                    <div class="card-info">
+                        <span class="badge-yellow">Thuốc Trừ Bệnh</span>
+                        <div class="card-title">ANWN Zn+ ẤN ĐỘ</div>
+                        <ul class="card-features">
+                            <li><span>✅</span> Thành phần Hexaconazole 50 g/L (SC) – phổ tác dụng rộng, diệt nhanh các bệnh: Khô vằn, Đốm vằn, Lem lép hạt, Thán thư, Nấm hồng, Phấn trắng...</li>
+                            <li><span>✅</span> Sản phẩm còn được đăng ký chuyên trị bệnh rỉ sắt trên cà phê, mang lại sự an tâm tuyệt đối.</li>
+                            <li><span>✅</span> Bổ sung Kẽm Chelate → giúp cây xanh lá, dày lá, phục hồi nhanh sau bệnh.</li>
+                            <li><span>✅</span> Phối trộn dễ dàng, hoà tan tốt, nhờ công nghệ sản xuất tiên tiến, không gây kết tủa.</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Thuốc 4 -->
+                <div class="product-card">
+                    <div class="card-img"><img src="https://raw.githubusercontent.com/trinkse61538/AGVN/91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/DacTriDaoOn822WP.jpg" alt="Đặc trị đạo ôn 822WP" loading="lazy"></div>
+                    <div class="card-info">
+                        <span class="badge-yellow">Thuốc Trừ Bệnh</span>
+                        <div class="card-title">ĐẶC TRỊ ĐẠO ÔN 822WP</div>
+                        <ul class="card-features">
+                            <li><span>✅</span> Hết sạch đạo ôn: Đặc trị hiệu quả đạo ôn lá (cháy lá), đạo ôn cổ bông và đạo ôn cổ gié, giúp cây lúa hồi phục nhanh chóng.</li>
+                            <li><span>✅</span> Cứng cây, đứng lá: Thuốc giúp cây lúa khỏe mạnh, xanh lá, tăng khả năng quang hợp và chống chịu sâu bệnh hiệu quả.</li>
+                            <li><span>✅</span> Năng suất vượt trội: Bảo vệ bông lúa khỏi nấm bệnh, giúp hạt chắc mẩy, gia tăng sản lượng.</li>
+                            <li><span>✅</span> Rất an toàn cho lúa: Công thức đặc biệt không gây nóng cho cây, an toàn khi phun ở giai đoạn lúa trổ bông nhạy cảm.</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Thuốc 5 -->
+                <div class="product-card">
+                    <div class="card-img"><img src="https://raw.githubusercontent.com/trinkse61538/AGVN/91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/DietChichHut.jpg" alt="Diệt chích hút" loading="lazy"></div>
+                    <div class="card-info">
+                        <span class="badge-yellow">Thuốc Trừ Sâu</span>
+                        <div class="card-title">DIỆT CHÍCH HÚT</div>
+                        <ul class="card-features">
+                            <li><span>✅</span> Diệt nhanh, diệt sạch: Hiệu quả cực mạnh với nhiều loại côn trùng chích hút như: rầy nâu, rầy cánh trắng, bọ trĩ, rệp sáp, rầy xanh...</li>
+                            <li><span>✅</span> Không gây nóng bông, diệt sạch và ung trứng, cắt lứa nhanh chóng.</li>
+                            <li><span>✅</span> Tính lưu dẫn cao, giúp thuốc di chuyển đến các bộ phận khác của cây.</li>
+                            <li><span>✅</span> Hiệu lực kéo dài, hấp thu nhanh trong vòng 2-3 giờ, không bị rửa trôi khi gặp mưa.</li>
+                            <li><span>✅</span> Pha trộn dễ dàng, hoà tan tốt, sử dụng tốt mọi giai đoạn cây trồng.</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Thuốc 6 -->
+                <div class="product-card">
+                    <div class="card-img"><img src="https://raw.githubusercontent.com/trinkse61538/AGVN/91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/KhuanLanhKing.jpg" alt="Khuẩn lạnh King" loading="lazy"></div>
+                    <div class="card-info">
+                        <span class="badge-yellow">Thuốc Trừ Bệnh</span>
+                        <div class="card-title">KHUẨN LẠNH KING</div>
+                        <ul class="card-features">
+                            <li><span>✅</span> Đặc trị các bệnh vi khuẩn như bạc lá, sương mai, thối quả...</li>
+                            <li><span>✅</span> Thuốc trừ bệnh gốc kháng sinh mới, có phổ tác động rộng.</li>
+                            <li><span>✅</span> Kích thích tăng trưởng, giúp cây mát khỏe, lá xanh bóng.</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Thuốc 7 -->
+                <div class="product-card">
+                    <div class="card-img"><img src="https://raw.githubusercontent.com/trinkse61538/AGVN/91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/LemLepHat300SC.jpg" alt="Lem Lép Hạt 400SC" loading="lazy"></div>
+                    <div class="card-info">
+                        <span class="badge-yellow">Thuốc Trừ Bệnh</span>
+                        <div class="card-title">LEM LÉP HẠT 400SC</div>
+                        <ul class="card-features">
+                            <li><span>✅</span> Thuốc trừ bệnh với 2 cơ chế tác động: chuyên vị và lưu dẫn mạnh.</li>
+                            <li><span>✅</span> Thấm sâu, hạn chế mưa rửa trôi, hiệu lực kéo dài.</li>
+                            <li><span>✅</span> Bảo vệ bộ lá đòng xanh khỏe, giúp cây phát triển bền vững.</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Thuốc 8 -->
+                <div class="product-card">
+                    <div class="card-img"><img src="https://raw.githubusercontent.com/trinkse61538/AGVN/91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/NumberOne.jpg" alt="Number One" loading="lazy"></div>
+                    <div class="card-info">
+                        <span class="badge-yellow">Thuốc Điều Hoà Sinh Trưởng</span>
+                        <div class="card-title">NUMBER ONE</div>
+                        <ul class="card-features">
+                            <li><span>✅</span> Ưu điểm vượt trội của Pyraclostrobin kiểm soát hiệu quả nhiều loại nấm là các tác nhân gây ra các loại bệnh phổ biến.</li>
+                            <li><span>✅</span> Kích thích hoạt động quang hợp: Hoạt chất này làm tăng hàm lượng diệp lục tố, giúp lá cây xanh lâu hơn, nâng cao hiệu quả hấp thụ ánh sáng.</li>
+                            <li><span>✅</span> Cải thiện khả năng hấp thụ dinh dưỡng và nước: Đặc biệt với Nitơ, cây trồng có thể sử dụng nguồn dinh dưỡng một cách tối ưu hơn, từ đó phát triển mạnh mẽ và đồng đều.</li>
+                            <li><span>✅</span> Tăng cường sức đề kháng: với khả năng kích hoạt gen PR (Gen PR phòng thủ sinh học) cây trồng có khả năng chống chịu tốt hơn trước stress môi trường, bao gồm nhiệt độ cao, hạn hán hoặc độ ẩm cao.</li>
+                            <li><span>✅</span> Kéo dài tuổi thọ lá: thuốc cũng có thể làm giảm tác dụng sinh học của ethylene tổng hợp, trì hoãn sự già đi của cây trồng, cải thiện hệ miễn dịch và khả năng chống lại các yếu tố tăng trưởng bất lợi, từ đó cải thiện năng suất và chất lượng nông sản.</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Thuốc 9 -->
+                <div class="product-card">
+                    <div class="card-img"><img src="https://raw.githubusercontent.com/trinkse61538/AGVN/91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/SachNamKhuan.jpg" alt="Sạch Nấm Khuẩn 250" loading="lazy"></div>
+                    <div class="card-info">
+                        <span class="badge-yellow">Thuốc Trừ Bệnh</span>
+                        <div class="card-title">SẠCH NẤM KHUẨN 250</div>
+                        <ul class="card-features">
+                            <li><span>✅</span> Trị khuẩn mạnh mẽ: Cháy bìa lá (bạc lá), lép vàng, thán thư, thối nhũn...</li>
+                            <li><span>✅</span> Cơ chế tác động "kháng khuẩn từ bên trong - diệt khuẩn từ bên ngoài" tạo thành một "gọng kìm" vững chắc, giúp cây trồng được bảo vệ một cách toàn diện.</li>
+                            <li><span>✅</span> Giúp cây xanh khỏe – chắc hạt – năng suất bền vững.</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Thuốc 10 -->
+                <div class="product-card">
+                    <div class="card-img"><img src="https://raw.githubusercontent.com/trinkse61538/AGVN/91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/Supercol%20692WP.jpg" alt="Supecol 692" loading="lazy"></div>
+                    <div class="card-info">
+                        <span class="badge-yellow">Thuốc Trừ Bệnh</span>
+                        <div class="card-title">SUPERCOL 692</div>
+                        <ul class="card-features">
+                            <li><span>✅</span> Tạo cơ chế phòng vệ từ bên ngoài và quản lý hiệu quả các bệnh gây hại như: vàng lá, đốm lá, đạo ôn lá, đạo ôn cổ bông...</li>
+                            <li><span>✅</span> Tác động kép: tiếp xúc và lưu dẫn mạnh → ngăn chặn nấm bệnh ngay từ đầu, tiêu diệt sợi nấm đã xâm nhập.</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Thuốc 11 -->
+                <div class="product-card">
+                    <div class="card-img"><img src="https://raw.githubusercontent.com/trinkse61538/AGVN/91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/XongHoiB52.jpg" alt="Xông hơi B52" loading="lazy"></div>
+                    <div class="card-info">
+                        <span class="badge-yellow">Thuốc Trừ Sâu</span>
+                        <div class="card-title">XÔNG HƠI B52</div>
+                        <ul class="card-features">
+                            <li><span>✅</span> Xông hơi cực mạnh: Lan tỏa khắp tán lá và thân cây, diệt cả côn trùng ẩn sâu bên trong.</li>
+                            <li><span>✅</span> Tiếp xúc nhanh: Hiệu quả nhanh, kéo dài nhiều ngày giúp giảm số lần phun, tiết kiệm chi phí.</li>
+                            <li><span>✅</span> Nội hấp: Nội hấp vượt trội, thấm sâu vào mô cây diệt tức thì côn trùng và ổ trứng gây hại.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER GIỮ NGUYÊN HOÀN TOÀN CẤU TRÚC GỐC CỦA AGVN_v1.html -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col" data-aos="fade-up" data-aos-delay="100">
+                <h3>CÔNG TY TNHH TẬP ĐOÀN NÔNG NGHIỆP AGVN GROUP</h3>
+                <p>MST: 0318787572</p>
+                <p>Người đại diện PL: Trần Thị Giang</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/agvngroup"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://www.youtube.com/@nongnghiepagvngroup"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="https://www.tiktok.com/@agvn.group"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
+            </div>
+            <div class="footer-col" data-aos="fade-up" data-aos-delay="200">
+                <h3>Liên Hệ</h3>
+                <p>
+                    <i class="fa-solid fa-location-dot" style="color: #ffffff; margin-right: 10px;"></i> 
+                    <a href="https://www.google.com/maps/search/?api=1&query=Số+12+Đường+Dự+Định+Khóm+Đông+Thịnh+9+Phường+Long+Xuyên+Long+Xuyên+Việt+Nam" target="_blank" title="Xem trên Google Maps" style="color: #ffffff; text-decoration: none;">
+                        <span>Số 12 Đường Dự Định, Khóm Đông Thịnh 9, Phường Long Xuyên, Long Xuyên, Vietnam</span>
+                    </a>
+                </p>
+                <p>
+                    <i class="fa-solid fa-phone" style="color: #ffffff; margin-right: 10px;"></i>
+                    <a href="tel:0869980098" style="color: #ffffff; text-decoration: none;"><strong>0869 980 098</strong></a>
+                </p>
+                <p>
+                    <i class="fa-solid fa-envelope" style="color: #ffffff; margin-right: 10px;"></i>
+                    <span style="color: #ffffff;">agvngroup2025@gmail.com</span>
+                </p>
+            </div>
+            <div class="footer-col" data-aos="fade-up" data-aos-delay="300">
+                <h3>Liên Kết</h3>
+                <ul>
+                    <li><a href="https://agvngroup.com">Trang Chủ</a></li>
+                    <li><a href="#products">Sản Phẩm Tiên Tiến</a></li>
+                    <li><a href="https://khaitringuyen.com/AGVN_final.html#about">Về Chúng Tôi</a></li>
+                </ul>
+            </div>
+            <div class="footer-col" data-aos="fade-up" data-aos-delay="400">
+                <h3>Vị Trí</h3>
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3924.9745337233267!2d105.44102607589255!3d10.343930867000863!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a0cb6c52a0a21%3A0x6d87e07eb423cb11!2zU-G7kSAxMiDEkMaw4budbmcgROG7sSDEkOG7i25oLCBLaMOzbSDEkMO0bmcgVGjhu4tuaCA5LCBMb25nIFh1eeG7 racismLCBBbiBHaWFuZywgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1719225600000!5m2!1svi!2s" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 AGVN Group. Tất cả quyền được bảo lưu.</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT HỖ TRỢ MENU DI ĐỘNG & HOẠT ẢNH -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Khởi tạo hiệu ứng cuộn mượt mà AOS
+        AOS.init({ duration: 800, once: true });
+
+        // Hàm điều khiển hiển thị Menu Hamburger trên mobile
+        function toggleMenu() {
+            var m = document.getElementById('navMenu');
+            m.classList.toggle('open');
+            var icon = document.querySelector('.hamburger i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        }
+
+        // Thêm nút Xem thêm vào các thẻ card
+        // Thêm nút Xem thêm vào các thẻ card
+        document.querySelectorAll('.product-card').forEach(card => {
+            const features = card.querySelector('.card-features');
+            
+            // Nếu nội dung thực sự dài, ta mới thêm nút
+            if (features.scrollHeight > 120) { 
+                const btn = document.createElement('div');
+                btn.className = 'toggle-btn';
+                btn.innerHTML = 'Xem thêm';
+                
+                btn.onclick = function() {
+                    const isExpanded = features.classList.toggle('expanded');
+                    this.innerHTML = isExpanded ? 'Thu gọn' : 'Xem thêm';
+                };
+                card.querySelector('.card-info').appendChild(btn);
+            }
+        });
+    </script>
+</body>
+</html>
