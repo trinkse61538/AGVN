@@ -418,7 +418,7 @@
 
         /* NÚT XEM THÊM CHO MỖI SECTION TRÊN MOBILE */
         .section-more-btn {
-            display: none;
+            display: none; /* Mặc định ẩn, JS sẽ quét hiển thị nếu số card > 2 */
             margin: 40px auto 0;
             padding: 12px 35px;
             border-radius: 30px;
@@ -591,7 +591,9 @@
             .product-grid.limit-mobile .product-card:nth-child(n+3) {
                 display: none;
             }
-            .section-more-btn {
+            
+            /* Lớp xử lý nút Xem Thêm sản phẩm chung sẽ dựa vào JavaScript để kích hoạt display */
+            .section-more-btn.visible {
                 display: block;
             }
 
@@ -803,7 +805,7 @@
                         <ul class="card-features">
                             <li><span><i class="fa-solid fa-shield"></i></span>Đặc trị rầy nâu, rầy phấn trắng, bọ xít hôi, rệp sáp, bọ trĩ trên lúa.</li>
                             <li><span><i class="fa-solid fa-shield"></i></span>Kiểm soát hiệu quả rầy mềm, bọ trĩ, rệp sáp, bọ xít muỗi trên rau màu và cây ăn trái.</li>
-                            <li><span><i class="fa-solid fa-shield"></i></span>Với dạng Huyền phù (SC) tiên tiến, thuốc thấm sâu, bám dính tốt và hấp thụ tối ưu mà không gây nóng cây, sử dụng an toàn trong mọi giai đoạn phát triển của cây trồng.</li>
+                            <li><span><i class="fa-solid fa-shield"></i></span>With dạng Huyền phù (SC) tiên tiến, thuốc thấm sâu, bám dính tốt và hấp thụ tối ưu mà không gây nóng cây, sử dụng an toàn trong mọi giai đoạn phát triển của cây trồng.</li>
                         </ul>
                     </div>
                 </div>
@@ -824,7 +826,7 @@
         </div>
     </section>
 
-    <section class="section-products bg-organic" id="organic-section">
+    <section class="section-products bg-organic" id="organic-section-2">
         <div class="container">
             <div class="section-header" data-aos="fade-up">
                 <div id="ctDieuHoa" class="category-badge"><i class="fa-solid fa-seedling"></i> Giải pháp dinh dưỡng</div>
@@ -854,7 +856,7 @@
                             <li><span><i class="fa-solid fa-circle-check"></i></span>Ưu điểm vượt trội của Pyraclostrobin kiểm soát hiệu quả many loại nấm là các tác nhân gây ra các loại bệnh phổ biến.</li>
                             <li><span><i class="fa-solid fa-circle-check"></i></span>Kích thích hoạt động quang hợp: Hoạt chất này làm tăng hàm lượng diệp lục tố, giúp lá cây xanh lâu hơn, nâng cao hiệu quả hấp thụ ánh sáng.</li>
                             <li><span><i class="fa-solid fa-circle-check"></i></span>Cải thiện khả năng hấp thụ dinh dưỡng và nước: Đặc biệt với Nitơ, cây trồng có thể sử dụng nguồn dinh dưỡng một cách tối ưu hơn, từ đó phát triển mạnh mẽ và đồng đều.</li>
-                            <li><span><i class="fa-solid fa-circle-check"></i></span>Tăng cường sức đề kháng: với khả năng kích hoạt gen PR (Gen PR phòng thủ sinh học) cây trồng có khả năng chống chịu tốt hơn trước stress môi trường, bao gồm nhiệt độ cao, hạn hán hoặc độ ẩm cao.</li>
+                            <li><span><i class="fa-solid fa-circle-check"></i></span>Tăng cường sức đề kháng: with khả năng kích hoạt gen PR (Gen PR phòng thủ sinh học) cây trồng có khả năng chống chịu tốt hơn trước stress môi trường, bao gồm nhiệt độ cao, hạn hán hoặc độ ẩm cao.</li>
                             <li><span><i class="fa-solid fa-circle-check"></i></span>Kéo dài tuổi thọ lá: thuốc cũng có thể làm giảm tác dụng sinh học của ethylene tổng hợp, trì hoãn sự già đi của cây trồng, cải thiện hệ miễn dịch và khả năng chống lại các yếu tố tăng trưởng bất lợi, từ đó cải thiện năng suất và chất lượng nông sản.</li>
                         </ul>
                     </div>
@@ -864,7 +866,7 @@
         </div>
     </section>
 
-    <section class="section-products bg-protection" id="protection-section">
+    <section class="section-products bg-protection" id="protection-section-2">
         <div class="container">
             <div class="section-header" data-aos="fade-up">
                 <div id="ctPhanBon" class="category-badge"><i class="fa-solid fa-shield-halved"></i> Nuôi dưỡng từ gốc</div>
@@ -1010,11 +1012,9 @@
             icon.classList.toggle('fa-bars');
             icon.classList.toggle('fa-times');
             
-            // Đóng dropdown sản phẩm luôn khi toggle lại menu chính nếu đang mở
             document.getElementById('productDropdown').classList.remove('show');
         }
 
-        // Hàm xử lý riêng biệt để toggle mục Dropdown Sản Phẩm trên Mobile
         function toggleDropdown(e) {
             if (window.innerWidth <= 768) {
                 e.preventDefault();
@@ -1023,14 +1023,12 @@
             }
         }
 
-        // Tự động đóng thanh menu sau khi nhấn link mục sản phẩm trên mobile
         function closeMenuMobile() {
             if (window.innerWidth <= 768) {
                 toggleMenu();
             }
         }
 
-        // Hàm điều khiển nút Xem thêm / Thu gọn của riêng từng Section Sản phẩm trên Mobile
         function toggleSectionMobile(buttonElement) {
             var grid = buttonElement.previousElementSibling;
             if (grid.classList.contains('limit-mobile')) {
@@ -1039,26 +1037,47 @@
             } else {
                 grid.classList.add('limit-mobile');
                 buttonElement.innerHTML = 'Xem thêm sản phẩm';
-                // Cuộn mượt lên đầu section khi bấm thu gọn để tăng trải nghiệm người dùng
                 grid.closest('section').scrollIntoView({ behavior: 'smooth' });
             }
         }
 
-        // Tự động gán nút "Xem thêm / Thu gọn" thông minh cho các thẻ text mô tả dài bên trong thẻ card
-        document.querySelectorAll('.product-card').forEach(card => {
-            const features = card.querySelector('.card-features');
-            if (features && features.scrollHeight > 150) { 
-                const btn = document.createElement('div');
-                btn.className = 'toggle-btn';
-                btn.innerHTML = 'Xem thêm';
+        // Đợi toàn bộ trang TẢI XONG HOÀN TOÀN (Kèm theo hình ảnh trực tuyến)
+        window.addEventListener('load', function() {
+            // 1. Quản lý thông minh Nút Xem Thêm Sản Phẩm của từng Section trên Mobile
+            document.querySelectorAll('.section-products').forEach(section => {
+                const productCards = section.querySelectorAll('.product-card');
+                const moreBtn = section.querySelector('.section-more-btn');
                 
-                btn.onclick = function() {
-                    const isExpanded = features.classList.toggle('expanded');
-                    this.classList.toggle('active');
-                    this.innerHTML = isExpanded ? 'Thu gọn' : 'Xem thêm';
-                };
-                card.querySelector('.card-info').appendChild(btn);
-            }
+                if (moreBtn) {
+                    // Chỉ những mục có trên 2 sản phẩm mới hiển thị nút này ở mobile
+                    if (productCards.length > 2) {
+                        moreBtn.classList.add('visible');
+                    } else {
+                        moreBtn.classList.remove('visible');
+                        // Nếu có <= 2 sản phẩm, bỏ class limit để tránh bị lỗi hiển thị
+                        const grid = section.querySelector('.product-grid');
+                        if (grid) grid.classList.remove('limit-mobile');
+                    }
+                }
+            });
+
+            // 2. Tạo nút Xem thêm / Thu gọn cho phần chi tiết nội dung các thẻ mô tả dài
+            document.querySelectorAll('.product-card').forEach(card => {
+                const features = card.querySelector('.card-features');
+                // Tính toán chính xác scrollHeight sau khi font và layout ảnh load xong
+                if (features && features.scrollHeight > 150) { 
+                    const btn = document.createElement('div');
+                    btn.className = 'toggle-btn';
+                    btn.innerHTML = 'Xem thêm';
+                    
+                    btn.onclick = function() {
+                        const isExpanded = features.classList.toggle('expanded');
+                        this.classList.toggle('active');
+                        this.innerHTML = isExpanded ? 'Thu gọn' : 'Xem thêm';
+                    };
+                    card.querySelector('.card-info').appendChild(btn);
+                }
+            });
         });
     </script>
 </body>
