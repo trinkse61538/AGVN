@@ -965,7 +965,7 @@
                 </div>
             </div>
             <div class="footer-col" data-aos="fade-up" data-aos-delay="200">
-                <h3>Liên Hệ</h3>
+                <h3>Liên Thế</h3>
                 <p>
                     <i class="fa-solid fa-location-dot" style="color: #ffffff; margin-right: 10px;"></i> 
                     <a href="https://www.google.com/maps/search/?api=1&query=Số+12+Đường+Dự+Định+Khóm+Đông+Thịnh+9+Phường+Long+Xuyên+Long+Xuyên+Việt+Nam" target="_blank" title="Xem trên Google Maps" style="color: #ffffff; text-decoration: none;">
@@ -1029,11 +1029,38 @@
             }
         }
 
+        // Hàm khởi tạo nút Xem thêm/Thu gọn cho phần nội dung các thẻ mô tả dài
+        function initCardToggleButtons() {
+            document.querySelectorAll('.product-card').forEach(card => {
+                const features = card.querySelector('.card-features');
+                const cardInfo = card.querySelector('.card-info');
+                
+                // Kiểm tra xem thẻ đã được tạo button trước đó chưa để tránh trùng lặp
+                if (features && !cardInfo.querySelector('.toggle-btn')) {
+                    if (features.scrollHeight > 150) { 
+                        const btn = document.createElement('div');
+                        btn.className = 'toggle-btn';
+                        btn.innerHTML = 'Xem thêm';
+                        
+                        btn.onclick = function() {
+                            const isExpanded = features.classList.toggle('expanded');
+                            this.classList.toggle('active');
+                            this.innerHTML = isExpanded ? 'Thu gọn' : 'Xem thêm';
+                        };
+                        cardInfo.appendChild(btn);
+                    }
+                }
+            });
+        }
+
         function toggleSectionMobile(buttonElement) {
             var grid = buttonElement.previousElementSibling;
             if (grid.classList.contains('limit-mobile')) {
                 grid.classList.remove('limit-mobile');
                 buttonElement.innerHTML = 'Thu gọn';
+                
+                // Kích hoạt quét lại chiều cao và thêm nút chi tiết cho các sản phẩm vừa được hiện ra
+                setTimeout(initCardToggleButtons, 50);
             } else {
                 grid.classList.add('limit-mobile');
                 buttonElement.innerHTML = 'Xem thêm sản phẩm';
@@ -1041,43 +1068,39 @@
             }
         }
 
-        // Đợi toàn bộ trang TẢI XONG HOÀN TOÀN (Kèm theo hình ảnh trực tuyến)
-        window.addEventListener('load', function() {
-            // 1. Quản lý thông minh Nút Xem Thêm Sản Phẩm của từng Section trên Mobile
+        // Quản lý thông minh Nút Xem Thêm Sản Phẩm trên mobile của từng Section
+        function checkSectionMobileButtons() {
             document.querySelectorAll('.section-products').forEach(section => {
                 const productCards = section.querySelectorAll('.product-card');
                 const moreBtn = section.querySelector('.section-more-btn');
                 
                 if (moreBtn) {
-                    // Chỉ những mục có trên 2 sản phẩm mới hiển thị nút này ở mobile
                     if (productCards.length > 2) {
                         moreBtn.classList.add('visible');
                     } else {
                         moreBtn.classList.remove('visible');
-                        // Nếu có <= 2 sản phẩm, bỏ class limit để tránh bị lỗi hiển thị
                         const grid = section.querySelector('.product-grid');
                         if (grid) grid.classList.remove('limit-mobile');
                     }
                 }
             });
+        }
 
-            // 2. Tạo nút Xem thêm / Thu gọn cho phần chi tiết nội dung các thẻ mô tả dài
-            document.querySelectorAll('.product-card').forEach(card => {
-                const features = card.querySelector('.card-features');
-                // Tính toán chính xác scrollHeight sau khi font và layout ảnh load xong
-                if (features && features.scrollHeight > 150) { 
-                    const btn = document.createElement('div');
-                    btn.className = 'toggle-btn';
-                    btn.innerHTML = 'Xem thêm';
-                    
-                    btn.onclick = function() {
-                        const isExpanded = features.classList.toggle('expanded');
-                        this.classList.toggle('active');
-                        this.innerHTML = isExpanded ? 'Thu gọn' : 'Xem thêm';
-                    };
-                    card.querySelector('.card-info').appendChild(btn);
-                }
-            });
+        // Thực thi xử lý giao diện khi toàn bộ nội dung, hình ảnh và font chữ được xử lý xong hoàn toàn
+        function processLayoutInitialization() {
+            checkSectionMobileButtons();
+            initCardToggleButtons();
+        }
+
+        window.addEventListener('load', function() {
+            // Đảm bảo font chữ đã load xong hoàn toàn trước khi đo đạc kích thước
+            if (document.fonts && document.fonts.ready) {
+                document.fonts.ready.then(function() {
+                    processLayoutInitialization();
+                });
+            } else {
+                setTimeout(processLayoutInitialization, 300);
+            }
         });
     </script>
 </body>
