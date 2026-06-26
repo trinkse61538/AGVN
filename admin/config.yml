@@ -153,3 +153,4 @@ collections:
           - { label: "Site Title", name: "title", widget: "string", default: "AGVN Group" }
           - { label: "Description", name: "description", widget: "text" }
           - { label: "URL", name: "url", widget: "string", default: "https://agvngroup.com" }
+
