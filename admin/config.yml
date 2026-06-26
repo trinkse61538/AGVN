@@ -2,8 +2,8 @@ backend:
   name: github
   repo: trinkse61538/AGVN
   branch: main
-  base_url: https://cipherwill.github.io
-  auth_endpoint: decap-cms-github-oauth-proxy/auth
+  base_url: https://api.netlify.com
+  auth_endpoint: auth
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
