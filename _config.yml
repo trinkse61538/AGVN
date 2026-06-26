@@ -1,0 +1,13 @@
+title: "AGVN Group"
+email: agvngroup2025@gmail.com
+description: "Tập Đoàn Nông Nghiệp AGVN Group"
+baseurl: ""
+url: "https://agvngroup.com"
+
+markdown: kramdown
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "default"
