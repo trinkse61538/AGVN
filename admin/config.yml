@@ -1,18 +1,11 @@
-# AGVN Group - Decap CMS Configuration
-# End users can login at: https://agvngroup.netlify.app/admin/
-
 backend:
-  name: github
-  repo: trinkse61538/AGVN
+  name: git-gateway
   branch: main
 
-# Media files (images) go here
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
-
 collections:
-  # ===== CÔNG TY =====
   - name: "company"
     label: "🏢 Thông tin công ty"
     delete: false
@@ -23,8 +16,8 @@ collections:
         label: "Thông tin chung"
         name: "company"
         fields:
-          - { label: "Tên công ty", name: "name", widget: "string", default: "AGVN GROUP" }
-          - { label: "Mô tả ngắn", name: "description", widget: "text" }
+          - { label: "Tên công ty", name: "name", widget: "string" }
+          - { label: "Mô tả", name: "description", widget: "text" }
           - { label: "Giờ làm việc", name: "working_hours", widget: "string" }
           - { label: "Địa chỉ", name: "address", widget: "text" }
           - { label: "Số điện thoại", name: "phone", widget: "string" }
@@ -32,7 +25,6 @@ collections:
           - { label: "Mã số thuế", name: "tax_code", widget: "string" }
           - { label: "Người đại diện", name: "representative", widget: "string" }
 
-  # ===== TRANG CHỦ =====
   - name: "homepage"
     label: "🏠 Trang chủ"
     delete: false
@@ -43,10 +35,9 @@ collections:
         label: "Nội dung trang chủ"
         name: "home"
         fields:
-          - { label: "Tiêu đề trang", name: "title", widget: "hidden", default: "Trang Chủ" }
+          - { label: "Tiêu đề", name: "title", widget: "hidden", default: "Trang Chủ" }
           - { label: "Nội dung", name: "body", widget: "markdown" }
 
-  # ===== TRANG GIỚI THIỆU =====
   - name: "about"
     label: "📖 Giới thiệu"
     delete: false
@@ -57,10 +48,9 @@ collections:
         label: "Nội dung giới thiệu"
         name: "about"
         fields:
-          - { label: "Tiêu đề trang", name: "title", widget: "hidden", default: "Hành Trình & Di Sản" }
+          - { label: "Tiêu đề", name: "title", widget: "hidden", default: "Hành Trình & Di Sản" }
           - { label: "Nội dung", name: "body", widget: "markdown" }
 
-  # ===== TRANG SẢN PHẨM =====
   - name: "products_page"
     label: "🧪 Trang sản phẩm"
     delete: false
@@ -71,5 +61,5 @@ collections:
         label: "Nội dung sản phẩm"
         name: "products"
         fields:
-          - { label: "Tiêu đề trang", name: "title", widget: "hidden", default: "Sản Phẩm Tiên Tiến" }
+          - { label: "Tiêu đề", name: "title", widget: "hidden", default: "Sản Phẩm Tiên Tiến" }
           - { label: "Nội dung", name: "body", widget: "markdown" }
