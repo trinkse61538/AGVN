@@ -1,0 +1,39 @@
+<footer id="footer">
+<div class="footer-grid">
+  <div class="footer-about">
+    <h3>{{ site.data.company.name | default: "AGVN GROUP" }}</h3>
+    <p>{{ site.data.company.description }}</p>
+    <p style="color: var(--accent-color); font-weight: 600;">
+      <i class="fa-solid fa-clock"></i> Thời gian làm việc: {{ site.data.company.working_hours }}
+    </p>
+  </div>
+  <div class="footer-links">
+    <h4>Chuyên Mục</h4>
+    <ul>
+      <li><a href="https://agvngroup.com"><i class="fa-solid fa-angle-right"></i> Trang chủ</a></li>
+      <li><a href="https://agvngroup.com/aboutus.html"><i class="fa-solid fa-angle-right"></i> Giới thiệu</a></li>
+      <li><a href="https://agvngroup.com/AGVN_product.html"><i class="fa-solid fa-angle-right"></i> Sản phẩm</a></li>
+    </ul>
+  </div>
+  <div class="footer-contact">
+    <h4>Thông Tin Liên Hệ</h4>
+    <div class="footer-contact-item">
+      <i class="fa-solid fa-location-dot"></i>
+      <a href="https://www.google.com/maps/search/?api=1&query={{ site.data.company.address | url_encode }}" target="_blank">
+        <span>{{ site.data.company.address }}</span>
+      </a>
+    </div>
+    <div class="footer-contact-item">
+      <i class="fa-solid fa-phone-volume"></i>
+      <span><a href="tel:{{ site.data.company.phone | remove: ' ' }}"><strong>{{ site.data.company.phone }}</strong></a></span>
+    </div>
+    <div class="footer-contact-item">
+      <i class="fa-solid fa-envelope"></i>
+      <span><a href="mailto:{{ site.data.company.email }}">{{ site.data.company.email }}</a></span>
+    </div>
+  </div>
+</div>
+<div class="footer-bottom">
+  <p>© 2026 {{ site.data.company.name }}. Tất cả quyền được bảo lưu.</p>
+</div>
+</footer>
