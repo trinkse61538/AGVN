@@ -236,6 +236,18 @@
         .bg-organic .category-badge { background: #E6F4EA; color: var(--primary); }
         .bg-protection .category-badge { background: #FFF8E6; color: #D49200; }
 
+        /* Loại bỏ gạch chân và giữ nguyên màu chữ gốc cho product-card */
+        .product-card {
+            text-decoration: none; /* Bỏ gạch chân hoàn toàn */
+            color: inherit;         /* Thừa hưởng màu chữ từ thẻ cha (hoặc bạn có thể tự đổi thành #333, #000 tùy ý) */
+            display: block;        /* Đảm bảo toàn bộ thẻ card hoạt động mượt mà như một khối bấm được */
+        }
+
+        /* (Tùy chọn) Khi người dùng rê chuột qua card, nếu bạn không muốn nó hiện lại gạch chân */
+        .product-card:hover {
+            text-decoration: none;
+        }
+
         .section-title-new {
             font-size: 2.2rem;
             font-weight: 800;
