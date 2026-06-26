@@ -488,7 +488,10 @@ section { padding: 50px 20px; }
         </div>
     </footer>
 
-    <script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+AOS.init({ duration: 1000, once: true });
+
 function toggleMenu() {
   var m = document.getElementById('navMenu');
   m.classList.toggle('open');
@@ -496,5 +499,44 @@ function toggleMenu() {
   icon.classList.toggle('fa-bars');
   icon.classList.toggle('fa-times');
 }
-</script>
 
+function toggleProductDetail(btn) {
+  var ci = btn.closest('.ci');
+  ci.classList.toggle('expanded');
+  btn.innerHTML = ci.classList.contains('expanded') ? 'Thu gọn <i class="fa-solid fa-chevron-up"></i>' : 'Xem thêm <i class="fa-solid fa-chevron-down"></i>';
+}
+
+function runCar(name) {
+  var track = document.getElementById('ct' + name);
+  if (!track) return;
+  var originals = Array.from(track.children);
+  var N = originals.length;
+  if (N === 0) return;
+  for (var i = 0; i < N; i++) {
+    var clone = originals[i].cloneNode(true);
+    track.appendChild(clone);
+  }
+  track._pos = 0;
+  track._N = N;
+}
+
+function moveCar(name, dir) {
+  var track = document.getElementById('ct' + name);
+  if (!track) return;
+  var items = track.children;
+  var N = track._N || items.length / 2 || 1;
+  track._pos = (track._pos || 0) + dir;
+  var offset = track._pos * (100 / (items.length > 0 ? 1 : 1));
+  track.style.transform = 'translateX(' + offset + '%)';
+}
+
+function goTruBenh(dir) { moveCar('TruBenh', dir); }
+function goSauRay(dir) { moveCar('SauRay', dir); }
+function goDieuHoa(dir) { moveCar('DieuHoa', dir); }
+function goPhanBon(dir) { moveCar('PhanBon', dir); }
+
+runCar('TruBenh');
+runCar('SauRay');
+runCar('DieuHoa');
+runCar('PhanBon');
+</script>
