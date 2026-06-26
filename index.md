@@ -487,3 +487,14 @@ section { padding: 50px 20px; }
             <p>© 2026 Tập Đoàn Nông Nghiệp AGVN Group. Thiết kế chuyên nghiệp vì nhà nông.</p>
         </div>
     </footer>
+
+    <script>
+function toggleMenu() {
+  var m = document.getElementById('navMenu');
+  m.classList.toggle('open');
+  var icon = document.querySelector('.hamburger i');
+  icon.classList.toggle('fa-bars');
+  icon.classList.toggle('fa-times');
+}
+</script>
+
