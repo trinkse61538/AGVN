@@ -2,7 +2,8 @@
 # End users can login at: https://agvngroup.netlify.app/admin/
 
 backend:
-  name: git-gateway
+  name: github
+  repo: trinkse61538/AGVN
   branch: main
 
 # Media files (images) go here
