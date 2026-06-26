@@ -10,8 +10,6 @@ backend:
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
-# Enable Netlify Identity for email/password login
-publish_mode: editorial_workflow  # Draft -> Review -> Publish workflow
 
 collections:
   # ===== CÔNG TY =====
