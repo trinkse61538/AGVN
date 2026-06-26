@@ -1,66 +1,155 @@
 backend:
-  name: github
-  repo: trinkse61538/AGVN
+  name: git-gateway
   branch: main
 
-media_folder: "images/uploads"
-public_folder: "/images/uploads"
+media_folder: "assets/images"
+public_folder: "/assets/images"
 
 collections:
-  - name: "company"
-    label: "🏢 Thông tin công ty"
-    delete: false
-    editor:
-      preview: false
+  - name: "pages"
+    label: "Trang"
     files:
-      - file: "_data/company.yml"
-        label: "Thông tin chung"
-        name: "company"
+      - name: "home"
+        label: "Trang Chủ"
+        file: "index.md"
         fields:
-          - { label: "Tên công ty", name: "name", widget: "string" }
-          - { label: "Mô tả", name: "description", widget: "text" }
-          - { label: "Giờ làm việc", name: "working_hours", widget: "string" }
-          - { label: "Địa chỉ", name: "address", widget: "text" }
-          - { label: "Số điện thoại", name: "phone", widget: "string" }
+          - { label: "Layout", name: "layout", widget: "hidden", default: "home" }
+          - { label: "Title", name: "title", widget: "string", default: "Tập Đoàn Nông Nghiệp AGVN Group" }
+          - { label: "Banner Image", name: "banner_image", widget: "image", required: false }
+          - { label: "About Title", name: "about_title", widget: "string", default: "VỀ TẬP ĐOÀN AGVN GROUP" }
+          - { label: "About Subtitle", name: "about_subtitle", widget: "string", default: "Người bạn đồng hành của nhà nông Việt" }
+          - label: "About Paragraphs"
+            name: "about_paragraphs"
+            widget: "list"
+            field: { label: "Paragraph", name: "paragraph", widget: "text" }
+          - label: "Mission Cards"
+            name: "mission_cards"
+            widget: "list"
+            fields:
+              - { label: "Icon", name: "icon", widget: "string" }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Content", name: "content", widget: "text" }
+          - { label: "Testimonial Video URL", name: "testimonial_video", widget: "string" }
+
+      - name: "about"
+        label: "Giới Thiệu"
+        file: "about.md"
+        fields:
+          - { label: "Layout", name: "layout", widget: "hidden", default: "about" }
+          - { label: "Title", name: "title", widget: "string", default: "Hành Trình Kiến Tạo Di Sản" }
+          - { label: "Subtitle", name: "subtitle", widget: "string" }
+          - { label: "Intro Title", name: "intro_title", widget: "string" }
+          - label: "Intro Paragraphs"
+            name: "intro_paragraphs"
+            widget: "list"
+            field: { label: "Paragraph", name: "paragraph", widget: "text" }
+          - { label: "Quote", name: "quote", widget: "text" }
+          - label: "Counters"
+            name: "counters"
+            widget: "list"
+            fields:
+              - { label: "Number", name: "number", widget: "string" }
+              - { label: "Label", name: "label", widget: "string" }
+          - label: "Timeline"
+            name: "timeline"
+            widget: "list"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+              - { label: "Align", name: "align", widget: "select", options: ["left", "right"] }
+          - label: "Values"
+            name: "values"
+            widget: "list"
+            fields:
+              - { label: "Icon", name: "icon", widget: "string" }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Content", name: "content", widget: "text" }
+          - label: "Ecosystem Items"
+            name: "ecosystem"
+            widget: "list"
+            fields:
+              - { label: "Icon", name: "icon", widget: "string" }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Content", name: "content", widget: "text" }
+          - label: "FAQ"
+            name: "faq"
+            widget: "list"
+            fields:
+              - { label: "Question", name: "question", widget: "string" }
+              - { label: "Answer", name: "answer", widget: "text" }
+
+      - name: "products"
+        label: "Sản Phẩm"
+        file: "products.md"
+        fields:
+          - { label: "Layout", name: "layout", widget: "hidden", default: "products" }
+          - { label: "Title", name: "title", widget: "string", default: "Sản Phẩm Tiên Tiến" }
+          - { label: "Subtitle", name: "subtitle", widget: "string" }
+          - label: "Thuốc Trừ Bệnh"
+            name: "thuoc_tru_benh"
+            widget: "list"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Image", name: "image", widget: "image" }
+              - { label: "Badge", name: "badge", widget: "string", default: "Thuốc Trừ Bệnh" }
+              - label: "Features"
+                name: "features"
+                widget: "list"
+                field: { label: "Feature", name: "feature", widget: "text" }
+          - label: "Thuốc Trừ Sâu"
+            name: "thuoc_tru_sau"
+            widget: "list"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Image", name: "image", widget: "image" }
+              - { label: "Badge", name: "badge", widget: "string", default: "Thuốc Trừ Sâu - Rầy" }
+              - label: "Features"
+                name: "features"
+                widget: "list"
+                field: { label: "Feature", name: "feature", widget: "text" }
+          - label: "Thuốc Điều Hòa Sinh Trưởng"
+            name: "thuoc_dieu_hoa"
+            widget: "list"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Image", name: "image", widget: "image" }
+              - { label: "Badge", name: "badge", widget: "string", default: "Thuốc Điều Hoà Sinh Trưởng" }
+              - label: "Features"
+                name: "features"
+                widget: "list"
+                field: { label: "Feature", name: "feature", widget: "text" }
+          - label: "Phân Bón"
+            name: "phan_bon"
+            widget: "list"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Image", name: "image", widget: "image" }
+              - { label: "Badge", name: "badge", widget: "string", default: "Phân bón hữu cơ" }
+              - label: "Features"
+                name: "features"
+                widget: "list"
+                field: { label: "Feature", name: "feature", widget: "text" }
+
+  - name: "footer"
+    label: "Footer"
+    files:
+      - name: "footer_settings"
+        label: "Thông Tin Footer"
+        file: "_data/footer.yml"
+        fields:
+          - { label: "Company Name", name: "company_name", widget: "string" }
+          - { label: "Description", name: "description", widget: "text" }
+          - { label: "Address", name: "address", widget: "string" }
+          - { label: "Phone", name: "phone", widget: "string" }
           - { label: "Email", name: "email", widget: "string" }
-          - { label: "Mã số thuế", name: "tax_code", widget: "string" }
-          - { label: "Người đại diện", name: "representative", widget: "string" }
 
-  - name: "homepage"
-    label: "🏠 Trang chủ"
-    delete: false
-    editor:
-      preview: false
+  - name: "settings"
+    label: "Cài Đặt"
     files:
-      - file: "index.md"
-        label: "Nội dung trang chủ"
-        name: "home"
+      - name: "general"
+        label: "Cài Đặt Chung"
+        file: "_config.yml"
         fields:
-          - { label: "Tiêu đề", name: "title", widget: "hidden", default: "Trang Chủ" }
-          - { label: "Nội dung", name: "body", widget: "markdown" }
-
-  - name: "about"
-    label: "📖 Giới thiệu"
-    delete: false
-    editor:
-      preview: false
-    files:
-      - file: "aboutus.md"
-        label: "Nội dung giới thiệu"
-        name: "about"
-        fields:
-          - { label: "Tiêu đề", name: "title", widget: "hidden", default: "Hành Trình & Di Sản" }
-          - { label: "Nội dung", name: "body", widget: "markdown" }
-
-  - name: "products_page"
-    label: "🧪 Trang sản phẩm"
-    delete: false
-    editor:
-      preview: false
-    files:
-      - file: "AGVN_product.md"
-        label: "Nội dung sản phẩm"
-        name: "products"
-        fields:
-          - { label: "Tiêu đề", name: "title", widget: "hidden", default: "Sản Phẩm Tiên Tiến" }
-          - { label: "Nội dung", name: "body", widget: "markdown" }
+          - { label: "Site Title", name: "title", widget: "string", default: "AGVN Group" }
+          - { label: "Description", name: "description", widget: "text" }
+          - { label: "URL", name: "url", widget: "string", default: "https://agvngroup.com" }
