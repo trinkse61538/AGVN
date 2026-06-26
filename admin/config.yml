@@ -1,5 +1,6 @@
 backend:
   name: github
+  repo: trinkse61538/AGVN
   branch: main
 
 media_folder: "assets/images"
