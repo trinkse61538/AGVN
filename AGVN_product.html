@@ -1054,7 +1054,11 @@
                         btn.className = 'toggle-btn';
                         btn.innerHTML = 'Xem thêm';
                         
-                        btn.onclick = function() {
+                        // Nhận tham số 'e' (event) tại đây
+                        btn.onclick = function(e) {
+                            // CHẶN NỔI BỌT: Ngăn không cho sự kiện click lan lên thẻ <a> cha (.product-card)
+                            e.stopPropagation(); 
+                            
                             const isExpanded = features.classList.toggle('expanded');
                             this.classList.toggle('active');
                             this.innerHTML = isExpanded ? 'Thu gọn' : 'Xem thêm';
