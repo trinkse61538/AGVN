@@ -75,11 +75,14 @@ async function buildProducts() {
 
       console.log(`Đang xử lý sản phẩm: ${name || 'Không tên'} -> tạo file: san-pham/${finalSlug}.html`);
 
+      // Tự động chuyển đổi các dấu xuống dòng trong Google Sheet thành thẻ <br> trong HTML
+      const formattedDescription = (desc || '').replace(/\r?\n/g, '<br>');
+
       let htmlContent = templateContent
         .replaceAll('{{ProductName}}', name || '')
         .replaceAll('{{ImageURL}}', img || '')
         .replaceAll('{{ProductTag}}', tag || 'Nông Nghiệp')
-        .replaceAll('{{Description}}', desc || '');
+        .replaceAll('{{Description}}', formattedDescription); // Sử dụng nội dung đã xử lý xuống dòng
 
       // Tạo file vật lý dạng: san-pham/sp1000.html
       const outputPath = path.join(outputDir, `${finalSlug}.html`);
