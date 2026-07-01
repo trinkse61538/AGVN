@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DƯỠNG ĐÒNG VÀNG - Tập Đoàn Nông Nghiệp AGVN Group</title>
+    
+    <link rel="icon" type="image/jpeg" href="https://raw.githubusercontent.com/trinkse61538/AGVN/c44d6fc7a5a0c4ad73e18c1bc6cf97cbd221bdf9/AGVN_Logo.jpg">
+    <link rel="shortcut icon" type="image/jpeg" href="https://raw.githubusercontent.com/trinkse61538/AGVN/c44d6fc7a5a0c4ad73e18c1bc6cf97cbd221bdf9/AGVN_Logo.jpg">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #007A33; 
+            --secondary: #8DC63F; 
+            --accent: #FFD700; 
+            --dark: #1A3020;
+            --text-dark: #222222;
+            --text-gray: #4A5568;
+            --light-bg: #F4F8F5;
+            --shadow-md: 0 10px 15px -3px rgba(0,0,0,0.05), 0 4px 6px -2px rgba(0,0,0,0.05);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 122, 51, 0.1), 0 10px 10px -5px rgba(0, 122, 51, 0.04);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Lexend', sans-serif;
+        }
+
+        body {
+            color: var(--text-dark);
+            background-color: #fff;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* HEADER */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.04);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 20px;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span { color: var(--secondary); }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-menu > li > a::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-menu a:hover { color: var(--primary); }
+        .nav-menu > li > a:hover::after { width: 100%; }
+
+        .nav-dropdown { position: relative; }
+        .nav-dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #fff;
+            min-width: 240px;
+            list-style: none;
+            padding: 10px 0;
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+            z-index: 100;
+        }
+        .nav-dropdown:hover .nav-dropdown-menu { display: block; }
+        .nav-dropdown-menu a {
+            display: block;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        .nav-dropdown-menu a:hover { background: #f4f8f5; color: var(--primary); }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        /* BREADCRUMB */
+        .breadcrumb-section {
+            background: var(--light-bg);
+            padding: 15px 0;
+            border-bottom: 1px solid #edf4f0;
+        }
+        .breadcrumb-links {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .breadcrumb-links a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .breadcrumb-links i {
+            font-size: 0.75rem;
+            color: #a0aec0;
+        }
+
+        /* PRODUCT DETAIL SECTION */
+        .product-detail-section {
+            padding: 60px 0 100px;
+        }
+
+        .product-detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        /* Left Column: Image Container */
+        .product-image-wrapper {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid #edf4f0;
+            position: sticky;
+            top: 100px;
+        }
+
+        .product-image-box {
+            width: 100%;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: #fafafa;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .product-image-box::before {
+            content: '';
+            position: absolute;
+            width: 320px;
+            height: 320px;
+            background: rgba(141, 198, 63, 0.12);
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+            animation: morphCircle 8s infinite ease-in-out;
+            z-index: 1;
+        }
+
+        @keyframes morphCircle {
+            0%, 100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: rotate(0deg); }
+            50% { border-radius: 70% 30% 50% 50% / 30% 60% 40% 70%; transform: rotate(180deg); }
+        }
+
+        .product-image-box img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            z-index: 2;
+            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .product-image-wrapper:hover .product-image-box img {
+            transform: scale(1.05);
+        }
+
+        /* Right Column: Info Container */
+        .product-info-wrapper {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-tag-badge {
+            display: inline-block;
+            background: #e6f4ea;
+            color: var(--primary);
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            width: fit-content;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,122,51,0.05);
+        }
+
+        .product-main-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--dark);
+            line-height: 1.3;
+            margin-bottom: 25px;
+        }
+
+        .product-description-container {
+            font-size: 1.05rem;
+            color: #333333;
+            text-align: justify;
+            border-top: 1px solid #edf4f0;
+            padding-top: 25px;
+        }
+
+        /* Content styles inside the dynamic description */
+        .product-description-container p {
+            margin-bottom: 15px;
+        }
+
+        .product-description-container ul {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .product-description-container ul li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .product-description-container ul li::before {
+            content: '\f058';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--primary);
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* CTA Contact Box */
+        .product-cta-box {
+            background: var(--light-bg);
+            border-left: 4px solid var(--primary);
+            padding: 25px;
+            border-radius: 0 16px 16px 0;
+            margin-top: 35px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .product-cta-box h4 {
+            font-size: 1.15rem;
+            color: var(--dark);
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .product-cta-box p {
+            font-size: 0.95rem;
+            color: var(--text-gray);
+            margin-bottom: 15px;
+        }
+
+        .cta-buttons-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .cta-btn-phone { background: var(--primary); color: #fff; }
+        .cta-btn-phone:hover { background: #005e26; transform: translateY(-2px); }
+        .cta-btn-zalo { background: #0068FF; color: #fff; }
+        .cta-btn-zalo:hover { background: #0052cc; transform: translateY(-2px); }
+
+        /* FLOATING BUTTONS */
+        .floating-buttons {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 9999;
+        }
+
+        .float-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            font-size: 1.6rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .float-btn:hover { transform: scale(1.15) translateY(-5px); }
+        .float-phone { background: #FF3B30; animation: pulse-red 2s infinite; }
+        .float-zalo { background: #0068FF; font-size: 0.75rem; font-weight: bold; animation: pulse-blue 2s infinite; }
+        .float-messenger { background: #0084FF; animation: pulse-msg 2s infinite; }
+
+        @keyframes pulse-red { 0%, 100% { box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.6); } 50% { box-shadow: 0 0 0 15px rgba(255, 59, 48, 0); } }
+        @keyframes pulse-blue { 0%, 100% { box-shadow: 0 0 0 0 rgba(0, 104, 255, 0.6); } 50% { box-shadow: 0 0 0 15px rgba(0, 104, 255, 0); } }
+        @keyframes pulse-msg { 0%, 100% { box-shadow: 0 0 0 0 rgba(0, 132, 255, 0.6); } 50% { box-shadow: 0 0 0 15px rgba(0, 132, 255, 0); } }
+
+        /* FOOTER */
+        footer {
+            background-color: #0c2914;
+            color: white;
+            padding: 80px 20px 20px;
+            font-size: 0.95rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 2fr;
+            gap: 40px;
+        }
+
+        .footer-col h3 {
+            font-size: 1.15rem;
+            margin-bottom: 25px;
+            position: relative;
+            font-weight: 700;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+
+        .footer-col p {
+            margin-bottom: 15px;
+            color: #cbd5e1;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            line-height: 1.6;
+        }
+
+        .footer-col p i {
+            margin-top: 4px;
+            flex-shrink: 0;
+        }
+
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 12px; }
+
+        .footer-col ul li a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--secondary);
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .social-links a {
+            color: white;
+            background: rgba(255,255,255,0.08);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .map-container {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            height: 200px;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 60px auto 0;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 992px) {
+            .product-detail-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .product-image-wrapper {
+                position: static;
+            }
+            .product-image-box {
+                height: 400px;
+            }
+            .product-main-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger { display: block; }
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #ffffff;
+                padding: 25px;
+                box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+                gap: 20px;
+            }
+            .nav-menu.open { display: flex; }
+            .nav-dropdown-menu { 
+                display: none; 
+                position: static; 
+                box-shadow: none; 
+                border: none; 
+                padding-left: 15px; 
+                min-width: auto; 
+                background: transparent;
+            }
+            .nav-dropdown-menu.show { display: block; }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+            
+            .floating-buttons { right: 20px; bottom: 20px; gap: 10px; }
+            .float-btn { width: 50px; height: 50px; font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="floating-buttons">
+        <a href="tel:0869980098" class="float-btn float-phone" title="Gọi ngay tư vấn kỹ thuật"><i class="fa-solid fa-phone"></i></a>
+        <a href="https://zalo.me/0869980098" target="_blank" class="float-btn float-zalo" title="Chat qua Zalo">ZALO</a>
+        <a href="https://m.me/agvngroup" target="_blank" class="float-btn float-messenger" title="Chat qua Facebook Messenger"><i class="fa-brands fa-facebook-messenger"></i></a>
+    </div>    
+
+    <header>
+        <div class="nav-container">
+            <a href="https://agvngroup.com" class="logo">AGVN <span>GROUP</span></a>
+            <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="https://agvngroup.com/">Trang Chủ</a></li>
+                <li><a href="https://agvngroup.com/aboutus.html">Giới Thiệu</a></li>
+                <li class="nav-dropdown">
+                    <a href="https://agvngroup.com/AGVN_product.html" class="nav-dropdown-toggle" onclick="toggleDropdown(event)">Sản Phẩm <i class="fa-solid fa-chevron-down"></i></a>
+                    <ul class="nav-dropdown-menu" id="productDropdown">
+                        <li><a href="https://agvngroup.com/AGVN_product.html#ctTruBenh" onclick="closeMenuMobile()">Thuốc Trừ Bệnh</a></li>
+                        <li><a href="https://agvngroup.com/AGVN_product.html#ctSauRay" onclick="closeMenuMobile()">Thuốc Trừ Sâu - Rầy</a></li>
+                        <li><a href="https://agvngroup.com/AGVN_product.html#ctDieuHoa" onclick="closeMenuMobile()">Thuốc Điều Hòa Sinh Trưởng</a></li>
+                        <li><a href="https://agvngroup.com/AGVN_product.html#ctPhanBon" onclick="closeMenuMobile()">Phân bón</a></li>
+                    </ul>
+                </li>
+                <li><a href="#footer">Liên Hệ</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="breadcrumb-section">
+        <div class="container">
+            <div class="breadcrumb-links">
+                <a href="https://agvngroup.com/">Trang Chủ</a>
+                <i class="fa-solid fa-chevron-right"></i>
+                <a href="https://agvngroup.com/AGVN_product.html">Sản Phẩm</a>
+                <i class="fa-solid fa-chevron-right"></i>
+                <span>DƯỠNG ĐÒNG VÀNG</span>
+            </div>
+        </div>
+    </div>
+
+    <section class="product-detail-section">
+        <div class="container">
+            <div class="product-detail-grid">
+                
+                <!-- Cột Trái: Hình Ảnh Lớn -->
+                <div class="product-image-wrapper" data-aos="fade-right">
+                    <div class="product-image-box">
+                        <img src="https://raw.githubusercontent.com/trinkse61538/AGVN/24f9b3756526d585cd0e1eac5970906f40cfcd62/images/PhanBon/Du%CC%9Bo%CC%9B%CC%83ng%20%C4%90o%CC%80ng%20Va%CC%80ng%20AGVN%20catalouge.png" alt="DƯỠNG ĐÒNG VÀNG">
+                    </div>
+                </div>
+                
+                <!-- Cột Phải: Thông Tin Chi Tiết -->
+                <div class="product-info-wrapper" data-aos="fade-left">
+                    <span class="product-tag-badge"><i class="fa-solid fa-leaf"></i> Phân Bón</span>
+                    <h1 class="product-main-title">DƯỠNG ĐÒNG VÀNG</h1>
+                    
+                    <div class="product-description-container">
+                        
+                    </div>
+                    
+                    <!-- Khối Kêu Gọi Hành Động (CTA) -->
+                    <div class="product-cta-box">
+                        <h4>Bà con cần tư vấn kỹ thuật hoặc đặt mua sản phẩm?</h4>
+                        <p>Liên hệ ngay đội ngũ kỹ sư của AGVN Group để được hỗ trợ miễn phí 24/7 tận tình nhất.</p>
+                        <div class="cta-buttons-group">
+                            <a href="tel:0869980098" class="cta-btn-link cta-btn-phone">
+                                <i class="fa-solid fa-phone"></i> Gọi Tổng Đài: 0869 980 098
+                            </a>
+                            <a href="https://zalo.me/0869980098" target="_blank" class="cta-btn-link cta-btn-zalo">
+                                <i class="fa-solid fa-comment-dots"></i> Chat Zalo Ngay
+                            </a>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div id="footer" class="footer-container">
+            <div class="footer-col" data-aos="fade-up" data-aos-delay="100">
+                <h3>CÔNG TY TNHH TẬP ĐOÀN NÔNG NGHIỆP AGVN GROUP</h3>
+                <p>MST: 0318787572</p>
+                <p>Người đại diện PL: Trần Thị Giang</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/agvngroup" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://www.youtube.com/@nongnghiepagvngroup" aria-label="Youtube"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="https://www.tiktok.com/@agvn.group" aria-label="Tiktok"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
+            </div>
+            <div class="footer-col" data-aos="fade-up" data-aos-delay="200">
+                <h3>Liên Hệ</h3>
+                <p>
+                    <i class="fa-solid fa-location-dot" style="color: #ffffff; margin-right: 10px;"></i> 
+                    <a href="https://www.google.com/maps/search/?api=1&query=Số+12+Đường+Dự+Định+Khóm+Đông+Thịnh+9+Phường+Long+Xuyên+Long+Xuyên+Việt+Nam" target="_blank" title="Xem trên Google Maps" style="color: #ffffff; text-decoration: none;">
+                        <span>Số 12 Đường Dự Định, Khóm Đông Thịnh 9, Phường Long Xuyên, Long Xuyên, Vietnam</span>
+                    </a>
+                </p>
+                <p>
+                    <i class="fa-solid fa-phone" style="color: #ffffff; margin-right: 10px;"></i>
+                    <a href="tel:0869980098" style="color: #ffffff; text-decoration: none;"><strong>0869 980 098</strong></a>
+                </p>
+                <p>
+                    <i class="fa-solid fa-envelope" style="color: #ffffff; margin-right: 10px;"></i>
+                    <span style="color: #ffffff;">agvngroup2025@gmail.com</span>
+                </p>
+            </div>
+            <div class="footer-col" data-aos="fade-up" data-aos-delay="300">
+                <h3>Liên Kết</h3>
+                <ul>
+                    <li><a href="https://agvngroup.com">Trang Chủ</a></li>
+                    <li><a href="https://agvngroup.com/AGVN_product.html#organic-section">Phân Bón Hữu Cơ</a></li>
+                    <li><a href="https://agvngroup.com/AGVN_product.html#protection-section">Thuốc BVTV</a></li>
+                </ul>
+            </div>
+            <div class="footer-col" data-aos="fade-up" data-aos-delay="400">
+                <h3>Vị Trí</h3>
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3924.9745337233267!2d105.44102607589255!3d10.343930867000863!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a0cb6c52a0a21%3A0x6d87e07eb423cb11!2zU-G7kSAxMiDEkMaw4budbmcgROG7sSDEkOG7i25oLCBLaMOzbSDEkMO0bmcgVGjhu4tuaCA5LCBMb25nIFh1eeG7 racismLCBBbiBHaWFuZywgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1719225600000!5m2!1svi!2s" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 AGVN Group. Tất cả quyền được bảo lưu.</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+
+        function toggleMenu() {
+            var m = document.getElementById('navMenu');
+            m.classList.toggle('open');
+            var icon = document.querySelector('.hamburger i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+            
+            document.getElementById('productDropdown').classList.remove('show');
+        }
+
+        function toggleDropdown(e) {
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
+                var dropdown = document.getElementById('productDropdown');
+                dropdown.classList.toggle('show');
+            }
+        }
+
+        function closeMenuMobile() {
+            if (window.innerWidth <= 768) {
+                toggleMenu();
+            }
+        }
+    </script>
+</body>
+</html>
