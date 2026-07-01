@@ -1,0 +1,43 @@
+name: Đồng bộ sản phẩm từ Google Sheet
+
+on:
+  push:
+    branches:
+      - main     # Tự chạy khi bạn update code/giao diện web chính
+  schedule:
+    - cron: '0 * * * *'  # Tự động quét và cập nhật từ Google Sheet sau mỗi 1 tiếng
+  workflow_dispatch:   # Tạo nút bấm thủ công trên GitHub khi bạn muốn cập nhật ngay lập tức
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Kéo toàn bộ code hiện tại về máy ảo GitHub
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    # 2. Cài đặt môi trường chạy Javascript (Node.js)
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    # 3. Chạy lệnh sinh file sản phẩm tự động
+    - name: Generate Product Pages
+      run: node generate.js
+
+    # 4. Kiểm tra xem có file nào mới hoặc thay đổi không, nếu có thì commit đẩy ngược lại Repo
+    - name: Commit và Đẩy file sản phẩm lên GitHub Pages
+      run: |
+        git config --global user.name "AGVN Automation Bot"
+        git config --global user.email "actions@github.com"
+        git add san-pham/*.html
+        
+        # Chỉ làm việc khi có sự thay đổi dữ liệu
+        if ! git diff --cached --quiet; then
+          git commit -m "Hệ thống: Tự động đồng bộ sản phẩm từ Google Sheet [skip ci]"
+          git push origin HEAD:main
+        else
+          echo "Không có sản phẩm mới hoặc thay đổi nào từ Google Sheet."
+        fi
