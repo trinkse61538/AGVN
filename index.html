@@ -1292,6 +1292,8 @@
 
         // LOGIC XEM THÊM CHI TIẾT SẢN PHẨM (MỞ RỘNG KHUNG NỘI DUNG)
         function toggleProductDetail(event, btn) {
+            // Chặn hành vi chuyển trang mặc định của thẻ <a>
+            event.preventDefault(); 
             // Chặn không cho sự kiện click nổi bọt lên thẻ <a> cha
             event.stopPropagation(); 
 
