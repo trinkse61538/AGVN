@@ -1056,7 +1056,10 @@
                         
                         // Nhận tham số 'e' (event) tại đây
                         btn.onclick = function(e) {
-                            // CHẶN NỔI BỌT: Ngăn không cho sự kiện click lan lên thẻ <a> cha (.product-card)
+                            // 1. CHẶN HÀNH VI MẶC ĐỊNH: Ngăn thẻ <a> chuyển trang khi click vào nút này
+                            e.preventDefault(); 
+                            
+                            // 2. CHẶN NỔI BỌT: Ngăn không cho sự kiện click lan lên thẻ <a> cha (.product-card)
                             e.stopPropagation(); 
                             
                             const isExpanded = features.classList.toggle('expanded');
