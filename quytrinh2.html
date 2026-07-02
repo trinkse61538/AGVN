@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Quy Trình Canh Tác Lúa Giống DS1 - AGVN Group</title>
+
+ <link rel="icon" type="image/jpeg" href="https://raw.githubusercontent.com/trinkse61538/AGVN/c44d6fc7a5a0c4ad73e18c1bc6cf97cbd221bdf9/AGVN_Logo.jpg">
+ <link rel="shortcut icon" type="image/jpeg" href="https://raw.githubusercontent.com/trinkse61538/AGVN/c44d6fc7a5a0c4ad73e18c1bc6cf97cbd221bdf9/AGVN_Logo.jpg">
+
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+ <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+ <style>
+ :root {
+ --primary-color: #007A33;
+ --secondary-color: #8DC63F;
+ --accent-color: #FFD700;
+ --text-dark: #222222;
+ --text-light: #FFFFFF;
+ --bg-light: #F4F9F4;
+ --thuoc-color: #FFB81C;
+ --sau-ray-color: #FF4D4D;
+ --dieu-hoa-color: #00A896;
+ }
+
+ * {
+ box-sizing: border-box;
+ margin: 0;
+ padding: 0;
+ font-family: 'Lexend', sans-serif;
+ }
+
+ /* ── Body with rice watermark ────────────────────────────── */
+ body {
+ color: var(--text-dark);
+ background-color: #fff;
+ line-height: 1.6;
+ overflow-x: hidden;
+ position: relative;
+ }
+
+ /*
+  * Left / Right rice background: fixed, repeat vertically, very faint.
+  * Uses the real product image from GitHub.
+  */
+ body::before,
+ body::after {
+ content: '';
+ position: fixed;
+ top: 0;
+ bottom: 0;
+ z-index: 0;
+ pointer-events: none;
+ background-repeat: repeat-y;
+ background-size: auto 360px;
+ opacity: 0.06;
+ }
+
+ body::before {
+ left: max(0px, calc((100vw - 1200px) / 2 - 160px));
+ width: 130px;
+ background-image: url('https://raw.githubusercontent.com/trinkse61538/AGVN/013f96d26fec5d723fc6d74c988599f21ce8465a/images/bonglua.png');
+ background-position: center top;
+ }
+
+ body::after {
+ right: max(0px, calc((100vw - 1200px) / 2 - 160px));
+ width: 130px;
+ background-image: url('https://raw.githubusercontent.com/trinkse61538/AGVN/013f96d26fec5d723fc6d74c988599f21ce8465a/images/bonglua.png');
+ background-position: center top;
+ transform: scaleX(-1);
+ }
+
+ section {
+ padding: 60px 20px;
+ position: relative;
+ z-index: 1;
+ }
+
+ .container {
+ max-width: 1200px;
+ margin: 0 auto;
+ position: relative;
+ z-index: 1;
+ }
+
+ .section-title {
+ text-align: center;
+ font-size: 2.3rem;
+ color: var(--primary-color);
+ margin-bottom: 15px;
+ position: relative;
+ font-weight: 700;
+ }
+
+ .section-title::after {
+ content: '';
+ display: block;
+ width: 80px;
+ height: 4px;
+ background: var(--secondary-color);
+ margin: 10px auto 0;
+ border-radius: 2px;
+ }
+
+ .section-subtitle {
+ text-align: center;
+ max-width: 800px;
+ margin: -5px auto 40px;
+ color: #555;
+ font-size: 1.05rem;
+ }
+
+ /* HEADER */
+ header {
+ background: var(--text-light);
+ box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+ position: sticky;
+ top: 0;
+ z-index: 1000;
+ padding: 15px 20px;
+ }
+
+ .nav-container {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ max-width: 1200px;
+ margin: 0 auto;
+ }
+
+ .logo {
+ font-size: 1.6rem;
+ font-weight: 700;
+ color: var(--primary-color);
+ text-decoration: none;
+ }
+
+ .logo span {
+ color: var(--secondary-color);
+ }
+
+ .nav-menu {
+ display: flex;
+ list-style: none;
+ gap: 30px;
+ }
+
+ .nav-menu a {
+ text-decoration: none;
+ color: var(--text-dark);
+ font-weight: 600;
+ transition: color 0.3s;
+ }
+
+ .nav-menu a:hover {
+ color: var(--primary-color);
+ }
+
+ .hamburger {
+ display: none;
+ background: none;
+ border: none;
+ font-size: 1.5rem;
+ color: var(--primary-color);
+ cursor: pointer;
+ padding: 5px;
+ }
+
+ .nav-dropdown { position: relative; }
+ .nav-dropdown-toggle { cursor: pointer; display: flex; align-items: center; gap: 4px; }
+ .nav-dropdown-toggle i { font-size: 0.6rem; transition: transform 0.2s; }
+ .nav-dropdown-toggle.active i { transform: rotate(180deg); }
+
+ .nav-dropdown-menu {
+ display: none;
+ position: absolute;
+ top: 100%;
+ left: 0;
+ background: #fff;
+ min-width: 260px;
+ list-style: none;
+ padding: 8px 0;
+ border-radius: 10px;
+ box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+ border: 1px solid #e2e8f0;
+ z-index: 100;
+ }
+ .nav-dropdown-menu.show { display: block; }
+ .nav-dropdown-menu a {
+ display: block;
+ padding: 10px 18px;
+ font-size: 0.85rem;
+ font-weight: 600;
+ color: var(--text-dark);
+ white-space: nowrap;
+ }
+ .nav-dropdown-menu a:hover { background: #f0fdf4; color: var(--primary-color); }
+
+ /* HERO */
+ .hero-page {
+ background: linear-gradient(135deg, #0d2e14 0%, #164a22 100%);
+ color: white;
+ padding: 60px 20px;
+ text-align: center;
+ position: relative;
+ z-index: 1;
+ }
+
+ .hero-page h1 {
+ font-size: 2.5rem;
+ font-weight: 700;
+ margin-bottom: 5px;
+ color: var(--accent-color);
+ }
+
+ .hero-tagline { font-size: 1.2rem; color: #a3cbb1; margin-bottom: 10px; }
+
+ .hero-stats {
+ display: flex;
+ justify-content: center;
+ gap: 40px;
+ margin-top: 20px;
+ flex-wrap: wrap;
+ }
+ .hero-stat-item { text-align: center; }
+ .hero-stat-item .num { font-size: 1.8rem; font-weight: 700; color: var(--accent-color); }
+ .hero-stat-item .label { font-size: 0.85rem; color: #a3cbb1; }
+
+ .breadcrumb {
+ display: flex; justify-content: center; gap: 8px; list-style: none; font-size: 0.95rem; margin-top: 15px;
+ }
+ .breadcrumb a { color: #a3cbb1; text-decoration: none; }
+ .breadcrumb li::after { content: '/'; margin-left: 8px; color: #719b80; }
+ .breadcrumb li:last-child::after { content: ''; }
+
+ /* TABS */
+ .process-tabs {
+ background: #fff;
+ box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+ position: sticky; top: 75px; z-index: 99;
+ padding: 10px 0; border-bottom: 1px solid #edf5e8;
+ }
+ .tabs-container {
+ display: flex; justify-content: center; gap: 20px;
+ max-width: 1200px; margin: 0 auto; padding: 0 20px; flex-wrap: wrap;
+ }
+ .tab-btn {
+ padding: 12px 25px; border: 2px solid var(--primary-color);
+ background: transparent; color: var(--primary-color); font-weight: 700; font-size: 1rem;
+ border-radius: 30px; cursor: pointer; transition: all 0.3s ease;
+ display: flex; align-items: center; gap: 8px;
+ }
+ .tab-btn:hover, .tab-btn.active { background: var(--primary-color); color: white; box-shadow: 0 4px 12px rgba(0,122,51,0.2); }
+
+ /* CARDS */
+ .process-card {
+ background: #fff;
+ border-radius: 16px; border: 1px solid #edf5e8;
+ box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+ padding: 30px; margin-bottom: 40px;
+ }
+ .process-header-block {
+ display: flex; align-items: center; gap: 15px;
+ margin-bottom: 25px; border-bottom: 2px solid #f0fdf4; padding-bottom: 15px;
+ }
+ .process-header-block i { font-size: 2rem; color: var(--secondary-color); }
+ .process-header-block h3 { font-size: 1.6rem; color: var(--primary-color); }
+
+ /* TABLE */
+ .tech-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.9rem; }
+ .tech-table th { background-color: var(--primary-color); color: white; text-align: left; padding: 12px 14px; font-weight: 600; font-size: 0.85rem; }
+ .tech-table td { padding: 12px 14px; border-bottom: 1px solid #edf5e8; vertical-align: top; }
+ .tech-table tr:nth-child(even) { background-color: #f9fdf9; }
+
+ .stage-badge {
+ background: #e6f4ea; color: var(--primary-color);
+ padding: 5px 10px; border-radius: 6px; font-weight: 700; font-size: 0.8rem;
+ display: inline-block; border: 1px solid #c2e7cc; white-space: nowrap;
+ }
+ .stage-badge-fertilizer { background: #ffe8cc; color: #cc7000; border: 1px solid #ffd399; }
+ .stage-badge-spray { background: #e3f2fd; color: #0055aa; border: 1px solid #bbdefb; }
+ .stage-badge-harvest { background: #f3e5f5; color: #7b1fa2; border: 1px solid #e1bee7; }
+
+ .product-tag-link {
+ display: inline-flex; align-items: center; gap: 6px;
+ background: #fffdf2; color: #b7791f;
+ border: 1px dashed var(--thuoc-color);
+ padding: 4px 10px; border-radius: 6px;
+ text-decoration: none; font-weight: 600; font-size: 0.8rem;
+ margin-top: 3px; transition: all 0.2s;
+ }
+ .product-tag-link:hover { background: var(--thuoc-color); color: white; }
+
+ .product-inline { color: var(--primary-color); font-weight: 700; cursor: pointer; transition: color 0.2s; }
+ .product-inline:hover { color: #004d20; text-decoration: underline; }
+ .product-inline-spray { color: #c62828; font-weight: 700; cursor: pointer; transition: color 0.2s; }
+ .product-inline-spray:hover { color: #8e0000; text-decoration: underline; }
+ .product-inline-reg { color: var(--dieu-hoa-color); font-weight: 700; cursor: pointer; transition: color 0.2s; }
+ .product-inline-reg:hover { color: #007b6f; text-decoration: underline; }
+
+ .stage-num {
+ display: inline-flex; align-items: center; justify-content: center;
+ width: 28px; height: 28px; border-radius: 50%;
+ background: var(--primary-color); color: white;
+ font-weight: 700; font-size: 0.85rem; margin-right: 6px;
+ }
+ .stage-num-harvest { background: #7b1fa2; }
+
+ /* TIMELINE */
+ .timeline-vertical { position: relative; margin: 40px 0; padding-left: 30px; }
+ .timeline-vertical::before {
+ content: ''; position: absolute; left: 7px; top: 0;
+ height: 100%; width: 3px; background: #e2f0d9;
+ }
+ .timeline-node { position: relative; margin-bottom: 40px; }
+ .timeline-node::before {
+ content: ''; position: absolute; left: -30px; top: 5px;
+ width: 17px; height: 17px; border-radius: 50%;
+ background: white; border: 4px solid var(--secondary-color); z-index: 2;
+ }
+ .timeline-node.active-node::before { border-color: var(--primary-color); background: var(--accent-color); }
+ .timeline-node-title {
+ font-size: 1.2rem; font-weight: 700; color: var(--primary-color);
+ margin-bottom: 10px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+ }
+ .timeline-node-content { background: var(--bg-light); padding: 20px 24px; border-radius: 12px; border-left: 4px solid var(--secondary-color); }
+ .timeline-node-content p { margin-bottom: 6px; }
+ .timeline-node-content ul { list-style-type: square; padding-left: 20px; margin-top: 6px; }
+ .timeline-node-content ul li { margin-bottom: 6px; }
+
+ /* GOAL */
+ .goal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 40px; }
+ .goal-card { background: var(--bg-light); border-radius: 16px; padding: 30px; border-top: 4px solid var(--primary-color); }
+ .goal-card h3 { font-size: 1.3rem; color: var(--primary-color); margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+ .goal-card ul { list-style: none; padding: 0; }
+ .goal-card ul li { padding: 8px 0; padding-left: 28px; position: relative; border-bottom: 1px solid #e8f5e9; }
+ .goal-card ul li:last-child { border-bottom: none; }
+ .goal-card ul li::before { content: '✓'; position: absolute; left: 0; color: var(--primary-color); font-weight: 700; }
+ .goal-card .section-label { display: inline-block; color: white; padding: 3px 12px; border-radius: 4px; font-size: 0.8rem; font-weight: 700; margin-bottom: 10px; }
+ .goal-card.increase .section-label { background: var(--primary-color); }
+ .goal-card.reduce .section-label { background: #c62828; }
+
+ .note-box {
+ background: #fff9e6; border-left: 4px solid var(--thuoc-color);
+ padding: 20px; border-radius: 0 12px 12px 0; margin-top: 30px;
+ }
+ .note-box h4 { color: #b7791f; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+ .note-box ul { list-style-type: square; padding-left: 20px; margin-top: 5px; }
+ .note-box ul li { margin-bottom: 6px; }
+
+ .product-legend {
+ display: flex; flex-wrap: wrap; gap: 16px;
+ margin: 25px 0; padding: 15px 20px;
+ background: #fafafa; border-radius: 10px; border: 1px solid #eee;
+ }
+ .legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; }
+ .legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+ .legend-dot.green { background: var(--primary-color); }
+ .legend-dot.orange { background: #cc7000; }
+ .legend-dot.blue { background: #0055aa; }
+ .legend-dot.teal { background: var(--dieu-hoa-color); }
+ .legend-dot.purple { background: #7b1fa2; }
+
+ /* FOOTER */
+ footer { background: #11341a; color: #e0f2e5; padding: 60px 20px 20px; position: relative; z-index: 1; }
+ .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; max-width: 1200px; margin: 0 auto; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+ .footer-about h3 { color: #fff; font-size: 1.5rem; margin-bottom: 20px; }
+ .footer-about p { color: #a3cbb1; margin-bottom: 15px; }
+ .footer-links h4, .footer-contact h4 { color: var(--accent-color); font-size: 1.2rem; margin-bottom: 20px; text-transform: uppercase; }
+ .footer-links ul { list-style: none; }
+ .footer-links ul li { margin-bottom: 12px; }
+ .footer-links ul li a { color: #a3cbb1; text-decoration: none; transition: color 0.3s; }
+ .footer-links ul li a:hover { color: #fff; }
+ .footer-contact-item { display: flex; gap: 12px; margin-bottom: 15px; align-items: flex-start; }
+ .footer-contact-item i { color: var(--secondary-color); margin-top: 5px; flex-shrink: 0; }
+ .footer-contact-item a { color: #e0f2e5; text-decoration: none; transition: color 0.3s; word-break: break-word; }
+ .footer-contact-item a:hover { color: var(--accent-color); }
+ .footer-bottom { text-align: center; padding-top: 20px; font-size: 0.9rem; color: #719b80; }
+
+ /* FLOATING */
+ .floating-buttons { position: fixed; bottom: 30px; right: 30px; display: flex; flex-direction: column; gap: 15px; z-index: 9999; }
+ .float-btn { display: flex; align-items: center; justify-content: center; width: 55px; height: 55px; border-radius: 50%; color: white; text-decoration: none; font-size: 1.6rem; box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: transform 0.3s; }
+ .float-btn:hover { transform: scale(1.15); }
+ .float-phone { background: #FF3B30; animation: flash-red 1.8s infinite ease-in-out; }
+ .float-zalo { background: #0068FF; animation: flash-blue 1.8s infinite ease-in-out; animation-delay: 0.3s; }
+ .float-messenger { background: #0084FF; animation: flash-messenger 1.8s infinite ease-in-out; animation-delay: 0.6s; }
+ @keyframes flash-red { 0%,100%{box-shadow:0 0 0 0 rgba(255,59,48,0.7);filter:brightness(1)} 50%{box-shadow:0 0 20px 10px rgba(255,59,48,0);filter:brightness(1.3)} }
+ @keyframes flash-blue { 0%,100%{box-shadow:0 0 0 0 rgba(0,104,255,0.7);filter:brightness(1)} 50%{box-shadow:0 0 20px 10px rgba(0,104,255,0);filter:brightness(1.3)} }
+ @keyframes flash-messenger { 0%,100%{box-shadow:0 0 0 0 rgba(0,132,255,0.7);filter:brightness(1)} 50%{box-shadow:0 0 20px 10px rgba(0,132,255,0);filter:brightness(1.3)} }
+
+ /* RESPONSIVE */
+ @media (max-width: 768px) {
+ .nav-dropdown-menu { position: static; box-shadow: none; border: none; padding-left: 15px; min-width: auto; }
+ .hamburger { display: block; }
+ .nav-menu { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: #fff; flex-direction: column; padding: 20px; gap: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); z-index: 999; }
+ .nav-menu.open { display: flex; }
+ .process-tabs { top: 70px; }
+ .tabs-container { flex-direction: column; gap: 10px; }
+ .tab-btn { justify-content: center; width: 100%; }
+ .goal-grid { grid-template-columns: 1fr; }
+ .tech-table th, .tech-table td { padding: 8px 10px; font-size: 0.8rem; }
+ .tech-table th:nth-child(4), .tech-table td:nth-child(4),
+ .tech-table th:nth-child(5), .tech-table td:nth-child(5) { display: none; }
+ .hero-page h1 { font-size: 1.8rem; }
+ .section-title { font-size: 1.8rem; }
+ .hero-stats { gap: 20px; }
+ .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+ .floating-buttons { right: 16px; bottom: 16px; gap: 10px; }
+ .float-btn { width: 48px; height: 48px; font-size: 1.3rem; }
+ body::before, body::after { width: 70px; opacity: 0.04; }
+ body::before { left: 0; }
+ body::after { right: 0; }
+ }
+ @media (max-width: 480px) {
+ .tech-table th:nth-child(3), .tech-table td:nth-child(3) { display: none; }
+ body::before, body::after { display: none; }
+ }
+ </style>
+</head>
+<body>
+
+<header>
+ <div class="nav-container">
+ <a href="https://agvngroup.com" class="logo">AGVN <span>GROUP</span></a>
+ <button class="hamburger" onclick="toggleMenu()" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+ <ul class="nav-menu" id="navMenu">
+ <li><a href="https://agvngroup.com/aboutus.html">Giới Thiệu</a></li>
+ <li class="nav-dropdown">
+ <a href="https://agvngroup.com/AGVN_product.html" class="nav-dropdown-toggle">Sản Phẩm <i class="fa-solid fa-chevron-down"></i></a>
+ <ul class="nav-dropdown-menu">
+ <li><a href="https://agvngroup.com/AGVN_product.html">Tất cả sản phẩm</a></li>
+ <li><a href="https://agvngroup.com/#products">Sản Phẩm Nổi Bật</a></li>
+ <li><a href="https://agvngroup.com/#ctTruBenh">+ Thuốc Trừ Bệnh</a></li>
+ <li><a href="https://agvngroup.com/#ctSauRay">+ Thuốc Trừ Sâu - Rầy</a></li>
+ <li><a href="https://agvngroup.com/#ctDieuHoa">+ Thuốc Điều Hòa Sinh Trưởng</a></li>
+ <li><a href="https://agvngroup.com/#ctPhanBon">+ Phân bón</a></li>
+ </ul>
+ </li>
+ <li class="nav-dropdown">
+ <a href="#" class="nav-dropdown-toggle active">Quy trình canh tác Lúa <i class="fa-solid fa-chevron-down"></i></a>
+ <ul class="nav-dropdown-menu show">
+ <li><a href="#tong-quan">Tổng quan & Mục tiêu</a></li>
+ <li><a href="#lich-bon-phan">Lịch bón phân & dinh dưỡng</a></li>
+ <li><a href="#lich-phun-thuoc">Lịch phun thuốc & BVTV</a></li>
+ </ul>
+ </li>
+ <li><a href="https://agvngroup.com/#testimonials">Bà Con Nói Về AGVN</a></li>
+ <li><a href="#footer">Liên Hệ</a></li>
+ </ul>
+ </div>
+</header>
+
+<div class="hero-page">
+ <div class="container">
+ <h1>QUY TRÌNH CANH TÁC LÚA GIỐNG JAPONICA DS1</h1>
+ <p class="hero-tagline"><i class="fa-solid fa-bullseye"></i> Tăng Năng Suất – Giảm Chi Phí</p>
+ <div class="hero-stats">
+ <div class="hero-stat-item"><div class="num">13</div><div class="label">Giai đoạn canh tác</div></div>
+ <div class="hero-stat-item"><div class="num">1 ha</div><div class="label">Diện tích áp dụng</div></div>
+ <div class="hero-stat-item"><div class="num">DS1</div><div class="label">Giống Japonica</div></div>
+ <div class="hero-stat-item"><div class="num">AGVN</div><div class="label">Bộ sản phẩm đồng bộ</div></div>
+ </div>
+ <ul class="breadcrumb">
+ <li><a href="https://agvngroup.com">Trang chủ</a></li>
+ <li><a href="https://agvngroup.com/#products">Sản phẩm</a></li>
+ <li>Quy trình canh tác giống DS1</li>
+ </ul>
+ </div>
+</div>
+
+<div class="process-tabs">
+ <div class="tabs-container">
+ <button class="tab-btn active" onclick="scrollToSection('tong-quan', this)"><i class="fa-solid fa-bullseye"></i> Mục tiêu canh tác</button>
+ <button class="tab-btn" onclick="scrollToSection('lich-bon-phan', this)"><i class="fa-solid fa-seedling"></i> Bón phân & dinh dưỡng</button>
+ <button class="tab-btn" onclick="scrollToSection('lich-phun-thuoc', this)"><i class="fa-solid fa-shield-halved"></i> Phun thuốc & BVTV</button>
+ </div>
+</div>
+
+<!-- SECTION 1 -->
+<section id="tong-quan" class="container">
+ <h2 class="section-title" data-aos="fade-up">MỤC TIÊU & ĐỊNH HƯỚNG CANH TÁC</h2>
+ <p class="section-subtitle" data-aos="fade-up">Quy trình ứng dụng bộ sản phẩm AGVN cho giống lúa Japonica DS1 trên diện tích <strong>01 ha (10.000 m²)</strong> — tối ưu năng suất, tiết giảm chi phí đầu tư.</p>
+ <div class="goal-grid">
+ <div class="goal-card increase" data-aos="fade-right">
+ <div class="section-label"><i class="fa-solid fa-arrow-up"></i> TĂNG NĂNG SUẤT</div>
+ <h3><i class="fa-solid fa-chart-line" style="color:var(--primary-color);"></i> 5 Mục tiêu chiến lược</h3>
+ <ul>
+ <li><strong>Tăng tối đa số lượng đầu bông</strong> — tập trung đẻ nhánh hữu hiệu nhờ rễ ra nhiều, cắm sâu, hút phân mạnh từ tầng đất sâu.</li>
+ <li><strong>Tăng tối đa độ lớn của bông</strong> — cây lúa nở ngang hình thành đòng lớn, gié và hạt đóng chặt, gối sát nhau, tăng số hạt/bông.</li>
+ <li><strong>Giảm đổ ngã tối đa</strong> — lúa cứng cây, rễ vững, hạn chế thất thoát năng suất do đổ ngã.</li>
+ <li><strong>Nuôi hạt tới cậy</strong> — cây lúa to - cứng - rễ nhiều, vận chuyển dinh dưỡng nhanh & dài ngày, giữ lúa tươi tới khi cắt.</li>
+ <li><strong>Đầu tư hiệu quả</strong> — không gây thất thoát lượng phân bón nhờ lúa hấp thu tối đa, không dư thừa.</li>
+ </ul>
+ </div>
+ <div class="goal-card reduce" data-aos="fade-left">
+ <div class="section-label" style="background:#c62828;"><i class="fa-solid fa-arrow-down"></i> GIẢM CHI PHÍ</div>
+ <h3><i class="fa-solid fa-wallet" style="color:#c62828;"></i> 5 Giải pháp tiết kiệm</h3>
+ <ul>
+ <li><strong>Giảm lượng phân bón</strong> — rễ ăn sâu hút nhiều phân hơn, lông hút nhiều giúp bắt phân nhanh, cầm phân lâu hơn.</li>
+ <li><strong>Giảm rủi ro bệnh hại</strong> — chủ động phòng ngừa sớm, giảm số lần phun và lượng thuốc BVTV.</li>
+ <li><strong>Giảm chi phí cắt lúa</strong> — lúa không cao, cây cứng, rễ cắm sâu nên ít đổ ngã.</li>
+ <li><strong>Xử lý hiệu quả côn trùng</strong> — quản lý các loại gây hại trực tiếp đến số lượng bông và hạt.</li>
+ <li><strong>Quản lý nấm bệnh đúng thời điểm</strong> — kết hợp các loại thuốc BVTV hiệu quả, đúng nhu cầu, bảo vệ tối đa năng suất đã đầu tư.</li>
+ </ul>
+ </div>
+ </div>
+ <div class="process-card" data-aos="fade-up">
+ <div class="process-header-block"><i class="fa-solid fa-list-check"></i><h3>Chú thích ký hiệu sản phẩm</h3></div>
+ <div class="product-legend">
+ <span class="legend-item"><span class="legend-dot green"></span> Phân bón & Dinh dưỡng</span>
+ <span class="legend-item"><span class="legend-dot orange"></span> Thuốc trừ sâu - rầy</span>
+ <span class="legend-item"><span class="legend-dot blue"></span> Thuốc trừ nấm bệnh</span>
+ <span class="legend-item"><span class="legend-dot teal"></span> Điều hòa sinh trưởng</span>
+ <span class="legend-item"><span class="legend-dot purple"></span> Hỗ trợ thu hoạch</span>
+ </div>
+ </div>
+</section>
+
+<!-- SECTION 2 -->
+<section id="lich-bon-phan" class="container">
+ <h2 class="section-title" data-aos="fade-up">LỊCH BÓN PHÂN & DINH DƯỠNG</h2>
+ <p class="section-subtitle" data-aos="fade-up">Quy trình bón phân hữu cơ sinh học AGVN giúp cải tạo đất, kích thích ra rễ mạnh, đẻ nhánh gọn, tối ưu năng suất và giảm chi phí đầu tư.</p>
+ <div class="process-card" data-aos="fade-up">
+ <div class="process-header-block"><i class="fa-solid fa-table-list"></i><h3>Bảng hướng dẫn chi tiết bón phân theo giai đoạn (Giống DS1)</h3></div>
+ <table class="tech-table">
+ <thead>
+ <tr>
+ <th style="width:5%;">#</th>
+ <th style="width:12%;">Giai đoạn</th>
+ <th style="width:12%;">Ngày (NSS)</th>
+ <th style="width:28%;">Sản phẩm AGVN</th>
+ <th style="width:28%;">Công dụng & Hiệu quả</th>
+ <th style="width:15%;">Lưu ý</th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr>
+ <td><span class="stage-num">1</span></td>
+ <td><span class="stage-badge stage-badge-fertilizer">Bón Lót</span></td>
+ <td>Trước sạ<br><small>(trục trạc lần cuối)</small></td>
+ <td><a href="https://agvngroup.com/san-pham/humic-zn.html" target="_blank" style="text-decoration:none;"><span class="product-inline">HUMIC Zn++</span></a> (bón gốc hoặc phun)<br></td>
+ <td>Hạ phèn, giải độc hữu cơ, tơi xốp đất, tạo môi trường thuận lợi cho hạt mầm ra rễ mới.</td>
+ <td>Nên kết hợp với vôi nếu đất phèn nặng</td>
+ </tr>
+ <tr>
+ <td><span class="stage-num">2</span></td>
+ <td><span class="stage-badge stage-badge-fertilizer">Đẻ nhánh sớm<br>Đợt 1</span></td>
+ <td>15 – 20 NSS</td>
+ <td><span class="product-inline">HUMIC TOMA</span> 10 kg<br>Trộn chung URE / NPK<br></td>
+ <td>Ra rễ mạnh, cắm sâu, nhiều lông hút. Giải độc hữu cơ, giải quyết bướu rễ. Đẻ nhánh sớm, cứng cây, đứng lá. Lá màu tranh, không phượt lá.</td>
+ <td>Giảm 20-25 kg phân DAP + KALI so với thông thường</td>
+ </tr>
+ <tr>
+ <td><span class="stage-num">3</span></td>
+ <td><span class="stage-badge stage-badge-spray">Phun đẻ nhánh sớm</span></td>
+ <td>15 – 20 NSS</td>
+ <td><span class="product-inline">TOMA AMINO</span> 1 chai 500ml + <a href="https://agvngroup.com/san-pham/diet-chich-hut.html" target="_blank" style="text-decoration:none;"><span class="product-inline-spray">Diệt Chích Hút</span></a> 1 chai 240ml</td>
+ <td>Phát triển bộ rễ cực mạnh, chống phèn, ngộ độc hữu cơ. Nở bụi mạnh, xanh lá, nhẹ phân. Quản lý sớm rầy nâu, bọ trĩ, muỗi hại giai đoạn mạ.</td>
+ <td>Phun chung với thuốc cỏ — không giảm tác dụng, giúp cỏ chết nhanh hơn</td>
+ </tr>
+ <tr>
+ <td><span class="stage-num">4</span></td>
+ <td><span class="stage-badge stage-badge-fertilizer">Đẻ nhánh tập trung<br>Đợt 2</span></td>
+ <td>25 – 30 NSS</td>
+ <td><span class="product-inline">HUMIC TOMA</span> 10 kg<br>Trộn chung URE / DAP / KALI / NPK</td>
+ <td>Lúa đẻ nhánh tập trung, cứng cây, đứng lá. Tăng khả năng chống chịu sâu bệnh. Cây con lớn nhanh theo kịp cây mẹ. Giải quyết bướu rễ do ngộ độc hữu cơ.</td>
+ <td>Giảm 20-25 kg phân tuỳ chân ruộng. Cầm phân lâu hơn</td>
+ </tr>
+ <tr>
+ <td><span class="stage-num">5</span></td>
+ <td><span class="stage-badge stage-badge-spray">Phun đẻ nhánh<br>tập trung</span></td>
+ <td>30 – 35 NSS</td>
+ <td><span class="product-inline">TOMA AMINO</span> 1 chai 500ml + <a href="https://agvngroup.com/san-pham/xong-hoi-b52.html" target="_blank" style="text-decoration:none;"><span class="product-inline-spray">XÔNG HƠI B52</span></a> 1 chai 450ml</td>
+ <td>Kích thích rễ mạnh, hạ phèn, hấp thu tối đa phân bón, tăng đẻ nhánh, mập cây, xanh bền. Xông hơi cực mạnh phòng trừ sâu ăn lá, đục thân, rầy, muỗi hành, bọ trĩ.</td>
+ <td>Kết hợp phòng ngừa sớm sâu bệnh theo tiêu chí nhẹ phân</td>
+ </tr>
+ <tr>
+ <td><span class="stage-num">6</span></td>
+ <td><span class="stage-badge stage-badge-fertilizer">Nuôi chồi tập trung</span></td>
+ <td>45 – 50 NSS</td>
+ <td><a href="https://agvngroup.com/san-pham/lun-luc.html" target="_blank" style="text-decoration:none;"><span class="product-inline-reg">LÙN LỰC</span></a> 300ml + <a href="https://agvngroup.com/san-pham/xong-hoi-b52.html" target="_blank" style="text-decoration:none;"><span class="product-inline-spray">XÔNG HƠI B52</span></a> 450ml + <a href="https://agvngroup.com/san-pham/anwn-zn-an-do.html" target="_blank" style="text-decoration:none;"><span class="product-inline">ANWIN KẼM</span></a> 1 lít</td>
+ <td>Cứng cây, ngắn thân rạ, lá đứng, tuột lá ủ, ngắn lóng. Phòng ngừa sâu bệnh bên trong, đạo ôn, khô vằn, đốm vằn, đốm nâu. Giữ bộ lá xanh khỏe.</td>
+ <td>Kết hợp các loại thuốc theo tiêu chí tăng chồi hữu hiệu</td>
+ </tr>
+ <tr>
+ <td><span class="stage-num">7</span></td>
+ <td><span class="stage-badge stage-badge-fertilizer">Bón đón đòng</span></td>
+ <td>55 – 60 NSS</td>
+ <td><a href="https://agvngroup.com/san-pham/humic-zn.html" target="_blank" style="text-decoration:none;"><span class="product-inline">Humic Zn+ AGVN</span></a> 3 – 5 kg<br>Trộn chung URE / DAP / KALI / NPK (20-20-15, 16-16-8…)</td>
+ <td>Ra bộ rễ mới, hấp thu tối đa phân bón. Giải quyết bướu rễ, cứng cây, nuôi đòng to, tăng số hạt/bông. Dùng dư không phượt lá.</td>
+ <td>Giảm 20-25 kg phân tuỳ chân ruộng. Cầm phân lâu hơn</td>
+ </tr>
+ <tr>
+ <td><span class="stage-num">8</span></td>
+ <td><span class="stage-badge stage-badge-fertilizer">Nuôi hạt chắc<br>tới cậy</span></td>
+ <td>Sau trổ đều – chín sáp</td>
+ <td><a href="https://agvngroup.com/san-pham/hat-vang.html" target="_blank" style="text-decoration:none;"><span class="product-inline">HẠT VÀNG</span></a> 500ml + <a href="https://agvngroup.com/san-pham/number-one.html" target="_blank" style="text-decoration:none;"><span class="product-inline">NUMBER ONE</span></a> (10 gói × 20ml)</td>
+ <td>Vô gạo thần tốc, hạt vàng sáng chắc đến tận cậy. Giữ bộ lá đòng xanh bền, lúa nặng ký. Ức chế Ethylen, làm chậm chín, tăng vô gạo tối đa.</td>
+ <td>Phun trước thu hoạch 15-18 ngày</td>
+ </tr>
+ <tr>
+ <td><span class="stage-num stage-num-harvest">9</span></td>
+ <td><span class="stage-badge stage-badge-harvest">Trước thu hoạch</span></td>
+ <td>15 – 18 ngày<br>trước cắt</td>
+ <td><a href="https://agvngroup.com/san-pham/hat-vang.html" target="_blank" style="text-decoration:none;"><span class="product-inline">HẠT VÀNG</span></a> 500ml + <a href="https://agvngroup.com/san-pham/number-one.html" target="_blank" style="text-decoration:none;"><span class="product-inline">NUMBER ONE</span></a> (10 gói × 20ml) + <a href="https://agvngroup.com/san-pham/dac-tri-dao-on.html" target="_blank" style="text-decoration:none;"><span class="product-inline-spray">ĐẶC TRỊ ĐẠO ÔN</span></a> 3 gói × 100gr</td>
+ <td>Lúa vô gạo nhanh, to hạt, tăng trọng lượng hạt, tăng năng suất. Quản lý sạch nấm bệnh: khô vằn, đốm vằn, đạo ôn cổ bông & nhánh gié.</td>
+ <td>Đất gò/phèn: phun trước 15 ngày. Mưa nhiều: bổ sung thêm giai</td>
+ </tr>
+ </tbody>
+ </table>
+ <div class="note-box">
+ <h4><i class="fa-solid fa-circle-exclamation"></i> Khuyến nghị kỹ thuật chung</h4>
+ <ul>
+ <li>Cần thăm đồng thường xuyên theo dõi thời tiết, dịch hại để kịp thời kết hợp các loại thuốc trừ sâu, rầy phù hợp.</li>
+ <li>Phun thuốc vào sáng sớm hoặc chiều mát — thuốc bột pha trước, thuốc nước pha sau.</li>
+ <li>Tuỳ từng chân ruộng (gò, phèn, trũng) mà điều chỉnh liều lượng phân bón và thời điểm phun thuốc cho phù hợp.</li>
+ </ul>
+ </div>
+ </div>
+</section>
+
+<!-- SECTION 3 -->
+<section id="lich-phun-thuoc" class="about-section">
+ <div class="container">
+ <h2 class="section-title" data-aos="fade-up">LỊCH PHUN THUỐC & BẢO VỆ THỰC VẬT</h2>
+ <p class="section-subtitle" data-aos="fade-up">Hệ thống phun thuốc phòng ngừa sâu bệnh và điều hòa sinh trưởng chủ động xuyên suốt vòng đời cây lúa giống DS1.</p>
+ <div class="timeline-vertical">
+
+ <div class="timeline-node active-node" data-aos="fade-left">
+ <div class="timeline-node-title">
+ <span class="stage-badge" style="background:#cc7000;color:#fff;border:none;">Giai đoạn 1</span>
+ <span>1 – 10 NSS · Phun diệt mầm / cỏ cây</span>
+ </div>
+ <div class="timeline-node-content">
+ <p><strong>Mục tiêu:</strong> Bảo vệ lúa non giai đoạn mạ, quản lý cỏ dại và côn trùng chích hút sớm.</p>
+ <p><strong>Sản phẩm AGVN:</strong></p>
+ <ul>
+ <li><span class="product-inline">TOMA AMINO</span> 500ml — dùng chung với thuốc diệt mầm: giúp lúa non siêu khoẻ, xanh sớm, phát triển đồng đều, rễ cắm sâu, thân mập. Hạn chế chết cây do phèn, sượng thuốc cỏ (đỏ lá).</li>
+ <li><a href="https://agvngroup.com/san-pham/diet-chich-hut.html" target="_blank" style="text-decoration:none;"><span class="product-inline-spray">Diệt Chích Hút</span></a> 240ml — quản lý sớm rầy nâu, bọ trĩ (bù lạch), muỗi hại giai đoạn mạ.</li>
+ </ul>
+ <p style="margin-top:6px;font-style:italic;color:#666;">→ Không làm giảm tác dụng của thuốc trừ cỏ. Giúp cỏ chết nhanh do tăng hấp thu. Lúa xanh sớm, không cần bón sương URE.</p>
+ </div>
+ </div>
+
+ <div class="timeline-node" data-aos="fade-left">
+ <div class="timeline-node-title">
+ <span class="stage-badge" style="background:#cc7000;color:#fff;border:none;">Giai đoạn 2</span>
+ <span>15 – 20 NSS · Phun đẻ nhánh sớm</span>
+ </div>
+ <div class="timeline-node-content">
+ <p><strong>Mục tiêu:</strong> Kích rễ mạnh, chống stress thời tiết, quản lý côn trùng chích hút.</p>
+ <p><strong>Sản phẩm AGVN:</strong></p>
+ <ul>
+ <li><span class="product-inline">TOMA AMINO</span> 500ml — phát triển bộ rễ cực mạnh, chống phèn, ngộ độc hữu cơ, nở bụi mạnh, xanh lá.</li>
+ <li><a href="https://agvngroup.com/san-pham/diet-chich-hut.html" target="_blank" style="text-decoration:none;"><span class="product-inline-spray">Diệt Chích Hút</span></a> 240ml — quản lý rầy nâu, bọ trĩ, muỗi hại giai đoạn mạ.</li>
+ </ul>
+ <p style="margin-top:6px;font-style:italic;color:#666;">→ Phối trộn an toàn với thuốc trừ cỏ, không làm giảm hiệu lực.</p>
+ </div>
+ </div>
+
+ <div class="timeline-node" data-aos="fade-left">
+ <div class="timeline-node-title">
+ <span class="stage-badge" style="background:var(--sau-ray-color);color:#fff;border:none;">Giai đoạn 3</span>
+ <span>30 – 35 NSS · Phun đẻ nhánh tập trung</span>
+ </div>
+ <div class="timeline-node-content">
+ <p><strong>Mục tiêu:</strong> Phòng trừ sâu ăn lá, đục thân, rầy các loại. Kích thích rễ hút phân tối đa.</p>
+ <p><strong>Sản phẩm AGVN:</strong></p>
+ <ul>
+ <li><span class="product-inline">TOMA AMINO</span> 500ml — kích thích bộ rễ, hạ phèn, hấp thu tối đa phân bón.</li>
+ <li><a href="https://agvngroup.com/san-pham/xong-hoi-b52.html" target="_blank" style="text-decoration:none;"><span class="product-inline-spray">XÔNG HƠI B52</span></a> 450ml — xông hơi cực mạnh phòng trừ sâu ăn lá, đục thân, rầy, muỗi hành, bọ trĩ.</li>
+ </ul>
+ <p style="margin-top:6px;font-style:italic;color:#666;">→ Kết hợp các loại thuốc theo tiêu chí nhẹ phân — tăng chồi hữu hiệu.</p>
+ </div>
+ </div>
+
+ <div class="timeline-node" data-aos="fade-left">
+ <div class="timeline-node-title">
+ <span class="stage-badge" style="background:var(--dieu-hoa-color);color:#fff;border:none;">Giai đoạn 4</span>
+ <span>45 – 50 NSS · Nuôi chồi tập trung + Phòng bệnh</span>
+ </div>
+ <div class="timeline-node-content">
+ <p><strong>Mục tiêu:</strong> Khống chế chiều cao, ngắn lóng thân, phòng ngừa đạo ôn, khô vằn, đốm vằn.</p>
+ <p><strong>Sản phẩm AGVN:</strong></p>
+ <ul>
+ <li><a href="https://agvngroup.com/san-pham/lun-luc.html" target="_blank" style="text-decoration:none;"><span class="product-inline-reg">LÙN LỰC</span></a> 300ml — cứng cây, ngắn thân rạ, lá đứng, tuột lá ủ.</li>
+ <li><a href="https://agvngroup.com/san-pham/xong-hoi-b52.html" target="_blank" style="text-decoration:none;"><span class="product-inline-spray">XÔNG HƠI B52</span></a> 450ml — xông hơi phòng trừ sâu ăn lá, đục thân, rầy.</li>
+ <li><a href="https://agvngroup.com/san-pham/anwn-zn-an-do.html" target="_blank" style="text-decoration:none;"><span class="product-inline">ANWIN KẼM</span></a> 1 lít — phòng ngừa sâu bên trong, đạo ôn, khô vằn, đốm vằn, đốm nâu.</li>
+ </ul>
+ <p style="margin-top:6px;font-style:italic;color:#666;">→ Phối trộn các loại thuốc giúp quản lý sớm, tăng chồi hữu hiệu.</p>
+ </div>
+ </div>
+
+ <div class="timeline-node" data-aos="fade-left">
+ <div class="timeline-node-title">
+ <span class="stage-badge" style="background:var(--sau-ray-color);color:#fff;border:none;">Giai đoạn 5</span>
+ <span>55 – 60 NSS · Quản lý sâu bệnh + Dưỡng đòng</span>
+ </div>
+ <div class="timeline-node-content">
+ <p><strong>Mục tiêu:</strong> Bảo vệ đòng non, phòng đạo ôn cổ bông, vi khuẩn bạc lá, sọc trong.</p>
+ <p><strong>Sản phẩm AGVN:</strong></p>
+ <ul>
+ <li><a href="https://agvngroup.com/san-pham/duong-dong-vang.html" target="_blank" style="text-decoration:none;"><span class="product-inline">DƯỠNG ĐÒNG VÀNG</span></a> 500ml — cung cấp dinh dưỡng nuôi đòng to, xanh lá, tăng số hạt/bông.</li>
+ <li><a href="https://agvngroup.com/san-pham/supercol-692.html" target="_blank" style="text-decoration:none;"><span class="product-inline">SUPERCOL</span></a> 500gr — quản lý nấm bệnh: đạo ôn lá, khô vằn, đốm vằn.</li>
+ <li><span class="product-inline">KUMIN X6</span> 450ml — phòng ngừa vi khuẩn: sọc trong, bạc lá, cháy bìa lá, vàng lá.</li>
+ <li><a href="https://agvngroup.com/san-pham/lun-luc.html" target="_blank" style="text-decoration:none;"><span class="product-inline-reg">LÙN LỰC</span></a> 300ml (tuỳ chọn) — nếu ruộng trũng, lúa cao, vụ hè thu.</li>
+ </ul>
+ <p style="margin-top:6px;font-style:italic;color:#666;">→ Thăm đồng thường xuyên để kết hợp thuốc trừ sâu, rầy kịp thời.</p>
+ </div>
+ </div>
+
+ <div class="timeline-node" data-aos="fade-left">
+ <div class="timeline-node-title">
+ <span class="stage-badge" style="background:var(--sau-ray-color);color:#fff;border:none;">Giai đoạn 6</span>
+ <span>65 – 70 NSS · Phun ôm bắp</span>
+ </div>
+ <div class="timeline-node-content">
+ <p><strong>Mục tiêu:</strong> Phòng ngừa lem lép hạt, khô vằn, đốm nâu, vàng lá chín sớm.</p>
+ <p><strong>Sản phẩm AGVN:</strong></p>
+ <ul>
+ <li><span class="product-inline">SUPER VIL 10</span> 1 lít — phòng ngừa sâu bên trong, lem lép hạt, khô vằn, đốm nâu.</li>
+ <li><a href="https://agvngroup.com/san-pham/vang-la.html" target="_blank" style="text-decoration:none;"><span class="product-inline">VÀNG LÁ</span></a> 500gr — bảo vệ bộ lá đòng, ngăn vàng lá chín sớm, bạc lá, cháy bìa lá.</li>
+ <li><a href="https://agvngroup.com/san-pham/duong-dong-vang.html" target="_blank" style="text-decoration:none;"><span class="product-inline">DƯỠNG ĐÒNG VÀNG</span></a> 500ml — nuôi đòng to, xanh lá, tăng số hạt/bông.</li>
+ </ul>
+ <p style="margin-top:6px;font-style:italic;color:#666;">→ Thăm đồng thường xuyên để kịp thời quản lý sâu và côn trùng gây hại.</p>
+ </div>
+ </div>
+
+ <div class="timeline-node" data-aos="fade-left">
+ <div class="timeline-node-title">
+ <span class="stage-badge" style="background:var(--sau-ray-color);color:#fff;border:none;">Giai đoạn 7</span>
+ <span>75 – 80 NSS · Lúa trổ lẹt xẹt</span>
+ </div>
+ <div class="timeline-node-content">
+ <p><strong>Mục tiêu:</strong> Quản lý lem lép hạt, đạo ôn, giữ xanh bộ lá đòng, tăng vô gạo.</p>
+ <p><strong>Sản phẩm AGVN:</strong></p>
+ <ul>
+ <li><a href="https://agvngroup.com/san-pham/lem-lep.html" target="_blank" style="text-decoration:none;"><span class="product-inline">LEM LÉP HẠT</span></a> 2 chai × 240ml hoặc <a href="https://agvngroup.com/san-pham/pico-plus-300.html" target="_blank" style="text-decoration:none;"><span class="product-inline">PICO PLUS</span></a> 300ml — quản lý lem lép, đạo ôn, khô vằn.</li>
+ <li><a href="https://agvngroup.com/san-pham/supercol-692.html" target="_blank" style="text-decoration:none;"><span class="product-inline">SUPERCOL</span></a> 500gr — bảo vệ bộ lá đòng xanh khoẻ toàn diện.</li>
+ <li><span class="product-inline">KUMIN X6</span> 450ml — phòng ngừa vi khuẩn: bạc lá, cháy bìa, sọc trong.</li>
+ <li><a href="https://agvngroup.com/san-pham/duong-dong-vang.html" target="_blank" style="text-decoration:none;"><span class="product-inline">DƯỠNG ĐÒNG VÀNG</span></a> 500ml — giúp lúa trổ thoát nhanh, đồng loạt.</li>
+ </ul>
+ <p style="margin-top:6px;font-style:italic;color:#666;">→ Trước/đang trổ cần thăm đồng liên tục, kết hợp thuốc sâu cuốn lá, rầy. Mưa nhiều: phun trước khi lúa trổ.</p>
+ </div>
+ </div>
+
+ <div class="timeline-node" data-aos="fade-left">
+ <div class="timeline-node-title">
+ <span class="stage-badge" style="background:var(--sau-ray-color);color:#fff;border:none;">Giai đoạn 8</span>
+ <span>80 – 85 NSS · Lúa trổ đều</span>
+ </div>
+ <div class="timeline-node-content">
+ <p><strong>Mục tiêu:</strong> Đặc trị đạo ôn cổ bông, vi khuẩn bạc lá. Tăng vô gạo, giảm lem lép.</p>
+ <p><strong>Sản phẩm AGVN:</strong></p>
+ <ul>
+ <li><a href="https://agvngroup.com/san-pham/lem-lep.html" target="_blank" style="text-decoration:none;"><span class="product-inline">LEM LÉP HẠT</span></a> 2 chai × 240ml hoặc <a href="https://agvngroup.com/san-pham/pico-plus-300.html" target="_blank" style="text-decoration:none;"><span class="product-inline">PICO PLUS</span></a> 300ml — quản lý lem lép, giữ xanh bộ lá.</li>
+ <li><a href="https://agvngroup.com/san-pham/dao-on-promax.html" target="_blank" style="text-decoration:none;"><span class="product-inline-spray">ĐẠO ÔN PROMAX</span></a> 300ml hoặc <a href="https://agvngroup.com/san-pham/feno-super.html" target="_blank" style="text-decoration:none;"><span class="product-inline-spray">FENO SUPER</span></a> 400ml — đặc trị đạo ôn lá, cổ bông, nhánh gié. Không gây nóng bông.</li>
+ <li><span class="product-inline">KUMIN X6</span> 450ml — phòng ngừa vi khuẩn bạc lá, cháy bìa, sọc trong.</li>
+ <li><a href="https://agvngroup.com/san-pham/hat-vang.html" target="_blank" style="text-decoration:none;"><span class="product-inline">HẠT VÀNG</span></a> 500ml — cung cấp Kali hữu cơ Fulvate, hồi phục nhanh sau trổ, vô gạo nhanh, to hạt.</li>
+ </ul>
+ <p style="margin-top:6px;font-style:italic;color:#666;">→ Phun khi lúa trổ từ 70-90%. Thăm đồng liên tục để kết hợp sâu cuốn lá, rầy nâu.</p>
+ </div>
+ </div>
+
+ <div class="timeline-node" data-aos="fade-left">
+ <div class="timeline-node-title">
+ <span class="stage-badge" style="background:var(--dieu-hoa-color);color:#fff;border:none;">Giai đoạn 9</span>
+ <span>90 – 95 NSS · Lúa chín nửa bông (Cong trái me)</span>
+ </div>
+ <div class="timeline-node-content">
+ <p><strong>Mục tiêu:</strong> Bảo vệ năng suất giai đoạn chín, tối ưu vô gạo.</p>
+ <p><strong>Sản phẩm AGVN:</strong></p>
+ <ul>
+ <li><span class="product-inline">SUPER VIL 10</span> 1 lít — quản lý nấm bệnh: khô vằn, đốm vằn, đạo ôn lá & cổ bông.</li>
+ <li><a href="https://agvngroup.com/san-pham/number-one.html" target="_blank" style="text-decoration:none;"><span class="product-inline">NUMBER ONE</span></a> 10 gói × 20ml — phòng nấm bệnh phổ rộng, ức chế Ethylen, chậm chín, giữ lá xanh, vô gạo tối đa.</li>
+ <li><a href="https://agvngroup.com/san-pham/hat-vang.html" target="_blank" style="text-decoration:none;"><span class="product-inline">HẠT VÀNG</span></a> 500ml — cung cấp Kali Fulvate, kích thích vô gạo nhanh, to hạt, tăng trọng lượng.</li>
+ </ul>
+ <p style="margin-top:6px;font-style:italic;color:#666;">→ Giai đoạn này lúa cần giữ thể trạng xanh khoẻ để vô gạo, tăng tỉ lệ hạt chắc trên bông mẹ & bông con.</p>
+ </div>
+ </div>
+
+ <div class="timeline-node" data-aos="fade-left">
+ <div class="timeline-node-title">
+ <span class="stage-badge" style="background:#7b1fa2;color:#fff;border:none;">Giai đoạn 10</span>
+ <span>15 – 18 ngày trước thu hoạch · Lúa chín đỏ đuôi</span>
+ </div>
+ <div class="timeline-node-content">
+ <p><strong>Mục tiêu:</strong> Tối ưu năng suất cuối vụ, giữ hạt vàng sáng, tăng trọng lượng hạt.</p>
+ <p><strong>Sản phẩm AGVN:</strong></p>
+ <ul>
+ <li><a href="https://agvngroup.com/san-pham/number-one.html" target="_blank" style="text-decoration:none;"><span class="product-inline">NUMBER ONE</span></a> 10 gói × 20ml — ức chế Ethylen, chậm chín, giữ lá xanh lâu, vô gạo tối đa.</li>
+ <li><a href="https://agvngroup.com/san-pham/hat-vang.html" target="_blank" style="text-decoration:none;"><span class="product-inline">HẠT VÀNG</span></a> 500ml — Kali hữu cơ Fulvate, vô gạo nhanh, to hạt, tăng trọng lượng.</li>
+ <li><a href="https://agvngroup.com/san-pham/dac-tri-dao-on.html" target="_blank" style="text-decoration:none;"><span class="product-inline-spray">ĐẶC TRỊ ĐẠO ÔN</span></a> 3 gói × 100gr — quản lý sạch nấm: khô vằn, đốm vằn, đạo ôn cổ bông & nhánh gié.</li>
+ </ul>
+ <p style="margin-top:6px;font-style:italic;color:#666;">→ Nếu thời tiết mưa nhiều/độ ẩm cao: bổ sung thêm giai. Đất gò/đất phèn: phun trước khi cắt 15 ngày.</p>
+ </div>
+ </div>
+
+ </div>
+
+ <div class="process-card" data-aos="fade-up" style="margin-top:20px;">
+ <div class="process-header-block"><i class="fa-solid fa-triangle-exclamation"></i><h3>Lưu ý chung trong suốt quy trình</h3></div>
+ <div style="padding:0 10px;">
+ <ul style="list-style-type:square;padding-left:20px;">
+ <li>Với điều kiện thời tiết và dịch hại diễn biến khó lường, cần <strong>thăm đồng thường xuyên</strong> để kịp thời kết hợp các loại thuốc trừ sâu, rầy phù hợp theo khuyến cáo.</li>
+ <li>Tuân thủ <strong>đúng thời điểm phun xịt</strong>: sáng sớm hoặc chiều mát.</li>
+ <li>Kỹ thuật phối trộn thuốc BVTV: <strong>thuốc bột pha trước, thuốc nước pha sau</strong>.</li>
+ <li>Tuỳ từng chân ruộng cụ thể (gò, phèn, trũng, vụ Đông Xuân / Hè Thu) cần điều chỉnh liều lượng và thời điểm phun cho phù hợp.</li>
+ </ul>
+ </div>
+ </div>
+ </div>
+</section>
+
+<footer id="footer">
+ <div class="footer-grid">
+ <div class="footer-about">
+ <h3>AGVN GROUP</h3>
+ <p>Bộ sản phẩm tiên tiến hàng đầu Việt Nam giúp thúc đẩy nền nông nghiệp xanh bền vững, mang lại vụ mùa ấm no cho mọi gia đình nhà nông.</p>
+ <p style="color:var(--accent-color);font-weight:600;"><i class="fa-solid fa-clock"></i> Thời gian làm việc: 24/7 (Hỗ trợ kỹ thuật bất cứ khi nào bà con cần)</p>
+ </div>
+ <div class="footer-links">
+ <h4>Chuyên Mục</h4>
+ <ul>
+ <li><a href="https://agvngroup.com/aboutus.html"><i class="fa-solid fa-angle-right"></i> Về chúng tôi</a></li>
+ <li><a href="https://agvngroup.com/AGVN_product.html"><i class="fa-solid fa-angle-right"></i> Các dòng sản phẩm</a></li>
+ <li><a href="https://agvngroup.com/#testimonials"><i class="fa-solid fa-angle-right"></i> Kết quả thực tế</a></li>
+ </ul>
+ </div>
+ <div class="footer-contact">
+ <h4>Thông Tin Liên Hệ</h4>
+ <div class="footer-contact-item"><i class="fa-solid fa-location-dot"></i><a href="https://www.google.com/maps/search/?api=1&query=Số+12+Đường+Dự+Định+Khóm+Đông+Thịnh+9+Phường+Long+Xuyên+Long+Xuyên+Việt+Nam" target="_blank" title="Xem trên Google Maps"><span>Số 12 Đường Dự Định, Khóm Đông Thịnh 9, Phường Long Xuyên, Long Xuyên, Vietnam</span></a></div>
+ <div class="footer-contact-item"><i class="fa-solid fa-phone-volume"></i><span><a href="tel:0869980098"><strong>0869 980 098</strong></a></span></div>
+ <div class="footer-contact-item"><i class="fa-solid fa-envelope"></i><span><a href="mailto:agvngroup2025@gmail.com">agvngroup2025@gmail.com</a></span></div>
+ </div>
+ </div>
+ <div class="footer-bottom">
+ <p>© 2026 Tập Đoàn Nông Nghiệp AGVN Group — Quy trình canh tác giống Japonica DS1 — Thiết kế chuyên nghiệp vì nhà nông.</p>
+ </div>
+</footer>
+
+<div class="floating-buttons">
+ <a href="tel:0969882442" class="float-btn float-phone" title="Gọi ngay tư vấn kỹ thuật"><i class="fa-solid fa-phone"></i></a>
+ <a href="https://zalo.me/0969882442" target="_blank" class="float-btn float-zalo" title="Chat qua Zalo"><span style="font-size:0.75rem;font-weight:bold;letter-spacing:-0.5px;">ZALO</span></a>
+ <a href="https://m.me/agvngroup" target="_blank" class="float-btn float-messenger" title="Chat qua Facebook Messenger"><i class="fa-brands fa-facebook-messenger"></i></a>
+</div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+AOS.init({duration:1000,once:true});
+function toggleMenu(){var m=document.getElementById('navMenu');m.classList.toggle('open');var i=document.querySelector('.hamburger i');i.classList.toggle('fa-bars');i.classList.toggle('fa-times');}
+document.getElementById('navMenu').addEventListener('click',function(e){if(e.target.tagName==='A'&&!e.target.classList.contains('nav-dropdown-toggle')){this.classList.remove('open');var i=document.querySelector('.hamburger i');if(i){i.classList.remove('fa-times');i.classList.add('fa-bars');}}});
+(function(){var t=document.querySelectorAll('.nav-dropdown-toggle');t.forEach(function(toggle){var menu=toggle.nextElementSibling;if(toggle&&menu){toggle.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();t.forEach(function(ot){if(ot!==toggle){ot.classList.remove('active');if(ot.nextElementSibling)ot.nextElementSibling.classList.remove('show');}});menu.classList.toggle('show');toggle.classList.toggle('active');});}});document.addEventListener('click',function(e){t.forEach(function(toggle){if(!toggle.parentElement.contains(e.target)){var menu=toggle.nextElementSibling;if(menu)menu.classList.remove('show');toggle.classList.remove('active');}});});})();
+function scrollToSection(id,btn){var target=document.getElementById(id);if(target){var offset=140;var targetPosition=target.getBoundingClientRect().top+window.pageYOffset-offset;window.scrollTo({top:targetPosition,behavior:'smooth'});document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');}}
+</script>
+</body>
+</html>
