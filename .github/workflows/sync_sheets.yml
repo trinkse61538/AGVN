@@ -3,44 +3,40 @@ name: Đồng bộ sản phẩm & tin tức từ Google Sheet
 on:
   push:
     branches:
-      - main     # Tự chạy khi bạn update code/giao diện web chính
+      - main
   schedule:
-    - cron: '0 * * * *'  # Tự động quét và cập nhật từ Google Sheet sau mỗi 1 tiếng
-  workflow_dispatch:   # Tạo nút bấm thủ công trên GitHub khi bạn muốn cập nhật ngay lập tức
+    - cron: '0 * * * *'
+  workflow_dispatch:
 
 jobs:
-  build-and-deploy:
+  sync-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-    # 1. Kéo toàn bộ code hiện tại về máy ảo GitHub
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    # 2. Cài đặt môi trường chạy Javascript (Node.js)
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '24'
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '23'
 
-    # 3. Chạy lệnh sinh file tự động (sản phẩm + tin tức)
-    - name: Generate All Pages
-      run: node generate.js
+      - name: Generate All Pages
+        run: node generate.js
 
-    # 4. Commit và đẩy toàn bộ file mới lên repo
-    - name: Commit và Đẩy lên GitHub Pages
-      run: |
-        git config --global user.name "AGVN Automation Bot"
-        git config --global user.email "actions@github.com"
-        
-        # Thêm toàn bộ file được sinh ra
-        git add san-pham/*.html
-        git add tin-tuc/*.html
-        git add tintuc.html
-        
-        if ! git diff --cached --quiet; then
-          git commit -m "Hệ thống: Tự động đồng bộ sản phẩm & tin tức từ Google Sheet [skip ci]"
-          git push origin HEAD:main
-        else
-          echo "✅ Không có thay đổi mới từ Google Sheet."
-        fi
+      - name: Commit và Push
+        run: |
+          git config --global user.name "AGVN Automation Bot"
+          git config --global user.email "bot@agvngroup.com"
+
+          git add -f san-pham/*.html 2>/dev/null || true
+          git add -f tin-tuc/*.html 2>/dev/null || true
+          git add -f tintuc.html 2>/dev/null || true
+
+          if git diff --cached --quiet; then
+            echo "✅ Không có thay đổi mới từ Google Sheet"
+          else
+            git commit -m "Tự động đồng bộ sản phẩm & tin tức từ Google Sheet"
+            git push origin HEAD:main
+            echo "✅ Đã push thay đổi lên GitHub"
+          fi
