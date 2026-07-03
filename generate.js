@@ -196,9 +196,8 @@ async function buildNews() {
 
     const detailTemplate = fs.readFileSync(newsDetailTemplatePath, 'utf8');
 
-    // === Bước 1: Sinh trang chi tiết cho từng bài ===
-    let cardsHtml = '';
-    let articleCount = 0;
+    // === Bước 1: Xử lý từng bài (sinh trang chi tiết + thu thập dữ liệu) ===
+    let articleData = [];  // lưu toàn bộ dữ liệu bài viết để dùng sau
 
     articles.forEach((article) => {
       const date     = (article['Date']     || '').trim();
@@ -215,7 +214,6 @@ async function buildNews() {
 
       // Bỏ qua dòng trống
       if (!title || !slug) return;
-      articleCount++;
 
       const tagInfo  = TAG_MAP[tag] || { label: tag || 'Tin Tức', color: '#666' };
       const finalImg = imgUrl || 'https://raw.githubusercontent.com/trinkse61538/AGVN/main/images/bonglua.png';
@@ -246,36 +244,83 @@ async function buildNews() {
       fs.writeFileSync(detailPath, detailHtml, 'utf8');
       console.log(`  📄 Đã tạo: tin-tuc/${slug}.html — ${title}`);
 
-      // === Sinh card cho danh sách ===
+      // Lưu dữ liệu để dùng cho danh sách
+      articleData.push({ date, title, excerpt, finalImg, tag, slug, author, tagInfo, encodedTitle });
+    });
+
+    const totalArticles = articleData.length;
+    if (totalArticles === 0) {
+      console.log('⚠️ Không có bài viết hợp lệ để hiển thị.');
+      return;
+    }
+
+    // === Bước 2: Render dữ liệu vào template ===
+    // Bài mới nhất = dòng cuối sheet (do người dùng thêm ở cuối)
+    const latest = articleData[totalArticles - 1];
+
+    // Card Hero cho bài mới nhất ({{LatestArticle}})
+    const latestHtml = `
+            <div class="latest-card" data-aos="fade-up">
+                <div class="latest-card-img">
+                    <img src="${latest.finalImg}" alt="${latest.encodedTitle}" loading="lazy">
+                </div>
+                <div class="latest-card-body">
+                    <span class="latest-tag" style="background:${latest.tagInfo.color};">${latest.tagInfo.label}</span>
+                    <h3 class="latest-title">${latest.title}</h3>
+                    <p class="latest-excerpt">${latest.excerpt}</p>
+                    <div class="latest-meta">
+                        <span><i class="fa-regular fa-calendar"></i> ${latest.date}</span>
+                        <span><i class="fa-regular fa-user"></i> ${latest.author}</span>
+                    </div>
+                    <a href="/tin-tuc/${latest.slug}.html" class="latest-readmore">
+                        Đọc thêm <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>`;
+
+    // Các bài còn lại (trừ bài mới nhất) → grid, đảo ngược thứ tự (mới nhất lên đầu)
+    const gridArticles = articleData.slice(0, -1).reverse();
+    let cardsHtml = '';
+    gridArticles.forEach((a) => {
       cardsHtml += `
-                    <article class="news-card" data-category="${tag}">
+                    <article class="news-card" data-category="${a.tag}">
                         <div class="news-card-img">
-                            <img src="${finalImg}" alt="${encodedTitle}" loading="lazy">
-                            <span class="news-card-date"><i class="fa-regular fa-calendar"></i> ${date}</span>
-                            <span class="news-card-tag" style="background:${tagInfo.color};">${tagInfo.label}</span>
+                            <img src="${a.finalImg}" alt="${a.encodedTitle}" loading="lazy">
+                            <span class="news-card-date"><i class="fa-regular fa-calendar"></i> ${a.date}</span>
+                            <span class="news-card-tag" style="background:${a.tagInfo.color};">${a.tagInfo.label}</span>
                         </div>
                         <div class="news-card-body">
-                            <h3 class="news-card-title">${title}</h3>
-                            <p class="news-card-excerpt">${excerpt}</p>
+                            <h3 class="news-card-title">${a.title}</h3>
+                            <p class="news-card-excerpt">${a.excerpt}</p>
                             <div class="news-card-meta">
-                                <span><i class="fa-regular fa-user"></i> ${author}</span>
-                                <a href="/tin-tuc/${slug}.html" class="news-card-link">Đọc tiếp <i class="fa-solid fa-arrow-right"></i></a>
+                                <span><i class="fa-regular fa-user"></i> ${a.author}</span>
+                                <a href="/tin-tuc/${a.slug}.html" class="news-card-link">Đọc tiếp <i class="fa-solid fa-arrow-right"></i></a>
                             </div>
                         </div>
                     </article>`;
     });
 
-    // === Bước 2: Cập nhật danh sách tintuc.html ===
+    // === Bước 3: Ghi template ===
     let listTemplate = fs.readFileSync(newsListTemplatePath, 'utf8');
+    let modified = false;
+
+    if (listTemplate.includes('{{LatestArticle}}')) {
+      listTemplate = listTemplate.replace('{{LatestArticle}}', latestHtml);
+      modified = true;
+    }
 
     if (listTemplate.includes('{{NewsItems}}')) {
-      // Chỉ thay {{NewsItems}} bằng cardsHtml (không bọc thêm news-grid vì template đã có sẵn)
-      const result = listTemplate.replace('{{NewsItems}}', cardsHtml);
-      fs.writeFileSync(newsListTemplatePath, result, 'utf8');
-      console.log(`\n✅ Đã sinh ${articleCount} bài viết chi tiết vào thư mục tin-tuc/`);
-      console.log(`✅ Đã cập nhật ${articleCount} card tin tức vào tintuc.html`);
+      listTemplate = listTemplate.replace('{{NewsItems}}', cardsHtml);
+      modified = true;
+    }
+
+    if (modified) {
+      fs.writeFileSync(newsListTemplatePath, listTemplate, 'utf8');
+      console.log(`\n✅ Đã sinh ${totalArticles} bài viết chi tiết vào thư mục tin-tuc/`);
+      console.log(`✅ Bài mới nhất: "${latest.title}" (dòng cuối sheet)`);
+      console.log(`✅ Cập nhật ${gridArticles.length} card vào grid tintuc.html`);
     } else {
-      console.log('⚠️ Không tìm thấy {{NewsItems}} trong tintuc.html');
+      console.log('⚠️ Không tìm thấy {{LatestArticle}} hoặc {{NewsItems}} trong tintuc.html');
     }
 
   } catch (error) {
