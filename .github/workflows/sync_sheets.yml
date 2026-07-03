@@ -1,4 +1,4 @@
-name: Đồng bộ sản phẩm từ Google Sheet
+name: Đồng bộ sản phẩm & tin tức từ Google Sheet
 
 on:
   push:
@@ -23,21 +23,24 @@ jobs:
       with:
         node-version: '24'
 
-    # 3. Chạy lệnh sinh file sản phẩm tự động
-    - name: Generate Product Pages
+    # 3. Chạy lệnh sinh file tự động (sản phẩm + tin tức)
+    - name: Generate All Pages
       run: node generate.js
 
-    # 4. Kiểm tra xem có file nào mới hoặc thay đổi không, nếu có thì commit đẩy ngược lại Repo
-    - name: Commit và Đẩy file sản phẩm lên GitHub Pages
+    # 4. Commit và đẩy toàn bộ file mới lên repo
+    - name: Commit và Đẩy lên GitHub Pages
       run: |
         git config --global user.name "AGVN Automation Bot"
         git config --global user.email "actions@github.com"
-        git add san-pham/*.html
         
-        # Chỉ làm việc khi có sự thay đổi dữ liệu
+        # Thêm toàn bộ file được sinh ra
+        git add san-pham/*.html
+        git add tin-tuc/*.html
+        git add tintuc.html
+        
         if ! git diff --cached --quiet; then
-          git commit -m "Hệ thống: Tự động đồng bộ sản phẩm từ Google Sheet [skip ci]"
+          git commit -m "Hệ thống: Tự động đồng bộ sản phẩm & tin tức từ Google Sheet [skip ci]"
           git push origin HEAD:main
         else
-          echo "Không có sản phẩm mới hoặc thay đổi nào từ Google Sheet."
+          echo "✅ Không có thay đổi mới từ Google Sheet."
         fi
