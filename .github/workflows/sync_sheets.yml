@@ -8,21 +8,12 @@ on:
     - cron: '0 * * * *'
   workflow_dispatch:
 
-# Quyền deploy lên GitHub Pages
 permissions:
   contents: write
-  pages: write
-  id-token: write
-
-# Chỉ cho phép 1 deployment chạy 1 lúc
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
 
 jobs:
   sync-and-deploy:
     runs-on: ubuntu-latest
-    environment: github-pages
 
     steps:
       - name: Checkout repository
@@ -53,11 +44,10 @@ jobs:
             echo "✅ Đã push thay đổi lên GitHub"
           fi
 
-      - name: Upload Pages Artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: '.'
-
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .
+          user_name: "AGVN Automation Bot"
+          user_email: "bot@agvngroup.com"
