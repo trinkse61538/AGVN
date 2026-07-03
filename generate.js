@@ -267,11 +267,10 @@ async function buildNews() {
 
     // === Bước 2: Cập nhật danh sách tintuc.html ===
     let listTemplate = fs.readFileSync(newsListTemplatePath, 'utf8');
-    const newsGridHtml = `<div class="news-grid" data-aos="fade-up">${cardsHtml}
-                </div>`;
 
     if (listTemplate.includes('{{NewsItems}}')) {
-      const result = listTemplate.replace('{{NewsItems}}', newsGridHtml);
+      // Chỉ thay {{NewsItems}} bằng cardsHtml (không bọc thêm news-grid vì template đã có sẵn)
+      const result = listTemplate.replace('{{NewsItems}}', cardsHtml);
       fs.writeFileSync(newsListTemplatePath, result, 'utf8');
       console.log(`\n✅ Đã sinh ${articleCount} bài viết chi tiết vào thư mục tin-tuc/`);
       console.log(`✅ Đã cập nhật ${articleCount} card tin tức vào tintuc.html`);
