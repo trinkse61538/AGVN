@@ -412,12 +412,61 @@
  .process-card { padding: 15px; margin-bottom: 25px; border-radius: 12px; }
  .process-header-block h3 { font-size: 1.25rem; }
  
- /* Bảng dữ liệu tự động cho phép cuộn ngang để KHÔNG BỊ ẨN NỘI DUNG */
- .tech-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
- .tech-table th, .tech-table td { padding: 10px; font-size: 0.8rem; min-width: 120px; }
- .tech-table th:nth-child(1), .tech-table td:nth-child(1) { min-width: 40px; }
- .tech-table th:nth-child(4), .tech-table td:nth-child(4),
- .tech-table th:nth-child(5), .tech-table td:nth-child(5) { min-width: 220px; }
+ /* ── TỐI ƯU BẢNG BIẾN THÀNH CARD TRÊN MOBILE TRÁNH KÉO QUA LẠI ── */
+ .tech-table, .tech-table thead, .tech-table tbody, .tech-table th, .tech-table td, .tech-table tr { 
+ display: block; 
+ width: 100% !important;
+ }
+ .tech-table thead { 
+ display: none; /* Ẩn tiêu đề bảng truyền thống */
+ }
+ .tech-table tr {
+ background: #ffffff !important;
+ border: 1px solid #edf5e8;
+ border-radius: 12px;
+ padding: 15px;
+ margin-bottom: 18px;
+ box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+ }
+ .tech-table td {
+ padding: 8px 0;
+ border-bottom: 1px dashed #f0fdf4;
+ font-size: 0.9rem;
+ position: relative;
+ text-align: left;
+ }
+ .tech-table td:last-child {
+ border-bottom: none;
+ }
+ /* Tạo nhãn tiêu đề động ở trước nội dung bằng CSS */
+ .tech-table td::before {
+ content: attr(data-label);
+ display: block;
+ font-weight: 700;
+ color: #555;
+ font-size: 0.8rem;
+ text-transform: uppercase;
+ margin-bottom: 4px;
+ }
+ /* Định dạng lại cột số thứ tự và nhãn giai đoạn cho gọn đẹp */
+ .tech-table td:nth-child(1) {
+ display: inline-flex;
+ align-items: center;
+ width: auto !important;
+ border-bottom: none;
+ padding-right: 5px;
+ }
+ .tech-table td:nth-child(1)::before { display: none; }
+ .tech-table td:nth-child(2) {
+ display: inline-flex;
+ align-items: center;
+ width: auto !important;
+ border-bottom: none;
+ }
+ .tech-table td:nth-child(2)::before { display: none; }
+ .tech-table td:nth-child(3) {
+ clear: both;
+ }
  
  .hero-page { padding: 40px 15px; }
  .hero-page h1 { font-size: 1.6rem; line-height: 1.3; }
@@ -436,7 +485,7 @@
  
  .footer-grid { grid-template-columns: 1fr; gap: 30px; }
  .floating-buttons { right: 16px; bottom: 16px; gap: 10px; }
- .float-btn { width: 48px; height: 48px; font-size: 1.3rem; }
+ .float-btn { width: 48px; height: 48px; font-size: 1.25rem; }
  body::before, body::after { width: 70px; opacity: 0.04; }
  body::before { left: 0; }
  body::after { right: 0; }
@@ -449,9 +498,8 @@
  
 html,body{width:100%;max-width:100%;overflow-x:hidden;}
 .process-card{overflow:hidden;}
-.table-wrapper{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;}
-.table-wrapper::-webkit-scrollbar{height:5px;}
-@media(max-width:768px){.tech-table{width:max-content;min-width:100%;display:table!important;}.floating-buttons{right:max(10px,env(safe-area-inset-right));bottom:max(12px,env(safe-area-inset-bottom));gap:8px;}.float-btn{width:48px;height:48px;font-size:1.25rem;}}
+.table-wrapper{width:100%;}
+@media(max-width:768px){.floating-buttons{right:max(10px,env(safe-area-inset-right));bottom:max(12px,env(safe-area-inset-bottom));gap:8px;}.float-btn{width:48px;height:48px;font-size:1.25rem;}}
 </style>
 </head>
 <body>
@@ -570,76 +618,76 @@ html,body{width:100%;max-width:100%;overflow-x:hidden;}
  </thead>
  <tbody>
  <tr>
- <td><span class="stage-num">1</span></td>
- <td><span class="stage-badge stage-badge-fertilizer">Bón Lót</span></td>
- <td>Trước sạ<br><small>(trục trạc lần cuối)</small></td>
- <td><a href="https://agvngroup.com/san-pham/humic-zn.html" target="_blank" style="text-decoration:none;"><span class="product-inline">HUMIC Zn++</span></a> (bón gốc hoặc phun)<br></td>
- <td>Hạ phèn, giải độc hữu cơ, tơi xốp đất, tạo môi trường thuận lợi cho hạt mầm ra rễ mới.</td>
- <td>Nên kết hợp với vôi nếu đất phèn nặng</td>
+ <td data-label="#"><span class="stage-num">1</span></td>
+ <td data-label="Giai đoạn"><span class="stage-badge stage-badge-fertilizer">Bón Lót</span></td>
+ <td data-label="Ngày (NSS)">Trước sạ<br><small>(trục trạc lần cuối)</small></td>
+ <td data-label="Sản phẩm AGVN"><a href="https://agvngroup.com/san-pham/humic-zn.html" target="_blank" style="text-decoration:none;"><span class="product-inline">HUMIC Zn++</span></a> (bón gốc hoặc phun)<br></td>
+ <td data-label="Công dụng & Hiệu quả">Hạ phèn, giải độc hữu cơ, tơi xốp đất, tạo môi trường thuận lợi cho hạt mầm ra rễ mới.</td>
+ <td data-label="Lưu ý">Nên kết hợp with vôi nếu đất phèn nặng</td>
  </tr>
  <tr>
- <td><span class="stage-num">2</span></td>
- <td><span class="stage-badge stage-badge-fertilizer">Đẻ nhánh sớm<br>Đợt 1</span></td>
- <td>15 – 20 NSS</td>
- <td><span class="product-inline">HUMIC TOMA</span> 10 kg<br>Trộn chung URE / NPK<br></td>
- <td>Ra rễ mạnh, cắm sâu, nhiều lông hút. Giải độc hữu cơ, giải quyết bướu rễ. Đẻ nhánh sớm, cứng cây, đứng lá. Lá màu tranh, không phượt lá.</td>
- <td>Giảm 20-25 kg phân DAP + KALI so với thông thường</td>
+  <td data-label="#"><span class="stage-num">2</span></td>
+  <td data-label="Giai đoạn"><span class="stage-badge stage-badge-fertilizer">Đẻ nhánh sớm<br>Đợt 1</span></td>
+  <td data-label="Ngày (NSS)">15 – 20 NSS</td>
+  <td data-label="Sản phẩm AGVN"><span class="product-inline">HUMIC TOMA</span> 10 kg<br>Trộn chung URE / NPK<br></td>
+  <td data-label="Công dụng & Hiệu quả">Ra rễ mạnh, cắm sâu, nhiều lông hút. Giải độc hữu cơ, giải quyết bướu rễ. Đẻ nhánh sớm, cứng cây, đứng lá. Lá màu tranh, không phượt lá.</td>
+  <td data-label="Lưu ý">Giảm 20-25 kg phân DAP + KALI so với thông thường</td>
  </tr>
  <tr>
- <td><span class="stage-num">3</span></td>
- <td><span class="stage-badge stage-badge-spray">Phun đẻ nhánh sớm</span></td>
- <td>15 – 20 NSS</td>
- <td><span class="product-inline">TOMA AMINO</span> 1 chai 500ml + <a href="https://agvngroup.com/san-pham/diet-chich-hut.html" target="_blank" style="text-decoration:none;"><span class="product-inline-spray">Diệt Chích Hút</span></a> 1 chai 240ml</td>
- <td>Phát triển bộ rễ cực mạnh, chống phèn, ngộ độc hữu cơ. Nở bụi mạnh, xanh lá, nhẹ phân. Quản lý sớm rầy nâu, bọ trĩ, muỗi hại giai đoạn mạ.</td>
- <td>Phun chung with thuốc cỏ — không giảm tác dụng, giúp cỏ chết nhanh hơn</td>
+  <td data-label="#"><span class="stage-num">3</span></td>
+  <td data-label="Giai đoạn"><span class="stage-badge stage-badge-spray">Phun đẻ nhánh sớm</span></td>
+  <td data-label="Ngày (NSS)">15 – 20 NSS</td>
+  <td data-label="Sản phẩm AGVN"><span class="product-inline">TOMA AMINO</span> 1 chai 500ml + <a href="https://agvngroup.com/san-pham/diet-chich-hut.html" target="_blank" style="text-decoration:none;"><span class="product-inline-spray">Diệt Chích Hút</span></a> 1 chai 240ml</td>
+  <td data-label="Công dụng & Hiệu quả">Phát triển bộ rễ cực mạnh, chống phèn, ngộ độc hữu cơ. Nở bụi mạnh, xanh lá, nhẹ phân. Quản lý sớm rầy nâu, bọ trĩ, muỗi hại giai đoạn mạ.</td>
+  <td data-label="Lưu ý">Phun chung with thuốc cỏ — không giảm tác dụng, giúp cỏ chết nhanh hơn</td>
  </tr>
  <tr>
- <td><span class="stage-num">4</span></td>
- <td><span class="stage-badge stage-badge-fertilizer">Đẻ nhánh tập trung<br>Đợt 2</span></td>
- <td>25 – 30 NSS</td>
- <td><span class="product-inline">HUMIC TOMA</span> 10 kg<br>Trộn chung URE / DAP / KALI / NPK</td>
- <td>Lúa đẻ nhánh tập trung, cứng cây, đứng lá. Tăng khả năng chống chịu sâu bệnh. Cây con lớn nhanh theo kịp cây mẹ. Giải quyết bướu rễ do ngộ độc hữu cơ.</td>
- <td>Giảm 20-25 kg phân tuỳ chân ruộng. Cầm phân lâu hơn</td>
+  <td data-label="#"><span class="stage-num">4</span></td>
+  <td data-label="Giai đoạn"><span class="stage-badge stage-badge-fertilizer">Đẻ nhánh tập trung<br>Đợt 2</span></td>
+  <td data-label="Ngày (NSS)">25 – 30 NSS</td>
+  <td data-label="Sản phẩm AGVN"><span class="product-inline">HUMIC TOMA</span> 10 kg<br>Trộn chung URE / DAP / KALI / NPK</td>
+  <td data-label="Công dụng & Hiệu quả">Lúa đẻ nhánh tập trung, cứng cây, đứng lá. Tăng khả năng chống chịu sâu bệnh. Cây con lớn nhanh theo kịp cây mẹ. Giải quyết bướu rễ do ngộ độc hữu cơ.</td>
+  <td data-label="Lưu ý">Giảm 20-25 kg phân tuỳ chân ruộng. Cầm phân lâu hơn</td>
  </tr>
  <tr>
- <td><span class="stage-num">5</span></td>
- <td><span class="stage-badge stage-badge-spray">Phun đẻ nhánh<br>tập trung</span></td>
- <td>30 – 35 NSS</td>
- <td><span class="product-inline">TOMA AMINO</span> 1 chai 500ml + <a href="https://agvngroup.com/san-pham/xong-hoi-b52.html" target="_blank" style="text-decoration:none;"><span class="product-inline-spray">XÔNG HƠI B52</span></a> 1 chai 450ml</td>
- <td>Kích thích rễ mạnh, hạ phèn, hấp thu tối đa phân bón, tăng đẻ nhánh, mập cây, xanh bền. Xông hơi cực mạnh phòng trừ sâu ăn lá, đục thân, rầy, muỗi hành, bọ trĩ.</td>
- <td>Kết hợp phòng ngừa sớm sâu bệnh theo tiêu chí nhẹ phân</td>
+  <td data-label="#"><span class="stage-num">5</span></td>
+  <td data-label="Giai đoạn"><span class="stage-badge stage-badge-spray">Phun đẻ nhánh<br>tập trung</span></td>
+  <td data-label="Ngày (NSS)">30 – 35 NSS</td>
+  <td data-label="Sản phẩm AGVN"><span class="product-inline">TOMA AMINO</span> 1 chai 500ml + <a href="https://agvngroup.com/san-pham/xong-hoi-b52.html" target="_blank" style="text-decoration:none;"><span class="product-inline-spray">XÔNG HƠI B52</span></a> 1 chai 450ml</td>
+  <td data-label="Công dụng & Hiệu quả">Kích thích rễ mạnh, hạ phèn, hấp thu tối đa phân bón, tăng đẻ nhánh, mập cây, xanh bền. Xông hơi cực mạnh phòng trừ sâu ăn lá, đục thân, rầy, muỗi hành, bọ trĩ.</td>
+  <td data-label="Lưu ý">Kết hợp phòng ngừa sớm sâu bệnh theo tiêu chí nhẹ phân</td>
  </tr>
  <tr>
- <td><span class="stage-num">6</span></td>
- <td><span class="stage-badge stage-badge-fertilizer">Nuôi chồi tập trung</span></td>
- <td>45 – 50 NSS</td>
- <td><a href="https://agvngroup.com/san-pham/lun-luc.html" target="_blank" style="text-decoration:none;"><span class="product-inline-reg">LÙN LỰC</span></a> 300ml + <a href="https://agvngroup.com/san-pham/xong-hoi-b52.html" target="_blank" style="text-decoration:none;"><span class="product-inline-spray">XÔNG HƠI B52</span></a> 450ml + <a href="https://agvngroup.com/san-pham/anwn-zn-an-do.html" target="_blank" style="text-decoration:none;"><span class="product-inline">ANWIN KẼM</span></a> 1 lít</td>
- <td>Cứng cây, ngắn thân rạ, lá đứng, tuột lá ủ, ngắn lóng. Phòng ngừa sâu bệnh bên trong, đạo ôn, khô vằn, đốm vằn, đốm nâu. Giữ bộ lá xanh khỏe.</td>
- <td>Kết hợp các loại thuốc theo tiêu chí tăng chồi hữu hiệu</td>
+  <td data-label="#"><span class="stage-num">6</span></td>
+  <td data-label="Giai đoạn"><span class="stage-badge stage-badge-fertilizer">Nuôi chồi tập trung</span></td>
+  <td data-label="Ngày (NSS)">45 – 50 NSS</td>
+  <td data-label="Sản phẩm AGVN"><a href="https://agvngroup.com/san-pham/lun-luc.html" target="_blank" style="text-decoration:none;"><span class="product-inline-reg">LÙN LỰC</span></a> 300ml + <a href="https://agvngroup.com/san-pham/xong-hoi-b52.html" target="_blank" style="text-decoration:none;"><span class="product-inline-spray">XÔNG HƠI B52</span></a> 450ml + <a href="https://agvngroup.com/san-pham/anwn-zn-an-do.html" target="_blank" style="text-decoration:none;"><span class="product-inline">ANWIN KẼM</span></a> 1 lít</td>
+  <td data-label="Công dụng & Hiệu quả">Cứng cây, ngắn thân rạ, lá đứng, tuột lá ủ, ngắn lóng. Phòng ngừa sâu bệnh bên trong, đạo ôn, khô vằn, đốm vằn, đốm nâu. Giữ bộ lá xanh khỏe.</td>
+  <td data-label="Lưu ý">Kết hợp các loại thuốc theo tiêu chí tăng chồi hữu hiệu</td>
  </tr>
  <tr>
- <td><span class="stage-num">7</span></td>
- <td><span class="stage-badge stage-badge-fertilizer">Bón đón đòng</span></td>
- <td>55 – 60 NSS</td>
- <td><a href="https://agvngroup.com/san-pham/humic-zn.html" target="_blank" style="text-decoration:none;"><span class="product-inline">Humic Zn+ AGVN</span></a> 3 – 5 kg<br>Trộn chung URE / DAP / KALI / NPK (20-20-15, 16-16-8…)</td>
- <td>Ra bộ rễ mới, hấp thu tối đa phân bón. Giải quyết bướu rễ, cứng cây, nuôi đòng to, tăng số hạt/bông. Dùng dư không phượt lá.</td>
- <td>Giảm 20-25 kg phân tuỳ chân ruộng. Cầm phân lâu hơn</td>
+  <td data-label="#"><span class="stage-num">7</span></td>
+  <td data-label="Giai đoạn"><span class="stage-badge stage-badge-fertilizer">Bón đón đòng</span></td>
+  <td data-label="Ngày (NSS)">55 – 60 NSS</td>
+  <td data-label="Sản phẩm AGVN"><a href="https://agvngroup.com/san-pham/humic-zn.html" target="_blank" style="text-decoration:none;"><span class="product-inline">Humic Zn+ AGVN</span></a> 3 – 5 kg<br>Trộn chung URE / DAP / KALI / NPK (20-20-15, 16-16-8…)</td>
+  <td data-label="Công dụng & Hiệu quả">Ra bộ rễ mới, hấp thu tối đa phân bón. Giải quyết bướu rễ, cứng cây, nuôi đòng to, tăng số hạt/bông. Dùng dư không phượt lá.</td>
+  <td data-label="Lưu ý">Giảm 20-25 kg phân tuỳ chân ruộng. Cầm phân lâu hơn</td>
  </tr>
  <tr>
- <td><span class="stage-num">8</span></td>
- <td><span class="stage-badge stage-badge-fertilizer">Nuôi hạt chắc<br>tới cậy</span></td>
- <td>Sau trổ đều – chín sáp</td>
- <td><a href="https://agvngroup.com/san-pham/hat-vang.html" target="_blank" style="text-decoration:none;"><span class="product-inline">HẠT VÀNG</span></a> 500ml + <a href="https://agvngroup.com/san-pham/number-one.html" target="_blank" style="text-decoration:none;"><span class="product-inline">NUMBER ONE</span></a> (10 gói × 20ml)</td>
- <td>Vô gạo thần tốc, hạt vàng sáng chắc đến tận cậy. Giữ bộ lá đòng xanh bền, lúa nặng ký. Ức chế Ethylen, làm chậm chín, tăng vô gạo tối đa.</td>
- <td>Phun trước thu hoạch 15-18 ngày</td>
+  <td data-label="#"><span class="stage-num">8</span></td>
+  <td data-label="Giai đoạn"><span class="stage-badge stage-badge-fertilizer">Nuôi hạt chắc<br>tới cậy</span></td>
+  <td data-label="Ngày (NSS)">Sau trổ đều – chín sáp</td>
+  <td data-label="Sản phẩm AGVN"><a href="https://agvngroup.com/san-pham/hat-vang.html" target="_blank" style="text-decoration:none;"><span class="product-inline">HẠT VÀNG</span></a> 500ml + <a href="https://agvngroup.com/san-pham/number-one.html" target="_blank" style="text-decoration:none;"><span class="product-inline">NUMBER ONE</span></a> (10 gói × 20ml)</td>
+  <td data-label="Công dụng & Hiệu quả">Vô gạo thần tốc, hạt vàng sáng chắc đến tận cậy. Giữ bộ lá đòng xanh bền, lúa nặng ký. Ức chế Ethylen, làm chậm chín, tăng vô gạo tối đa.</td>
+  <td data-label="Lưu ý">Phun trước thu hoạch 15-18 ngày</td>
  </tr>
  <tr>
- <td><span class="stage-num stage-num-harvest">9</span></td>
- <td><span class="stage-badge stage-badge-harvest">Trước thu hoạch</span></td>
- <td>15 – 18 ngày<br>trước cắt</td>
- <td><a href="https://agvngroup.com/san-pham/hat-vang.html" target="_blank" style="text-decoration:none;"><span class="product-inline">HẠT VÀNG</span></a> 500ml + <a href="https://agvngroup.com/san-pham/number-one.html" target="_blank" style="text-decoration:none;"><span class="product-inline">NUMBER ONE</span></a> (10 gói × 20ml) + <a href="https://agvngroup.com/san-pham/dac-tri-dao-on.html" target="_blank" style="text-decoration:none;"><span class="product-inline-spray">ĐẶC TRỊ ĐẠO ÔN</span></a> 3 gói × 100gr</td>
- <td>Lúa vô gạo nhanh, to hạt, tăng trọng lượng hạt, tăng năng suất. Quản lý sạch nấm bệnh: khô vằn, đốm vằn, đạo ôn cổ bông & nhánh gié.</td>
- <td>Đất gò/phèn: phun trước 15 ngày. Mưa nhiều: bổ sung thêm giai</td>
+  <td data-label="#"><span class="stage-num stage-num-harvest">9</span></td>
+  <td data-label="Giai đoạn"><span class="stage-badge stage-badge-harvest">Trước thu hoạch</span></td>
+  <td data-label="Ngày (NSS)">15 – 18 ngày<br>trước cắt</td>
+  <td data-label="Sản phẩm AGVN"><a href="https://agvngroup.com/san-pham/hat-vang.html" target="_blank" style="text-decoration:none;"><span class="product-inline">HẠT VÀNG</span></a> 500ml + <a href="https://agvngroup.com/san-pham/number-one.html" target="_blank" style="text-decoration:none;"><span class="product-inline">NUMBER ONE</span></a> (10 gói × 20ml) + <a href="https://agvngroup.com/san-pham/dac-tri-dao-on.html" target="_blank" style="text-decoration:none;"><span class="product-inline-spray">ĐẶC TRỊ ĐẠO ÔN</span></a> 3 gói × 100gr</td>
+  <td data-label="Công dụng & Hiệu quả">Lúa vô gạo nhanh, to hạt, tăng trọng lượng hạt, tăng năng suất. Quản lý sạch nấm bệnh: khô vằn, đốm vằn, đạo ôn cổ bông & nhánh gié.</td>
+  <td data-label="Lưu ý">Đất gò/phèn: phun trước 15 ngày. Mưa nhiều: bổ sung thêm giai</td>
  </tr>
  </tbody>
  </table>
@@ -825,7 +873,7 @@ html,body{width:100%;max-width:100%;overflow-x:hidden;}
  <ul>
  <li><a href="https://agvngroup.com/san-pham/number-one.html" target="_blank" style="text-decoration:none;"><span class="product-inline">NUMBER ONE</span></a> 10 gói × 20ml — ức chế Ethylen, chậm chín, giữ lá xanh lâu, vô gạo tối đa.</li>
  <li><a href="https://agvngroup.com/san-pham/hat-vang.html" target="_blank" style="text-decoration:none;"><span class="product-inline">HẠT VÀNG</span></a> 500ml — Kali hữu cơ Fulvate, vô gạo nhanh, to hạt, tăng trọng lượng.</li>
- <li><a href="https://agvngroup.com/san-pham/dac-tri-dao-on.html" target="_blank" style="text-decoration:none;"><span class="product-inline-spray">ĐẶC TRỊ ĐẠO ÔN</span></a> 3 gói × 100gr — quản lý sạch nấm: khô vằn, đốm vằn, đạo ôn cổ bông & nhánh gié.</li>
+ <li><a href="https://agvngroup.com/san-pham/dac-tri-dao-on.html" target="_blank" style="text-decoration:none;"><span class="product-inline-spray">ĐẠO ÔN PROMAX</span></a> 3 gói × 100gr — quản lý sạch nấm: khô vằn, đốm vằn, đạo ôn cổ bông & nhánh gié.</li>
  </ul>
  <p style="margin-top:6px;font-style:italic;color:#666;">→ Nếu thời tiết mưa nhiều/độ ẩm cao: bổ sung thêm giai. Đất gò/đất phèn: phun trước khi cắt 15 ngày.</p>
  </div>
