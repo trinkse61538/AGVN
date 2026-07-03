@@ -810,7 +810,23 @@
             <h2 class="section-title" data-aos="fade-up">TIN TỨC MỚI NHẤT</h2>
             
             <!-- PHẦN NÀY SẼ ĐƯỢC generate.js TỰ ĐỘNG THAY THẾ -->
-            <!-- Khi có Google Sheet, generate.js sẽ thay {{NewsItems}} bằng dữ liệu thật -->
+            <!-- Khi có Google Sheet, generate.js sẽ thay <div class="news-grid" data-aos="fade-up">
+                    <article class="news-card" data-category="">
+                        <div class="news-card-img">
+                            <img src="https://raw.githubusercontent.com/trinkse61538/AGVN/91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/XongHoiB52.jpg" alt="Nguyễn Khai Trí Test" loading="lazy">
+                            <span class="news-card-date"><i class="fa-regular fa-calendar"></i> 03/07/2026</span>
+                            <span class="news-card-tag" style="background:#666;">Tin Tức</span>
+                        </div>
+                        <div class="news-card-body">
+                            <h3 class="news-card-title">Nguyễn Khai Trí Test</h3>
+                            <p class="news-card-excerpt">Hãy xem thử cái này nhé</p>
+                            <div class="news-card-meta">
+                                <span><i class="fa-regular fa-user"></i> Trí Nguyễn</span>
+                                <a href="/tin-tuc/nguyen-khai-tri-test.html" class="news-card-link">Đọc tiếp <i class="fa-solid fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </article>
+                </div> bằng dữ liệu thật -->
             <!-- Nếu chưa có sheet, tintuc.html vẫn hiển thị đẹp với dữ liệu mẫu bên dưới -->
             <div class="news-grid" data-aos="fade-up">{{NewsItems}}
                     <article class="news-card" data-category="kythuat">
