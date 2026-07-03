@@ -446,7 +446,13 @@
  .process-header-block { flex-direction: row; align-items: center; gap: 10px; }
  .process-header-block i { font-size: 1.4rem; }
  }
- </style>
+ 
+html,body{width:100%;max-width:100%;overflow-x:hidden;}
+.process-card{overflow:hidden;}
+.table-wrapper{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.table-wrapper::-webkit-scrollbar{height:5px;}
+@media(max-width:768px){.tech-table{width:max-content;min-width:100%;display:table!important;}.floating-buttons{right:max(10px,env(safe-area-inset-right));bottom:max(12px,env(safe-area-inset-bottom));gap:8px;}.float-btn{width:48px;height:48px;font-size:1.25rem;}}
+</style>
 </head>
 <body>
 
@@ -475,7 +481,6 @@
  <li><a href="#lich-phun-thuoc">Lịch phun thuốc & BVTV</a></li>
  </ul>
  </li>
- <li><a href="https://agvngroup.com/#testimonials">Bà Con Nói Về AGVN</a></li>
  <li><a href="#footer">Liên Hệ</a></li>
  </ul>
  </div>
@@ -551,7 +556,8 @@
  <p class="section-subtitle" data-aos="fade-up">Quy trình bón phân hữu cơ sinh học AGVN giúp cải tạo đất, kích thích ra rễ mạnh, đẻ nhánh gọn, tối ưu năng suất và giảm chi phí đầu tư.</p>
  <div class="process-card" data-aos="fade-up">
  <div class="process-header-block"><i class="fa-solid fa-table-list"></i><h3>Bảng hướng dẫn chi tiết bón phân theo giai đoạn (Giống DS1)</h3></div>
- <table class="tech-table">
+ <div class="table-wrapper">
+<table class="tech-table">
  <thead>
  <tr>
  <th style="width:5%;">#</th>
@@ -637,6 +643,7 @@
  </tr>
  </tbody>
  </table>
+</div>
  <div class="note-box">
  <h4><i class="fa-solid fa-circle-exclamation"></i> Khuyến nghị kỹ thuật chung</h4>
  <ul>
