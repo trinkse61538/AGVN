@@ -67,7 +67,7 @@
             border-radius: 2px;
         }
 
-        /* ===== HEADER (giống index.html) ===== */
+        /* ===== HEADER ===== */
         header {
             background: var(--text-light);
             box-shadow: 0 2px 15px rgba(0,0,0,0.1);
@@ -179,7 +179,7 @@
         .filter-btn:hover { border-color:var(--secondary-color); color:var(--primary-color); }
         .filter-btn.active { background:var(--primary-color); border-color:var(--primary-color); color:#fff; }
 
-        /* ===== BÀI VIẾT MỚI NHẤT (Hero article) ===== */
+        /* ===== BÀI MỚI NHẤT (Hero) ===== */
         .latest-news {
             background: var(--bg-light);
             padding: 50px 20px;
@@ -292,7 +292,7 @@
             box-shadow: 0 6px 20px rgba(0,122,51,0.3);
         }
 
-        /* ===== LƯỚI TIN TỨC (dạng hình chữ nhật) ===== */
+        /* ===== LƯỚI TIN TỨC (hình chữ nhật 16:9) ===== */
         .news-section {
             background: #fff;
         }
@@ -322,7 +322,6 @@
             border-color: var(--secondary-color);
         }
 
-        /* Hình chữ nhật ngang (landscape 16:9) */
         .news-card-img {
             width: 100%;
             aspect-ratio: 16 / 9;
@@ -441,7 +440,7 @@
         .page-btn:hover { border-color:var(--primary-color); color:var(--primary-color); }
         .page-btn.active { background:var(--primary-color); border-color:var(--primary-color); color:#fff; }
 
-        /* ===== FOOTER (giống index.html) ===== */
+        /* ===== FOOTER ===== */
         footer {
             background: #11341a;
             color: #e0f2e5;
@@ -584,130 +583,22 @@
         </div>
     </div>
 
-    <!-- ===== BÀI VIẾT MỚI NHẤT (Hero) ===== -->
-    <!-- 
-            <div class="latest-card" data-aos="fade-up">
-                <div class="latest-card-img">
-                    <img src="https://raw.githubusercontent.com/trinkse61538/AGVN/91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/XongHoiB52.jpg" alt="nguyenkhai" loading="lazy">
-                </div>
-                <div class="latest-card-body">
-                    <span class="latest-tag" style="background:#8DC63F;">Hoạt Động</span>
-                    <h3 class="latest-title">nguyenkhai</h3>
-                    <p class="latest-excerpt">Hãy xem thử cái này nhé</p>
-                    <div class="latest-meta">
-                        <span><i class="fa-regular fa-calendar"></i> 03/07/2026</span>
-                        <span><i class="fa-regular fa-user"></i> Trí Nguyễn</span>
-                    </div>
-                    <a href="/tin-tuc/nguyenkhai.html" class="latest-readmore">
-                        Đọc thêm <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                </div>
-            </div> sẽ được generate.js thay thế bằng bài viết mới nhất từ Google Sheet -->
+    <!-- ===== BÀI MỚI NHẤT (Hero) ===== -->
+    <!-- generate.js sẽ thay {{LatestArticle}} bằng bài đầu tiên (dòng cuối sheet) -->
     <section class="latest-news" id="latestNews">
         <div class="container">
             <h2 class="section-title" data-aos="fade-up">BÀI VIẾT MỚI NHẤT</h2>
-            
-            <div class="latest-card" data-aos="fade-up">
-                <div class="latest-card-img">
-                    <img src="https://raw.githubusercontent.com/trinkse61538/AGVN/91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/XongHoiB52.jpg" alt="nguyenkhai" loading="lazy">
-                </div>
-                <div class="latest-card-body">
-                    <span class="latest-tag" style="background:#8DC63F;">Hoạt Động</span>
-                    <h3 class="latest-title">nguyenkhai</h3>
-                    <p class="latest-excerpt">Hãy xem thử cái này nhé</p>
-                    <div class="latest-meta">
-                        <span><i class="fa-regular fa-calendar"></i> 03/07/2026</span>
-                        <span><i class="fa-regular fa-user"></i> Trí Nguyễn</span>
-                    </div>
-                    <a href="/tin-tuc/nguyenkhai.html" class="latest-readmore">
-                        Đọc thêm <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
+            {{LatestArticle}}
         </div>
     </section>
 
-    <!-- ===== DANH SÁCH TIN TỨC (dạng hình chữ nhật) ===== -->
+    <!-- ===== DANH SÁCH TIN TỨC ===== -->
+    <!-- generate.js sẽ thay {{NewsItems}} bằng các card từ sheet (trừ bài mới nhất) -->
     <section class="news-section" id="newsList">
         <div class="container">
             <h2 class="section-title" data-aos="fade-up">TIN TỨC KHÁC</h2>
             <div class="news-grid" data-aos="fade-up">
-                
-                    <article class="news-card" data-category="kienthuc">
-                        <div class="news-card-img">
-                            <img src="https://raw.githubusercontent.com/trinkse61538/AGVN/91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/XongHoiB52.jpg" alt="Nguyễn Khai Trí Test" loading="lazy">
-                            <span class="news-card-date"><i class="fa-regular fa-calendar"></i> 03/07/2026</span>
-                            <span class="news-card-tag" style="background:#007A33;">Kiến Thức</span>
-                        </div>
-                        <div class="news-card-body">
-                            <h3 class="news-card-title">Nguyễn Khai Trí Test</h3>
-                            <p class="news-card-excerpt">Hãy xem thử cái này nhé</p>
-                            <div class="news-card-meta">
-                                <span><i class="fa-regular fa-user"></i> Trí Nguyễn</span>
-                                <a href="/tin-tuc/nguyen-khai-tri-test.html" class="news-card-link">Đọc tiếp <i class="fa-solid fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="news-card" data-category="kythuat">
-                        <div class="news-card-img">
-                            <img src="https://raw.githubusercontent.com/trinkse61538/AGVN/91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/XongHoiB52.jpg" alt="Nguyen Van A" loading="lazy">
-                            <span class="news-card-date"><i class="fa-regular fa-calendar"></i> 03/07/2026</span>
-                            <span class="news-card-tag" style="background:#FFB81C;">Kỹ Thuật</span>
-                        </div>
-                        <div class="news-card-body">
-                            <h3 class="news-card-title">Nguyen Van A</h3>
-                            <p class="news-card-excerpt">Hãy xem thử cái này nhé</p>
-                            <div class="news-card-meta">
-                                <span><i class="fa-regular fa-user"></i> Trí Nguyễn</span>
-                                <a href="/tin-tuc/nguyen-van-a.html" class="news-card-link">Đọc tiếp <i class="fa-solid fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="news-card" data-category="thanhcong">
-                        <div class="news-card-img">
-                            <img src="https://raw.githubusercontent.com/trinkse61538/AGVN/91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/XongHoiB52.jpg" alt="Toi Muon Test" loading="lazy">
-                            <span class="news-card-date"><i class="fa-regular fa-calendar"></i> 03/07/2026</span>
-                            <span class="news-card-tag" style="background:#FF4D4D;">Thành Công</span>
-                        </div>
-                        <div class="news-card-body">
-                            <h3 class="news-card-title">Toi Muon Test</h3>
-                            <p class="news-card-excerpt">Hãy xem thử cái này nhé</p>
-                            <div class="news-card-meta">
-                                <span><i class="fa-regular fa-user"></i> Trí Nguyễn</span>
-                                <a href="/tin-tuc/toi-muon-test.html" class="news-card-link">Đọc tiếp <i class="fa-solid fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="news-card" data-category="sanpham">
-                        <div class="news-card-img">
-                            <img src="https://raw.githubusercontent.com/trinkse61538/AGVN/91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/XongHoiB52.jpg" alt="day la" loading="lazy">
-                            <span class="news-card-date"><i class="fa-regular fa-calendar"></i> 03/07/2026</span>
-                            <span class="news-card-tag" style="background:#00A896;">Sản Phẩm</span>
-                        </div>
-                        <div class="news-card-body">
-                            <h3 class="news-card-title">day la</h3>
-                            <p class="news-card-excerpt">Hãy xem thử cái này nhé</p>
-                            <div class="news-card-meta">
-                                <span><i class="fa-regular fa-user"></i> Trí Nguyễn</span>
-                                <a href="/tin-tuc/day-la.html" class="news-card-link">Đọc tiếp <i class="fa-solid fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="news-card" data-category="hoatdong">
-                        <div class="news-card-img">
-                            <img src="https://raw.githubusercontent.com/trinkse61538/AGVN/91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/XongHoiB52.jpg" alt="nguyenkhai" loading="lazy">
-                            <span class="news-card-date"><i class="fa-regular fa-calendar"></i> 03/07/2026</span>
-                            <span class="news-card-tag" style="background:#8DC63F;">Hoạt Động</span>
-                        </div>
-                        <div class="news-card-body">
-                            <h3 class="news-card-title">nguyenkhai</h3>
-                            <p class="news-card-excerpt">Hãy xem thử cái này nhé</p>
-                            <div class="news-card-meta">
-                                <span><i class="fa-regular fa-user"></i> Trí Nguyễn</span>
-                                <a href="/tin-tuc/nguyenkhai.html" class="news-card-link">Đọc tiếp <i class="fa-solid fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </article>
+                {{NewsItems}}
             </div>
 
             <div class="pagination" data-aos="fade-up">
@@ -788,7 +679,6 @@
         function filterNews(category, btn) {
             document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
             btn.classList.add('active');
-
             var cards = document.querySelectorAll('.news-card');
             cards.forEach(function(card) {
                 if (category === 'all') { card.style.display = 'flex'; }
