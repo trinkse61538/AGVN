@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>day la - AGVN Group</title>
     
-    <link rel="icon" type="image/jpeg" href="https://raw.githubusercontent.com/trinkse61538/AGVN/c44d6fc7a5a0c4ad73e18c1bc6cf97cbd221bdf9/AGVN_Logo.jpg">
-    <link rel="shortcut icon" type="image/jpeg" href="https://raw.githubusercontent.com/trinkse61538/AGVN/c44d6fc7a5a0c4ad73e18c1bc6cf97cbd221bdf9/AGVN_Logo.jpg">
+    <link rel="icon" type="image/jpeg" href="https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@c44d6fc7a5a0c4ad73e18c1bc6cf97cbd221bdf9/AGVN_Logo.jpg">
+    <link rel="shortcut icon" type="image/jpeg" href="https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@c44d6fc7a5a0c4ad73e18c1bc6cf97cbd221bdf9/AGVN_Logo.jpg">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -293,6 +293,21 @@
             50% { box-shadow:0 0 20px 10px rgba(0,132,255,0); filter:brightness(1.3); }
         }
 
+
+        /* CDN + Lazy image handling */
+        .agvn-lazy-image {
+            background: #f0f7f0;
+        }
+        img[data-src] {
+            opacity: 0;
+            filter: blur(8px);
+        }
+        img.agvn-image-loaded {
+            opacity: 1;
+            filter: blur(0);
+            transition: opacity .35s ease, filter .35s ease, transform .5s ease;
+        }
+
         /* RESPONSIVE */
         @media (max-width:768px) {
             .nav-dropdown-menu { position:static; box-shadow:none; border:none; padding-left:15px; min-width:auto; }
@@ -358,7 +373,7 @@
     <!-- ARTICLE CONTENT -->
     <section class="article-section">
         <div class="article-wrapper">
-            <img src="https://raw.githubusercontent.com/trinkse61538/AGVN/91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/XongHoiB52.jpg" alt="day la" class="article-featured-img" loading="lazy">
+            <img data-src="https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/XongHoiB52.jpg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='675' viewBox='0 0 1200 675'%3E%3Crect width='1200' height='675' fill='%23f0f7f0'/%3E%3Cpath d='M540 305h120v65H540z' fill='%238DC63F' opacity='.32'/%3E%3Ccircle cx='600' cy='337' r='92' fill='%23007A33' opacity='.10'/%3E%3C/svg%3E" alt="day la" class="article-featured-img agvn-lazy-image" loading="lazy" decoding="async">
             <div class="article-content">
                 <p>Khi tìm hiểu về thị trường, một trong những câu hỏi nền tảng của kinh tế học là: Một trong những yếu tố ảnh hưởng đến cung là gì? Hiểu được điều này, bạn sẽ lý giải được vì sao giá hàng hóa phái sinh như cà phê, bạc hay đậu  lại biến động mạnh mỗi khi nguồn cung thay đổi. Nguồn cung (Supply) chịu tác động của nhiều yếu tố: Từ giá bán, chi phí sản xuất, công nghệ, chính sách cho tới thời tiết. Trong bài viết này, Anfin sẽ cùng bạn đi qua đầy đủ 8 yếu tố ảnh hưởng đến cung và quan trọng hơn, xem chúng vận hành thế nào trên thị trường hàng hóa thực tế. Cùng khám phá ngay!</p><p>1. Cung là gì? Quy luật cung và các khái niệm cần nắm<br>Trước khi đi vào các yếu tố tác động, bạn cần nắm chắc khái niệm gốc về cung. Đây là nền tảng giúp phân biệt vì sao có lúc lượng hàng bán ra thay đổi do giá, có lúc lại do những nguyên nhân hoàn toàn khác. Để có cái nhìn hệ thống, bạn có thể tham khảo thêm chuyên mục kiến thức đầu tư hàng hóa của Anfin.</p>
             </div>
@@ -430,6 +445,109 @@
         <a href="https://zalo.me/0969882442" target="_blank" class="float-btn float-zalo" title="Chat Zalo"><span style="font-size:0.75rem;font-weight:bold;letter-spacing:-0.5px;">ZALO</span></a>
         <a href="https://m.me/agvngroup" target="_blank" class="float-btn float-messenger" title="Chat Messenger"><i class="fa-brands fa-facebook-messenger"></i></a>
     </div>
+
+
+    <script>
+        /* AGVN image guard: CDN hóa GitHub Raw và lazy-load ảnh trong bài viết */
+        (function() {
+            var PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='675' viewBox='0 0 1200 675'%3E%3Crect width='1200' height='675' fill='%23f0f7f0'/%3E%3Cpath d='M540 305h120v65H540z' fill='%238DC63F' opacity='.32'/%3E%3Ccircle cx='600' cy='337' r='92' fill='%23007A33' opacity='.10'/%3E%3C/svg%3E";
+
+            function toCdn(url) {
+                if (!url || url.indexOf('{{') !== -1 || url.indexOf('data:') === 0 || url.indexOf('blob:') === 0) return url;
+                return url.replace(
+                    /^https:\/\/raw\.githubusercontent\.com\/([^\/]+)\/([^\/]+)\/([^\/]+)\/(.+)$/i,
+                    'https://cdn.jsdelivr.net/gh/$1/$2@$3/$4'
+                );
+            }
+
+            function normalizeStyleBackground(el) {
+                if (!el || !el.getAttribute) return;
+                var style = el.getAttribute('style');
+                if (!style || style.indexOf('raw.githubusercontent.com') === -1) return;
+                el.setAttribute('style', style.replace(/https:\/\/raw\.githubusercontent\.com\/[^"')\s]+/g, function(url) {
+                    return toCdn(url);
+                }));
+            }
+
+            function prepareImage(img) {
+                if (!img || img.dataset.agvnPrepared === '1') return;
+                var currentSrc = img.getAttribute('src');
+                var currentDataSrc = img.getAttribute('data-src');
+                var realSrc = currentDataSrc || currentSrc;
+
+                if (!realSrc || realSrc.indexOf('data:') === 0 || realSrc.indexOf('blob:') === 0) {
+                    img.dataset.agvnPrepared = '1';
+                    return;
+                }
+
+                realSrc = toCdn(realSrc);
+                img.setAttribute('data-src', realSrc);
+                img.setAttribute('src', PLACEHOLDER);
+                img.setAttribute('loading', img.getAttribute('loading') || 'lazy');
+                img.setAttribute('decoding', 'async');
+                img.classList.add('agvn-lazy-image');
+                img.dataset.agvnPrepared = '1';
+
+                if (observer) observer.observe(img);
+                else loadImage(img);
+            }
+
+            function loadImage(img) {
+                var src = img && img.getAttribute('data-src');
+                if (!src) return;
+                img.onload = function() { img.classList.add('agvn-image-loaded'); };
+                img.onerror = function() {
+                    img.classList.add('agvn-image-loaded');
+                    img.style.opacity = '1';
+                    img.style.filter = 'none';
+                };
+                img.setAttribute('src', toCdn(src));
+                img.removeAttribute('data-src');
+            }
+
+            var observer = 'IntersectionObserver' in window ? new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (!entry.isIntersecting) return;
+                    observer.unobserve(entry.target);
+                    loadImage(entry.target);
+                });
+            }, { rootMargin: '350px 0px', threshold: 0.01 }) : null;
+
+            function processImages(root) {
+                root = root || document;
+                if (root.querySelectorAll) {
+                    root.querySelectorAll('img').forEach(prepareImage);
+                    root.querySelectorAll('[style*="raw.githubusercontent.com"]').forEach(normalizeStyleBackground);
+                } else if (root.tagName === 'IMG') {
+                    prepareImage(root);
+                }
+            }
+
+            window.AGVNImageGuard = {
+                toCdn: toCdn,
+                process: processImages,
+                loadImage: loadImage
+            };
+
+            document.addEventListener('DOMContentLoaded', function() {
+                processImages(document);
+
+                if ('MutationObserver' in window) {
+                    var mo = new MutationObserver(function(mutations) {
+                        mutations.forEach(function(mutation) {
+                            mutation.addedNodes.forEach(function(node) {
+                                if (node.nodeType !== 1) return;
+                                if (node.tagName === 'IMG') prepareImage(node);
+                                else processImages(node);
+                                normalizeStyleBackground(node);
+                            });
+                        });
+                    });
+                    mo.observe(document.body, { childList: true, subtree: true });
+                }
+            });
+        })();
+    </script>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>

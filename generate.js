@@ -9,6 +9,72 @@ const path = require('path');
 const SHEET_ID = '1LFD5TFBzRImhyWDQGoNw8I4aVgaYDZ-H1iwktL5P5-Y';
 const API_URL = `https://opensheet.elk.sh/${SHEET_ID}/1`; 
 
+// ================================================================
+// HELPER: CDN + lazy-safe image URLs
+// ================================================================
+
+const TRANSPARENT_PLACEHOLDER =
+  'data:image/svg+xml;charset=UTF-8,' +
+  encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 9"></svg>');
+
+/**
+ * Chuyển link GitHub Raw sang jsDelivr CDN để giảm lỗi 429.
+ * Hỗ trợ dạng:
+ * https://raw.githubusercontent.com/{owner}/{repo}/{branch}/{path}
+ * =>
+ * https://cdn.jsdelivr.net/gh/{owner}/{repo}@{branch}/{path}
+ */
+function toCdnUrl(url) {
+  if (!url || typeof url !== 'string') return '';
+
+  const cleanUrl = url.trim();
+  if (!cleanUrl) return '';
+
+  if (!cleanUrl.includes('raw.githubusercontent.com')) {
+    return cleanUrl;
+  }
+
+  try {
+    const parsed = new URL(cleanUrl);
+    const parts = parsed.pathname.split('/').filter(Boolean);
+
+    if (parsed.hostname !== 'raw.githubusercontent.com' || parts.length < 4) {
+      return cleanUrl;
+    }
+
+    const owner = parts[0];
+    const repo = parts[1];
+    const ref = parts[2];
+    const filePath = parts.slice(3).join('/');
+
+    return `https://cdn.jsdelivr.net/gh/${owner}/${repo}@${ref}/${filePath}${parsed.search || ''}`;
+  } catch (error) {
+    return cleanUrl;
+  }
+}
+
+/**
+ * CDN hóa toàn bộ raw.githubusercontent.com xuất hiện trong HTML/CSS/text.
+ * Dùng cho template, description và content bài viết.
+ */
+function cdnizeHtml(input) {
+  if (!input || typeof input !== 'string') return input || '';
+
+  return input.replace(/https:\/\/raw\.githubusercontent\.com\/[^\s"'<>]+/g, (match) => toCdnUrl(match));
+}
+
+/**
+ * Escape nội dung dùng trong HTML attribute.
+ */
+function escapeAttr(value) {
+  return String(value || '')
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+
 // Hàm hỗ trợ bóc tách lấy tên file từ Full URL
 function extractSlug(fullUrl) {
   if (!fullUrl) return '';
@@ -60,7 +126,7 @@ async function buildProducts() {
       return;
     }
 
-    const templateContent = fs.readFileSync(templatePath, 'utf8');
+    const templateContent = cdnizeHtml(fs.readFileSync(templatePath, 'utf8'));
 
     products.forEach(product => {
       // Đọc giá trị từ cột Slug (Dù là link full hay chữ thường)
@@ -70,7 +136,7 @@ async function buildProducts() {
       const finalSlug = extractSlug(rawSlug);
       
       const name = product['ProductName'] || product['productname'] || product['Product Name'];
-      const img = product['ImageURL'] || product['imageurl'] || product['Image URL'];
+      const img = toCdnUrl(product['ImageURL'] || product['imageurl'] || product['Image URL'] || '');
       const tag = product['ProductTag'] || product['producttag'] || product['Product Tag'];
       const desc = product['Description'] || product['description'];
 
@@ -80,7 +146,7 @@ async function buildProducts() {
       console.log(`Đang xử lý sản phẩm: ${name || 'Không tên'} -> tạo file: san-pham/${finalSlug}.html`);
 
       // Tự động chuyển đổi các dấu xuống dòng trong Google Sheet thành thẻ <br> trong HTML
-      const formattedDescription = (desc || '').replace(/\r?\n/g, '<br>');
+      const formattedDescription = cdnizeHtml(desc || '').replace(/\r?\n/g, '<br>');
 
       let htmlContent = templateContent
         .replaceAll('{{ProductName}}', name || '')
@@ -178,6 +244,9 @@ async function buildNews() {
     // Đọc template tin tức chi tiết
     const newsDetailTemplatePath = path.join(__dirname, 'news_template.html');
     const newsListTemplatePath = path.join(__dirname, 'tintuc.html');
+    const newsListSourceTemplatePath = fs.existsSync(path.join(__dirname, 'tintuc_template.html'))
+      ? path.join(__dirname, 'tintuc_template.html')
+      : newsListTemplatePath;
     const newsOutputDir = path.join(__dirname, 'tin-tuc');
 
     // Tạo thư mục tin-tuc/
@@ -189,12 +258,12 @@ async function buildNews() {
       console.error('❌ Không tìm thấy news_template.html');
       return;
     }
-    if (!fs.existsSync(newsListTemplatePath)) {
-      console.error('❌ Không tìm thấy tintuc.html');
+    if (!fs.existsSync(newsListSourceTemplatePath)) {
+      console.error('❌ Không tìm thấy tintuc.html hoặc tintuc_template.html');
       return;
     }
 
-    const detailTemplate = fs.readFileSync(newsDetailTemplatePath, 'utf8');
+    const detailTemplate = cdnizeHtml(fs.readFileSync(newsDetailTemplatePath, 'utf8'));
 
     // === Bước 1: Xử lý từng bài (sinh trang chi tiết + thu thập dữ liệu) ===
     let articleData = [];  // lưu toàn bộ dữ liệu bài viết để dùng sau
@@ -216,12 +285,12 @@ async function buildNews() {
       if (!title || !slug) return;
 
       const tagInfo  = TAG_MAP[tag] || { label: tag || 'Tin Tức', color: '#666' };
-      const finalImg = imgUrl || 'https://raw.githubusercontent.com/trinkse61538/AGVN/main/images/bonglua.png';
+      const finalImg = toCdnUrl(imgUrl || 'https://raw.githubusercontent.com/trinkse61538/AGVN/main/images/bonglua.png');
       const readTime = estimateReadTime(content);
-      const encodedTitle = title.replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      const encodedTitle = escapeAttr(title);
 
       // Xử lý Content: giữ nguyên xuống dòng → thẻ <p> hoặc <br>
-      let formattedContent = content
+      let formattedContent = cdnizeHtml(content)
         .replace(/\r?\n\r?\n/g, '</p><p>')
         .replace(/\r?\n/g, '<br>');
       formattedContent = '<p>' + formattedContent + '</p>';
@@ -262,7 +331,7 @@ async function buildNews() {
     const latestHtml = `
             <div class="latest-card" data-aos="fade-up">
                 <div class="latest-card-img">
-                    <img src="${latest.finalImg}" alt="${latest.encodedTitle}" loading="lazy">
+                    <img src="${latest.finalImg}" alt="${latest.encodedTitle}" loading="lazy" decoding="async">
                 </div>
                 <div class="latest-card-body">
                     <span class="latest-tag" style="background:${latest.tagInfo.color};">${latest.tagInfo.label}</span>
@@ -285,7 +354,7 @@ async function buildNews() {
       cardsHtml += `
                     <article class="news-card" data-category="${a.tag}">
                         <div class="news-card-img">
-                            <img src="${a.finalImg}" alt="${a.encodedTitle}" loading="lazy">
+                            <img src="${a.finalImg}" alt="${a.encodedTitle}" loading="lazy" decoding="async">
                             <span class="news-card-date"><i class="fa-regular fa-calendar"></i> ${a.date}</span>
                             <span class="news-card-tag" style="background:${a.tagInfo.color};">${a.tagInfo.label}</span>
                         </div>
@@ -301,7 +370,7 @@ async function buildNews() {
     });
 
     // === Bước 3: Ghi template ===
-    let listTemplate = fs.readFileSync(newsListTemplatePath, 'utf8');
+    let listTemplate = cdnizeHtml(fs.readFileSync(newsListSourceTemplatePath, 'utf8'));
     let modified = false;
 
     if (listTemplate.includes('{{LatestArticle}}')) {
@@ -320,7 +389,7 @@ async function buildNews() {
       console.log(`✅ Bài mới nhất: "${latest.title}" (dòng cuối sheet)`);
       console.log(`✅ Cập nhật ${gridArticles.length} card vào grid tintuc.html`);
     } else {
-      console.log('⚠️ Không tìm thấy {{LatestArticle}} hoặc {{NewsItems}} trong tintuc.html');
+      console.log('⚠️ Không tìm thấy {{LatestArticle}} hoặc {{NewsItems}} trong template danh sách tin tức. Nên giữ file tintuc_template.html có 2 placeholder này để generate nhiều lần không bị mất chỗ chèn.');
     }
 
   } catch (error) {
