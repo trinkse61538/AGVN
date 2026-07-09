@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ĐẠO ÔN PROMAX - Tập Đoàn Nông Nghiệp AGVN Group</title>
     
-    <link rel="icon" type="image/jpeg" href="https://raw.githubusercontent.com/trinkse61538/AGVN/c44d6fc7a5a0c4ad73e18c1bc6cf97cbd221bdf9/AGVN_Logo.jpg">
-    <link rel="shortcut icon" type="image/jpeg" href="https://raw.githubusercontent.com/trinkse61538/AGVN/c44d6fc7a5a0c4ad73e18c1bc6cf97cbd221bdf9/AGVN_Logo.jpg">
+    <link rel="icon" type="image/jpeg" href="https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@c44d6fc7a5a0c4ad73e18c1bc6cf97cbd221bdf9/AGVN_Logo.jpg">
+    <link rel="shortcut icon" type="image/jpeg" href="https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@c44d6fc7a5a0c4ad73e18c1bc6cf97cbd221bdf9/AGVN_Logo.jpg">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -474,6 +474,37 @@
             font-size: 0.9rem;
         }
 
+
+        /* IMAGE DELIVERY OPTIMIZATION */
+        .lazy-agvn-img {
+            opacity: 0;
+            transition: opacity 0.35s ease, transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .lazy-agvn-img.is-loaded {
+            opacity: 1;
+        }
+
+        .product-image-box.is-loading::after {
+            content: 'Đang tải hình sản phẩm...';
+            position: absolute;
+            z-index: 3;
+            bottom: 22px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.92);
+            color: var(--primary);
+            font-size: 0.82rem;
+            font-weight: 600;
+            box-shadow: var(--shadow-md);
+        }
+
+        .product-image-box.is-loaded::after {
+            display: none;
+        }
+
         /* RESPONSIVE DESIGN */
         @media (max-width: 992px) {
             .product-detail-grid {
@@ -576,8 +607,8 @@
                 
                 <!-- Cột Trái: Hình Ảnh Lớn -->
                 <div class="product-image-wrapper" data-aos="fade-right">
-                    <div class="product-image-box">
-                        <img src="https://raw.githubusercontent.com/trinkse61538/AGVN/main/images/ThuocTruBenh/AGVN%20%C4%90A%CC%A3O%20O%CC%82N%20PROMAX%20(FENO%20PROMAX)%20240ML%20catalog.png" alt="ĐẠO ÔN PROMAX">
+                    <div class="product-image-box is-loading">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='1200' viewBox='0 0 900 1200'%3E%3Crect width='900' height='1200' fill='%23fafafa'/%3E%3C/svg%3E" data-src="https://raw.githubusercontent.com/trinkse61538/AGVN/main/images/ThuocTruBenh/AGVN%20%C4%90A%CC%A3O%20O%CC%82N%20PROMAX%20(FENO%20PROMAX)%20240ML%20catalog.png" alt="ĐẠO ÔN PROMAX" class="lazy-agvn-img" loading="eager" decoding="async" fetchpriority="high" referrerpolicy="no-referrer">
                     </div>
                 </div>
                 
@@ -660,6 +691,100 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+
+        const AGVN_IMAGE_PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='1200' viewBox='0 0 900 1200'%3E%3Crect width='900' height='1200' fill='%23fafafa'/%3E%3C/svg%3E";
+
+        function toAgvnCdn(url) {
+            if (!url || url.indexOf('{{') !== -1) return url;
+
+            if (url.includes('cdn.jsdelivr.net/gh/')) return url;
+
+            const rawPrefix = 'https://raw.githubusercontent.com/';
+            if (url.startsWith(rawPrefix)) {
+                const rest = url.slice(rawPrefix.length);
+                const parts = rest.split('/');
+                if (parts.length >= 4) {
+                    const user = parts.shift();
+                    const repo = parts.shift();
+                    const ref = parts.shift();
+                    const filePath = parts.join('/');
+                    return `https://cdn.jsdelivr.net/gh/${user}/${repo}@${ref}/${filePath}`;
+                }
+            }
+
+            return url;
+        }
+
+        function prepareAgvnImages(root = document) {
+            root.querySelectorAll('img').forEach(function(img) {
+                const rawDataSrc = img.getAttribute('data-src');
+                const rawSrc = img.getAttribute('src');
+
+                if (rawDataSrc && rawDataSrc.indexOf('{{') === -1) {
+                    img.dataset.src = toAgvnCdn(rawDataSrc);
+                    return;
+                }
+
+                if (rawSrc && rawSrc.startsWith('https://raw.githubusercontent.com/')) {
+                    img.dataset.src = toAgvnCdn(rawSrc);
+                    img.setAttribute('src', AGVN_IMAGE_PLACEHOLDER);
+                    img.classList.add('lazy-agvn-img');
+                }
+            });
+
+            root.querySelectorAll('link[rel~="icon"], link[rel="shortcut icon"]').forEach(function(link) {
+                const href = link.getAttribute('href');
+                if (href && href.startsWith('https://raw.githubusercontent.com/')) {
+                    link.setAttribute('href', toAgvnCdn(href));
+                }
+            });
+        }
+
+        function initAgvnLazyImages() {
+            prepareAgvnImages(document);
+
+            const lazyImages = document.querySelectorAll('img[data-src]');
+            if (!lazyImages.length) return;
+
+            function loadImage(img) {
+                const finalSrc = img.dataset.src ? toAgvnCdn(img.dataset.src) : '';
+                if (!finalSrc || finalSrc.indexOf('{{') !== -1) return;
+
+                img.onload = function() {
+                    img.classList.add('is-loaded');
+                    const box = img.closest('.product-image-box');
+                    if (box) {
+                        box.classList.remove('is-loading');
+                        box.classList.add('is-loaded');
+                    }
+                };
+
+                img.onerror = function() {
+                    const box = img.closest('.product-image-box');
+                    if (box) box.classList.remove('is-loading');
+                };
+
+                img.src = finalSrc;
+                img.removeAttribute('data-src');
+            }
+
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver(function(entries, obs) {
+                    entries.forEach(function(entry) {
+                        if (!entry.isIntersecting) return;
+                        loadImage(entry.target);
+                        obs.unobserve(entry.target);
+                    });
+                }, { rootMargin: '500px 0px', threshold: 0.01 });
+
+                lazyImages.forEach(function(img) {
+                    observer.observe(img);
+                });
+            } else {
+                lazyImages.forEach(loadImage);
+            }
+        }
+
         AOS.init({ duration: 1000, once: true });
 
         function toggleMenu() {
@@ -679,6 +804,8 @@
                 dropdown.classList.toggle('show');
             }
         }
+
+        document.addEventListener("DOMContentLoaded", initAgvnLazyImages);
 
         function closeMenuMobile() {
             if (window.innerWidth <= 768) {
