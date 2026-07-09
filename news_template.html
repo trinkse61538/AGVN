@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{Title}} - AGVN Group</title>
     
-    <link rel="icon" type="image/jpeg" href="https://raw.githubusercontent.com/trinkse61538/AGVN/c44d6fc7a5a0c4ad73e18c1bc6cf97cbd221bdf9/AGVN_Logo.jpg">
-    <link rel="shortcut icon" type="image/jpeg" href="https://raw.githubusercontent.com/trinkse61538/AGVN/c44d6fc7a5a0c4ad73e18c1bc6cf97cbd221bdf9/AGVN_Logo.jpg">
+    <link rel="icon" type="image/jpeg" href="https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@c44d6fc7a5a0c4ad73e18c1bc6cf97cbd221bdf9/AGVN_Logo.jpg">
+    <link rel="shortcut icon" type="image/jpeg" href="https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@c44d6fc7a5a0c4ad73e18c1bc6cf97cbd221bdf9/AGVN_Logo.jpg">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -293,6 +293,21 @@
             50% { box-shadow:0 0 20px 10px rgba(0,132,255,0); filter:brightness(1.3); }
         }
 
+
+        /* CDN + Lazy image handling */
+        .agvn-lazy-image {
+            background: #f0f7f0;
+        }
+        img[data-src] {
+            opacity: 0;
+            filter: blur(8px);
+        }
+        img.agvn-image-loaded {
+            opacity: 1;
+            filter: blur(0);
+            transition: opacity .35s ease, filter .35s ease, transform .5s ease;
+        }
+
         /* RESPONSIVE */
         @media (max-width:768px) {
             .nav-dropdown-menu { position:static; box-shadow:none; border:none; padding-left:15px; min-width:auto; }
@@ -358,7 +373,7 @@
     <!-- ARTICLE CONTENT -->
     <section class="article-section">
         <div class="article-wrapper">
-            <img src="{{ImageURL}}" alt="{{Title}}" class="article-featured-img" loading="lazy">
+            <img data-src="{{ImageURL}}" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='675' viewBox='0 0 1200 675'%3E%3Crect width='1200' height='675' fill='%23f0f7f0'/%3E%3Cpath d='M540 305h120v65H540z' fill='%238DC63F' opacity='.32'/%3E%3Ccircle cx='600' cy='337' r='92' fill='%23007A33' opacity='.10'/%3E%3C/svg%3E" alt="{{Title}}" class="article-featured-img agvn-lazy-image" loading="lazy" decoding="async">
             <div class="article-content">
                 {{Content}}
             </div>
@@ -430,6 +445,109 @@
         <a href="https://zalo.me/0969882442" target="_blank" class="float-btn float-zalo" title="Chat Zalo"><span style="font-size:0.75rem;font-weight:bold;letter-spacing:-0.5px;">ZALO</span></a>
         <a href="https://m.me/agvngroup" target="_blank" class="float-btn float-messenger" title="Chat Messenger"><i class="fa-brands fa-facebook-messenger"></i></a>
     </div>
+
+
+    <script>
+        /* AGVN image guard: CDN hóa GitHub Raw và lazy-load ảnh trong bài viết */
+        (function() {
+            var PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='675' viewBox='0 0 1200 675'%3E%3Crect width='1200' height='675' fill='%23f0f7f0'/%3E%3Cpath d='M540 305h120v65H540z' fill='%238DC63F' opacity='.32'/%3E%3Ccircle cx='600' cy='337' r='92' fill='%23007A33' opacity='.10'/%3E%3C/svg%3E";
+
+            function toCdn(url) {
+                if (!url || url.indexOf('{{') !== -1 || url.indexOf('data:') === 0 || url.indexOf('blob:') === 0) return url;
+                return url.replace(
+                    /^https:\/\/raw\.githubusercontent\.com\/([^\/]+)\/([^\/]+)\/([^\/]+)\/(.+)$/i,
+                    'https://cdn.jsdelivr.net/gh/$1/$2@$3/$4'
+                );
+            }
+
+            function normalizeStyleBackground(el) {
+                if (!el || !el.getAttribute) return;
+                var style = el.getAttribute('style');
+                if (!style || style.indexOf('raw.githubusercontent.com') === -1) return;
+                el.setAttribute('style', style.replace(/https:\/\/raw\.githubusercontent\.com\/[^"')\s]+/g, function(url) {
+                    return toCdn(url);
+                }));
+            }
+
+            function prepareImage(img) {
+                if (!img || img.dataset.agvnPrepared === '1') return;
+                var currentSrc = img.getAttribute('src');
+                var currentDataSrc = img.getAttribute('data-src');
+                var realSrc = currentDataSrc || currentSrc;
+
+                if (!realSrc || realSrc.indexOf('data:') === 0 || realSrc.indexOf('blob:') === 0) {
+                    img.dataset.agvnPrepared = '1';
+                    return;
+                }
+
+                realSrc = toCdn(realSrc);
+                img.setAttribute('data-src', realSrc);
+                img.setAttribute('src', PLACEHOLDER);
+                img.setAttribute('loading', img.getAttribute('loading') || 'lazy');
+                img.setAttribute('decoding', 'async');
+                img.classList.add('agvn-lazy-image');
+                img.dataset.agvnPrepared = '1';
+
+                if (observer) observer.observe(img);
+                else loadImage(img);
+            }
+
+            function loadImage(img) {
+                var src = img && img.getAttribute('data-src');
+                if (!src) return;
+                img.onload = function() { img.classList.add('agvn-image-loaded'); };
+                img.onerror = function() {
+                    img.classList.add('agvn-image-loaded');
+                    img.style.opacity = '1';
+                    img.style.filter = 'none';
+                };
+                img.setAttribute('src', toCdn(src));
+                img.removeAttribute('data-src');
+            }
+
+            var observer = 'IntersectionObserver' in window ? new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (!entry.isIntersecting) return;
+                    observer.unobserve(entry.target);
+                    loadImage(entry.target);
+                });
+            }, { rootMargin: '350px 0px', threshold: 0.01 }) : null;
+
+            function processImages(root) {
+                root = root || document;
+                if (root.querySelectorAll) {
+                    root.querySelectorAll('img').forEach(prepareImage);
+                    root.querySelectorAll('[style*="raw.githubusercontent.com"]').forEach(normalizeStyleBackground);
+                } else if (root.tagName === 'IMG') {
+                    prepareImage(root);
+                }
+            }
+
+            window.AGVNImageGuard = {
+                toCdn: toCdn,
+                process: processImages,
+                loadImage: loadImage
+            };
+
+            document.addEventListener('DOMContentLoaded', function() {
+                processImages(document);
+
+                if ('MutationObserver' in window) {
+                    var mo = new MutationObserver(function(mutations) {
+                        mutations.forEach(function(mutation) {
+                            mutation.addedNodes.forEach(function(node) {
+                                if (node.nodeType !== 1) return;
+                                if (node.tagName === 'IMG') prepareImage(node);
+                                else processImages(node);
+                                normalizeStyleBackground(node);
+                            });
+                        });
+                    });
+                    mo.observe(document.body, { childList: true, subtree: true });
+                }
+            });
+        })();
+    </script>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
