@@ -2,70 +2,114 @@ const fs = require('fs');
 const path = require('path');
 
 // ================================================================
-// PHẦN 1: SẢN PHẨM (giữ nguyên code cũ)
+// PHẦN 1: SẢN PHẨM
 // ================================================================
 
-// ID Google Sheet sản phẩm (giữ nguyên)
 const SHEET_ID = '1LFD5TFBzRImhyWDQGoNw8I4aVgaYDZ-H1iwktL5P5-Y';
-const API_URL = `https://opensheet.elk.sh/${SHEET_ID}/1`; 
+const API_URL = `https://opensheet.elk.sh/${SHEET_ID}/1`;
 
 // ================================================================
-// HELPER: CDN + lazy-safe image URLs
+// PHẦN 2: TIN TỨC
 // ================================================================
+
+const NEWS_SHEET_ID = '1H5CENOofHF7mZ_A-kq2nue1Y6eVeJBm6RS2RrMjb6Lc';
+const NEWS_API_URL = `https://opensheet.elk.sh/${NEWS_SHEET_ID}/1`;
+
+// ================================================================
+// CẤU HÌNH ẢNH TỰ ĐỘNG TẢI VỀ REPO
+// ================================================================
+
+const GENERATED_IMAGE_DIR = path.join(__dirname, 'assets', 'generated-images');
+const GENERATED_IMAGE_WEB_PREFIX = '/assets/generated-images';
+const IMAGE_MANIFEST_PATH = path.join(GENERATED_IMAGE_DIR, 'manifest.json');
 
 const TRANSPARENT_PLACEHOLDER =
   'data:image/svg+xml;charset=UTF-8,' +
   encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 9"></svg>');
 
-/**
- * Chuyển link GitHub Raw sang jsDelivr CDN để giảm lỗi 429.
- * Hỗ trợ dạng:
- * https://raw.githubusercontent.com/{owner}/{repo}/{branch}/{path}
- * =>
- * https://cdn.jsdelivr.net/gh/{owner}/{repo}@{branch}/{path}
- */
+const DEFAULT_NEWS_IMAGE = 'https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@main/images/bonglua.png';
+
+const IMAGE_EXTENSION_BY_TYPE = {
+  'image/jpeg': 'jpg',
+  'image/jpg': 'jpg',
+  'image/png': 'png',
+  'image/webp': 'webp',
+  'image/gif': 'gif',
+  'image/avif': 'avif',
+  'image/svg+xml': 'svg',
+  'image/bmp': 'bmp',
+  'image/x-icon': 'ico',
+  'image/vnd.microsoft.icon': 'ico',
+};
+
+const TAG_MAP = {
+  'kienthuc':  { label: 'Kiến Thức',  color: '#007A33' },
+  'kythuat':   { label: 'Kỹ Thuật',   color: '#FFB81C' },
+  'thanhcong': { label: 'Thành Công', color: '#FF4D4D' },
+  'sanpham':   { label: 'Sản Phẩm',   color: '#00A896' },
+  'hoatdong':  { label: 'Hoạt Động',  color: '#8DC63F' },
+};
+
+function ensureDirSync(dirPath) {
+  if (!fs.existsSync(dirPath)) {
+    fs.mkdirSync(dirPath, { recursive: true });
+  }
+}
+
+function fileExists(filePath) {
+  try {
+    return fs.existsSync(filePath);
+  } catch {
+    return false;
+  }
+}
+
+function normalizeAmpersands(input) {
+  return String(input || '').trim().replace(/&amp;/g, '&');
+}
+
 function toCdnUrl(url) {
   if (!url || typeof url !== 'string') return '';
 
-  const cleanUrl = url.trim();
+  const cleanUrl = normalizeAmpersands(url);
   if (!cleanUrl) return '';
-
-  if (!cleanUrl.includes('raw.githubusercontent.com')) {
-    return cleanUrl;
-  }
 
   try {
     const parsed = new URL(cleanUrl);
     const parts = parsed.pathname.split('/').filter(Boolean);
 
-    if (parsed.hostname !== 'raw.githubusercontent.com' || parts.length < 4) {
-      return cleanUrl;
+    // raw.githubusercontent.com => jsDelivr
+    if (parsed.hostname === 'raw.githubusercontent.com' && parts.length >= 4) {
+      const owner = parts[0];
+      const repo = parts[1];
+      const ref = parts[2];
+      const filePath = parts.slice(3).join('/');
+      return `https://cdn.jsdelivr.net/gh/${owner}/${repo}@${ref}/${filePath}`;
     }
 
-    const owner = parts[0];
-    const repo = parts[1];
-    const ref = parts[2];
-    const filePath = parts.slice(3).join('/');
+    // github.com/{owner}/{repo}/blob/{ref}/{path} => jsDelivr
+    if (parsed.hostname === 'github.com' && parts.length >= 5 && parts[2] === 'blob') {
+      const owner = parts[0];
+      const repo = parts[1];
+      const ref = parts[3];
+      const filePath = parts.slice(4).join('/');
+      return `https://cdn.jsdelivr.net/gh/${owner}/${repo}@${ref}/${filePath}`;
+    }
 
-    return `https://cdn.jsdelivr.net/gh/${owner}/${repo}@${ref}/${filePath}${parsed.search || ''}`;
-  } catch (error) {
+    return cleanUrl;
+  } catch {
     return cleanUrl;
   }
 }
 
-/**
- * CDN hóa toàn bộ raw.githubusercontent.com xuất hiện trong HTML/CSS/text.
- * Dùng cho template, description và content bài viết.
- */
 function cdnizeHtml(input) {
   if (!input || typeof input !== 'string') return input || '';
 
-  return input.replace(/https:\/\/raw\.githubusercontent\.com\/[^\s"'<>]+/g, (match) => toCdnUrl(match));
+  let output = input.replace(/https:\/\/raw\.githubusercontent\.com\/[^\s"'<>]+/g, (match) => toCdnUrl(match));
+  output = output.replace(/https:\/\/github\.com\/[^\s"'<>]+\/blob\/[^\s"'<>]+/g, (match) => toCdnUrl(match));
+  return output;
 }
 
-/**
- * Escape nội dung dùng trong HTML attribute.
- */
 function escapeAttr(value) {
   return String(value || '')
     .replace(/&/g, '&amp;')
@@ -74,32 +118,273 @@ function escapeAttr(value) {
     .replace(/>/g, '&gt;');
 }
 
-
-// Hàm hỗ trợ bóc tách lấy tên file từ Full URL
 function extractSlug(fullUrl) {
   if (!fullUrl) return '';
 
-  // Xóa khoảng trắng thừa ở 2 đầu
-  let cleanUrl = fullUrl.trim();
+  let cleanUrl = String(fullUrl).trim();
 
-  // Loại bỏ phần đuôi .html nếu có để xử lý đồng bộ
   if (cleanUrl.toLowerCase().endsWith('.html')) {
     cleanUrl = cleanUrl.substring(0, cleanUrl.length - 5);
   }
 
-  // Tách chuỗi theo dấu "/" và lấy phần tử cuối cùng
   const parts = cleanUrl.split('/');
-  let slug = parts[parts.length - 1];
-
-  // Loại bỏ các ký tự đặc biệt nếu user lỡ tay nhập vào
+  let slug = parts[parts.length - 1] || '';
   slug = slug.replace(/[^a-zA-Z0-9-_]/g, '');
-
   return slug;
 }
 
-async function buildProducts() {
+function sanitizeFilePart(value) {
+  return String(value || '')
+    .trim()
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/đ/g, 'd')
+    .replace(/[^a-z0-9-_]+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-+|-+$/g, '') || 'image';
+}
+
+function toSlug(text) {
+  if (!text) return '';
+  return String(text)
+    .trim()
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/đ/g, 'd')
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+function estimateReadTime(content) {
+  if (!content) return '1';
+  const cleanText = String(content).replace(/<[^>]*>/g, '');
+  const charCount = cleanText.length;
+  const minutes = Math.max(1, Math.round(charCount / 500));
+  return String(minutes);
+}
+
+function loadImageManifest() {
+  ensureDirSync(GENERATED_IMAGE_DIR);
+
+  if (!fileExists(IMAGE_MANIFEST_PATH)) {
+    return { items: {} };
+  }
+
   try {
-    console.log('Đang lấy dữ liệu từ Google Sheet...');
+    const raw = fs.readFileSync(IMAGE_MANIFEST_PATH, 'utf8');
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== 'object' || typeof parsed.items !== 'object') {
+      return { items: {} };
+    }
+    return parsed;
+  } catch {
+    return { items: {} };
+  }
+}
+
+function saveImageManifest(manifest) {
+  ensureDirSync(GENERATED_IMAGE_DIR);
+  fs.writeFileSync(IMAGE_MANIFEST_PATH, JSON.stringify(manifest, null, 2), 'utf8');
+}
+
+function extractGoogleDriveFileId(input) {
+  const url = normalizeAmpersands(input);
+  if (!url) return '';
+
+  const patterns = [
+    /drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/i,
+    /drive\.google\.com\/open\?.*?[?&]id=([a-zA-Z0-9_-]+)/i,
+    /drive\.google\.com\/uc\?.*?[?&]id=([a-zA-Z0-9_-]+)/i,
+    /drive\.google\.com\/thumbnail\?.*?[?&]id=([a-zA-Z0-9_-]+)/i,
+    /[?&]id=([a-zA-Z0-9_-]+)/i,
+  ];
+
+  for (const pattern of patterns) {
+    const match = url.match(pattern);
+    if (match && match[1]) return match[1];
+  }
+
+  return '';
+}
+
+function isLocalGeneratedImageUrl(input) {
+  const value = String(input || '').trim();
+  return value.startsWith('/assets/generated-images/') || value.startsWith('assets/generated-images/');
+}
+
+function normalizeLocalGeneratedImageUrl(input) {
+  const value = String(input || '').trim();
+  if (value.startsWith('/')) return value;
+  return '/' + value.replace(/^\/+/, '');
+}
+
+function getExtensionFromUrl(url) {
+  try {
+    const parsed = new URL(url);
+    const pathname = decodeURIComponent(parsed.pathname || '').toLowerCase();
+    const match = pathname.match(/\.([a-z0-9]{2,5})$/i);
+    if (!match) return '';
+    const ext = match[1].toLowerCase();
+    if (['jpg', 'jpeg', 'png', 'webp', 'gif', 'avif', 'svg', 'bmp', 'ico'].includes(ext)) {
+      return ext === 'jpeg' ? 'jpg' : ext;
+    }
+    return '';
+  } catch {
+    return '';
+  }
+}
+
+function guessExtension({ contentType = '', url = '' }) {
+  const cleanType = String(contentType).split(';')[0].trim().toLowerCase();
+  if (IMAGE_EXTENSION_BY_TYPE[cleanType]) {
+    return IMAGE_EXTENSION_BY_TYPE[cleanType];
+  }
+
+  const extFromUrl = getExtensionFromUrl(url);
+  if (extFromUrl) return extFromUrl;
+
+  return '';
+}
+
+function buildGoogleDriveCandidateUrls(fileId) {
+  return [
+    `https://drive.google.com/uc?export=download&id=${fileId}`,
+    `https://drive.google.com/uc?export=view&id=${fileId}`,
+    `https://drive.google.com/thumbnail?id=${fileId}&sz=w2000`,
+  ];
+}
+
+async function fetchImageBinary(url) {
+  const response = await fetch(url, {
+    redirect: 'follow',
+    headers: {
+      'User-Agent': 'Mozilla/5.0 AGVN Image Fetcher',
+      'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}`);
+  }
+
+  const contentType = String(response.headers.get('content-type') || '').toLowerCase();
+  const buffer = Buffer.from(await response.arrayBuffer());
+
+  return {
+    buffer,
+    contentType,
+    finalUrl: response.url || url,
+  };
+}
+
+async function fetchImageFromAnySupportedSource(sourceUrl) {
+  const normalized = toCdnUrl(sourceUrl);
+  const driveFileId = extractGoogleDriveFileId(normalized);
+  const candidates = driveFileId ? buildGoogleDriveCandidateUrls(driveFileId) : [normalized];
+
+  const errors = [];
+
+  for (const candidate of candidates) {
+    try {
+      const result = await fetchImageBinary(candidate);
+      const cleanType = String(result.contentType || '').split(';')[0].trim().toLowerCase();
+      const ext = guessExtension({ contentType: cleanType, url: result.finalUrl || candidate });
+      const looksLikeImage = cleanType.startsWith('image/') || Boolean(ext);
+
+      if (!looksLikeImage) {
+        throw new Error(`URL không trả về ảnh. Content-Type: ${cleanType || 'unknown'}`);
+      }
+
+      return {
+        ...result,
+        contentType: cleanType,
+        extension: ext,
+        effectiveUrl: candidate,
+      };
+    } catch (error) {
+      errors.push(`${candidate} => ${error.message}`);
+    }
+  }
+
+  throw new Error(errors.join(' | '));
+}
+
+async function ensureLocalImageAsset(sourceUrl, slug, kind, manifest) {
+  const rawInput = normalizeAmpersands(sourceUrl);
+
+  if (!rawInput) return '';
+
+  if (rawInput.startsWith('data:image/')) {
+    return rawInput;
+  }
+
+  if (isLocalGeneratedImageUrl(rawInput)) {
+    return normalizeLocalGeneratedImageUrl(rawInput);
+  }
+
+  const normalizedSourceUrl = toCdnUrl(rawInput);
+  if (!/^https?:\/\//i.test(normalizedSourceUrl)) {
+    return normalizedSourceUrl;
+  }
+
+  ensureDirSync(GENERATED_IMAGE_DIR);
+
+  const safeKind = sanitizeFilePart(kind || 'image');
+  const safeSlug = sanitizeFilePart(slug || 'image');
+  const manifestKey = `${safeKind}:${safeSlug}`;
+  const existing = manifest.items[manifestKey];
+
+  if (
+    existing &&
+    existing.sourceUrl === normalizedSourceUrl &&
+    existing.localPath &&
+    fileExists(path.join(__dirname, existing.localPath))
+  ) {
+    return existing.webPath;
+  }
+
+  const fetched = await fetchImageFromAnySupportedSource(normalizedSourceUrl);
+  const extension = fetched.extension || 'jpg';
+  const fileBaseName = `${safeKind}-${safeSlug}`;
+  const fileName = `${fileBaseName}.${extension}`;
+  const relativeLocalPath = path.posix.join('assets', 'generated-images', fileName);
+  const absoluteLocalPath = path.join(__dirname, relativeLocalPath);
+  const webPath = `${GENERATED_IMAGE_WEB_PREFIX}/${fileName}`;
+
+  // Xóa file cũ nếu đổi extension hoặc đổi tên
+  if (existing && existing.localPath && existing.localPath !== relativeLocalPath) {
+    const oldAbsolutePath = path.join(__dirname, existing.localPath);
+    if (fileExists(oldAbsolutePath)) {
+      fs.unlinkSync(oldAbsolutePath);
+    }
+  }
+
+  fs.writeFileSync(absoluteLocalPath, fetched.buffer);
+
+  manifest.items[manifestKey] = {
+    kind: safeKind,
+    slug: safeSlug,
+    sourceUrl: normalizedSourceUrl,
+    webPath,
+    localPath: relativeLocalPath,
+    contentType: fetched.contentType || '',
+    updatedAt: new Date().toISOString(),
+  };
+
+  return webPath;
+}
+
+// ================================================================
+// BUILD PRODUCTS
+// ================================================================
+
+async function buildProducts(manifest) {
+  try {
+    console.log('📦 Đang lấy dữ liệu sản phẩm từ Google Sheet...');
     const response = await fetch(API_URL);
 
     if (!response.ok) {
@@ -110,118 +395,66 @@ async function buildProducts() {
     const products = await response.json();
 
     if (!Array.isArray(products) || products.length === 0) {
-      console.log("Cảnh báo: Không tìm thấy dòng dữ liệu nào hợp lệ từ Google Sheet.");
+      console.log('⚠️ Không tìm thấy dòng dữ liệu sản phẩm nào hợp lệ từ Google Sheet.');
       return;
     }
 
     const templatePath = path.join(__dirname, 'product_template.html');
     const outputDir = path.join(__dirname, 'san-pham');
 
-    if (!fs.existsSync(outputDir)) {
-      fs.mkdirSync(outputDir, { recursive: true });
-    }
+    ensureDirSync(outputDir);
 
     if (!fs.existsSync(templatePath)) {
-      console.error('Lỗi: Không tìm thấy file product_template.html ở thư mục gốc.');
+      console.error('❌ Không tìm thấy file product_template.html ở thư mục gốc.');
       return;
     }
 
     const templateContent = cdnizeHtml(fs.readFileSync(templatePath, 'utf8'));
 
-    products.forEach(product => {
-      // Đọc giá trị từ cột Slug (Dù là link full hay chữ thường)
+    for (const product of products) {
       const rawSlug = product['Slug'] || product['slug'];
-
-      // Xử lý bóc tách để lấy đúng tên file (Ví dụ: "sp1000")
       const finalSlug = extractSlug(rawSlug);
-
       const name = product['ProductName'] || product['productname'] || product['Product Name'];
-      const img = toCdnUrl(product['ImageURL'] || product['imageurl'] || product['Image URL'] || '');
+      const originalImg = product['ImageURL'] || product['imageurl'] || product['Image URL'] || '';
       const tag = product['ProductTag'] || product['producttag'] || product['Product Tag'];
       const desc = product['Description'] || product['description'];
 
-      // Bỏ qua nếu dòng đó không có thông tin định danh file
-      if (!finalSlug) return;
+      if (!finalSlug) continue;
 
-      console.log(`Đang xử lý sản phẩm: ${name || 'Không tên'} -> tạo file: san-pham/${finalSlug}.html`);
+      console.log(`→ Đang xử lý sản phẩm: ${name || 'Không tên'} (${finalSlug})`);
 
-      // Tự động chuyển đổi các dấu xuống dòng trong Google Sheet thành thẻ <br> trong HTML
+      let img = '';
+      try {
+        img = await ensureLocalImageAsset(originalImg, finalSlug, 'product', manifest);
+      } catch (error) {
+        console.warn(`  ⚠️ Không tải được ảnh cho sản phẩm ${finalSlug}. Dùng URL gốc/CDN. Chi tiết: ${error.message}`);
+        img = toCdnUrl(originalImg);
+      }
+
       const formattedDescription = cdnizeHtml(desc || '').replace(/\r?\n/g, '<br>');
 
-      let htmlContent = templateContent
+      const htmlContent = templateContent
         .replaceAll('{{ProductName}}', name || '')
-        .replaceAll('{{ImageURL}}', img || '')
+        .replaceAll('{{ImageURL}}', img || TRANSPARENT_PLACEHOLDER)
         .replaceAll('{{ProductTag}}', tag || 'Nông Nghiệp')
-        .replaceAll('{{Description}}', formattedDescription); // Sử dụng nội dung đã xử lý xuống dòng
+        .replaceAll('{{Description}}', formattedDescription);
 
-      // Tạo file vật lý dạng: san-pham/sp1000.html
       const outputPath = path.join(outputDir, `${finalSlug}.html`);
       fs.writeFileSync(outputPath, htmlContent, 'utf8');
-    });
+    }
 
-    console.log('Chúc mừng! Đã xử lý link URL và sinh file sản phẩm thành công.');
-
+    console.log('✅ Đã xử lý sản phẩm thành công.');
   } catch (error) {
-    console.error('Đã xảy ra lỗi trong quá trình build:', error);
+    console.error('❌ Đã xảy ra lỗi trong quá trình build sản phẩm:', error);
     process.exit(1);
   }
 }
 
 // ================================================================
-// PHẦN 2: TIN TỨC (thêm mới, không ảnh hưởng phần 1)
+// BUILD NEWS
 // ================================================================
 
-// ID Google Sheet tin tức (anh Trí điền sau khi tạo sheet)
-const NEWS_SHEET_ID = '1H5CENOofHF7mZ_A-kq2nue1Y6eVeJBm6RS2RrMjb6Lc';
-const NEWS_API_URL = `https://opensheet.elk.sh/${NEWS_SHEET_ID}/1`;
-
-// Map tag value → tên hiển thị + màu sắc
-const TAG_MAP = {
-  'kienthuc':  { label: 'Kiến Thức',  color: '#007A33' },
-  'kythuat':   { label: 'Kỹ Thuật',   color: '#FFB81C' },
-  'thanhcong': { label: 'Thành Công', color: '#FF4D4D' },
-  'sanpham':   { label: 'Sản Phẩm',   color: '#00A896' },
-  'hoatdong':  { label: 'Hoạt Động',  color: '#8DC63F' },
-};
-
-// Hàm chuyển tiếng Việt thành slug không dấu
-function toSlug(text) {
-  if (!text) return '';
-  const map = {
-    'à':'a','á':'a','ả':'a','ã':'a','ạ':'a','ă':'a','ắ':'a','ằ':'a','ẳ':'a','ẵ':'a','ặ':'a','â':'a','ấ':'a','ầ':'a','ẩ':'a','ẫ':'a','ậ':'a',
-    'đ':'d',
-    'è':'e','é':'e','ẻ':'e','ẽ':'e','ẹ':'e','ê':'e','ế':'e','ề':'e','ể':'e','ễ':'e','ệ':'e',
-    'ì':'i','í':'i','ỉ':'i','ĩ':'i','ị':'i',
-    'ò':'o','ó':'o','ỏ':'o','õ':'o','ọ':'o','ô':'o','ố':'o','ồ':'o','ổ':'o','ỗ':'o','ộ':'o','ơ':'o','ớ':'o','ờ':'o','ở':'o','ỡ':'o','ợ':'o',
-    'ù':'u','ú':'u','ủ':'u','ũ':'u','ụ':'u','ư':'u','ứ':'u','ừ':'u','ử':'u','ữ':'u','ự':'u',
-    'ỳ':'y','ý':'y','ỷ':'y','ỹ':'y','ỵ':'y',
-    'À':'a','Á':'a','Ả':'a','Ã':'a','Ạ':'a','Ă':'a','Ắ':'a','Ằ':'a','Ẳ':'a','Ẵ':'a','Ặ':'a','Â':'a','Ấ':'a','Ầ':'a','Ẩ':'a','Ẫ':'a','Ậ':'a',
-    'Đ':'d',
-    'È':'e','É':'e','Ẻ':'e','Ẽ':'e','Ẹ':'e','Ê':'e','Ế':'e','Ề':'e','Ể':'e','Ễ':'e','Ệ':'e',
-    'Ì':'i','Í':'i','Ỉ':'i','Ĩ':'i','Ị':'i',
-    'Ò':'o','Ó':'o','Ỏ':'o','Õ':'o','Ọ':'o','Ô':'o','Ố':'o','Ồ':'o','Ổ':'o','Ỗ':'o','Ộ':'o','Ơ':'o','Ớ':'o','Ờ':'o','Ở':'o','Ỡ':'o','Ợ':'o',
-    'Ù':'u','Ú':'u','Ủ':'u','Ũ':'u','Ụ':'u','Ư':'u','Ứ':'u','Ừ':'u','Ử':'u','Ữ':'u','Ự':'u',
-    'Ỳ':'y','Ý':'y','Ỷ':'y','Ỹ':'y','Ỵ':'y',
-  };
-  let slug = text.replace(/[^a-zA-Z0-9À-ỹ\s-]/g, '').trim().toLowerCase();
-  slug = slug.replace(/[\s]+/g, '-');
-  slug = slug.replace(/[-]+/g, '-');
-  slug = slug.replace(/^-+|-+$/g, '');
-  // Replace từng ký tự có dấu
-  slug = slug.split('').map(c => map[c] || c).join('');
-  return slug;
-}
-
-// Tính thời gian đọc (khoảng 500 ký tự/phút)
-function estimateReadTime(content) {
-  if (!content) return '1';
-  const cleanText = content.replace(/<[^>]*>/g, '');
-  const charCount = cleanText.length;
-  const minutes = Math.max(1, Math.round(charCount / 500));
-  return String(minutes);
-}
-
-async function buildNews() {
+async function buildNews(manifest) {
   if (NEWS_SHEET_ID === 'YOUR_NEWS_SHEET_ID_HERE') {
     console.log('⏩ Bỏ qua tin tức: chưa có NEWS_SHEET_ID.');
     return;
@@ -237,11 +470,10 @@ async function buildNews() {
 
     const articles = await response.json();
     if (!Array.isArray(articles) || articles.length === 0) {
-      console.log('Cảnh báo: Không tìm thấy tin tức từ sheet.');
+      console.log('⚠️ Không tìm thấy tin tức từ sheet.');
       return;
     }
 
-    // Đọc template tin tức chi tiết
     const newsDetailTemplatePath = path.join(__dirname, 'news_template.html');
     const newsListTemplatePath = path.join(__dirname, 'tintuc.html');
     const newsListSourceTemplatePath = fs.existsSync(path.join(__dirname, 'tintuc_template.html'))
@@ -249,10 +481,7 @@ async function buildNews() {
       : newsListTemplatePath;
     const newsOutputDir = path.join(__dirname, 'tin-tuc');
 
-    // Tạo thư mục tin-tuc/
-    if (!fs.existsSync(newsOutputDir)) {
-      fs.mkdirSync(newsOutputDir, { recursive: true });
-    }
+    ensureDirSync(newsOutputDir);
 
     if (!fs.existsSync(newsDetailTemplatePath)) {
       console.error('❌ Không tìm thấy news_template.html');
@@ -264,47 +493,48 @@ async function buildNews() {
     }
 
     const detailTemplate = cdnizeHtml(fs.readFileSync(newsDetailTemplatePath, 'utf8'));
+    let articleData = [];
 
-    // === Bước 1: Xử lý từng bài (sinh trang chi tiết + thu thập dữ liệu) ===
-    let articleData = [];  // lưu toàn bộ dữ liệu bài viết để dùng sau
+    for (const article of articles) {
+      const date = (article['Date'] || '').trim();
+      const title = (article['Title'] || '').trim();
+      const excerpt = (article['Excerpt'] || '').trim();
+      const imgUrl = (article['ImageURL'] || '').trim();
+      const tag = (article['Tag'] || '').trim();
+      const author = (article['Author'] || '').trim();
+      const content = (article['Content'] || '').trim();
 
-    articles.forEach((article) => {
-      const date     = (article['Date']     || '').trim();
-      const title    = (article['Title']    || '').trim();
-      const excerpt  = (article['Excerpt']  || '').trim();
-      const imgUrl   = (article['ImageURL'] || '').trim();
-      const tag      = (article['Tag']      || '').trim();
-      const author   = (article['Author']   || '').trim();
-      const content  = (article['Content']  || '').trim();
-
-      // Slug: ưu tiên cột Slug, nếu không có thì tự sinh từ Title
       const rawSlug = (article['Slug'] || article['slug'] || '').trim();
       const slug = extractSlug(rawSlug) || toSlug(title);
 
-      // Bỏ qua dòng trống
-      if (!title || !slug) return;
+      if (!title || !slug) continue;
 
-      const tagInfo  = TAG_MAP[tag] || { label: tag || 'Tin Tức', color: '#666' };
-      const finalImg = toCdnUrl(imgUrl || 'https://raw.githubusercontent.com/trinkse61538/AGVN/main/images/bonglua.png');
+      const tagInfo = TAG_MAP[tag] || { label: tag || 'Tin Tức', color: '#666' };
       const readTime = estimateReadTime(content);
       const encodedTitle = escapeAttr(title);
 
-      // Xử lý Content: giữ nguyên xuống dòng → thẻ <p> hoặc <br>
+      let finalImg = '';
+      try {
+        finalImg = await ensureLocalImageAsset(imgUrl || DEFAULT_NEWS_IMAGE, slug, 'news', manifest);
+      } catch (error) {
+        console.warn(`  ⚠️ Không tải được ảnh cho bài viết ${slug}. Dùng URL gốc/CDN. Chi tiết: ${error.message}`);
+        finalImg = toCdnUrl(imgUrl || DEFAULT_NEWS_IMAGE);
+      }
+
       let formattedContent = cdnizeHtml(content)
         .replace(/\r?\n\r?\n/g, '</p><p>')
         .replace(/\r?\n/g, '<br>');
       formattedContent = '<p>' + formattedContent + '</p>';
 
-      // === Sinh file chi tiết ===
       const pageUrl = `https://agvngroup.com/tin-tuc/${slug}.html`;
       const encodedUrl = encodeURIComponent(pageUrl);
 
-      let detailHtml = detailTemplate
+      const detailHtml = detailTemplate
         .replaceAll('{{Title}}', title)
         .replaceAll('{{Date}}', date)
         .replaceAll('{{Author}}', author)
         .replaceAll('{{TagDisplay}}', tagInfo.label)
-        .replaceAll('{{ImageURL}}', finalImg)
+        .replaceAll('{{ImageURL}}', finalImg || TRANSPARENT_PLACEHOLDER)
         .replaceAll('{{Content}}', formattedContent)
         .replaceAll('{{ReadTime}}', readTime)
         .replaceAll('{{EncodedURL}}', encodedUrl);
@@ -313,9 +543,8 @@ async function buildNews() {
       fs.writeFileSync(detailPath, detailHtml, 'utf8');
       console.log(`  📄 Đã tạo: tin-tuc/${slug}.html — ${title}`);
 
-      // Lưu dữ liệu để dùng cho danh sách
       articleData.push({ date, title, excerpt, finalImg, tag, slug, author, tagInfo, encodedTitle });
-    });
+    }
 
     const totalArticles = articleData.length;
     if (totalArticles === 0) {
@@ -323,11 +552,7 @@ async function buildNews() {
       return;
     }
 
-    // === Bước 2: Render dữ liệu vào template ===
-    // Bài mới nhất = dòng cuối sheet (do người dùng thêm ở cuối)
     const latest = articleData[totalArticles - 1];
-
-    // Card Hero cho bài mới nhất ({{LatestArticle}})
     const latestHtml = `
             <div class="latest-card" data-aos="fade-up">
                 <div class="latest-card-img">
@@ -347,10 +572,9 @@ async function buildNews() {
                 </div>
             </div>`;
 
-    // Các bài còn lại (trừ bài mới nhất) → grid, đảo ngược thứ tự (mới nhất lên đầu)
     const gridArticles = articleData.slice(0, -1).reverse();
     let cardsHtml = '';
-    gridArticles.forEach((a) => {
+    for (const a of gridArticles) {
       cardsHtml += `
                     <article class="news-card" data-category="${a.tag}">
                         <div class="news-card-img">
@@ -367,9 +591,8 @@ async function buildNews() {
                             </div>
                         </div>
                     </article>`;
-    });
+    }
 
-    // === Bước 3: Ghi template ===
     let listTemplate = cdnizeHtml(fs.readFileSync(newsListSourceTemplatePath, 'utf8'));
     let modified = false;
 
@@ -389,21 +612,30 @@ async function buildNews() {
       console.log(`✅ Bài mới nhất: "${latest.title}" (dòng cuối sheet)`);
       console.log(`✅ Cập nhật ${gridArticles.length} card vào grid tintuc.html`);
     } else {
-      console.log('⚠️ Không tìm thấy {{LatestArticle}} hoặc {{NewsItems}} trong template danh sách tin tức. Nên giữ file tintuc_template.html có 2 placeholder này để generate nhiều lần không bị mất chỗ chèn.');
+      console.log('⚠️ Không tìm thấy {{LatestArticle}} hoặc {{NewsItems}} trong template danh sách tin tức.');
     }
-
   } catch (error) {
     console.error('❌ Lỗi khi xử lý tin tức:', error.message);
   }
 }
 
 // ================================================================
-// HÀM CHÍNH: chạy cả 2 phần
+// MAIN
 // ================================================================
+
 async function main() {
-  await buildProducts();
-  await buildNews();
-  console.log('\n🎉 Hoàn tất! Cả sản phẩm và tin tức đã được cập nhật.');
+  ensureDirSync(GENERATED_IMAGE_DIR);
+  const manifest = loadImageManifest();
+
+  await buildProducts(manifest);
+  await buildNews(manifest);
+
+  saveImageManifest(manifest);
+
+  console.log('\n🎉 Hoàn tất! Sản phẩm, tin tức và ảnh nội bộ đã được cập nhật.');
 }
 
-main();
+main().catch((error) => {
+  console.error('❌ Lỗi không mong muốn:', error);
+  process.exit(1);
+});

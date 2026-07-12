@@ -1,0 +1,238 @@
+{
+  "items": {
+    "product:feno-super": {
+      "kind": "product",
+      "slug": "feno-super",
+      "sourceUrl": "https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@main/AGVN_webp_image/ThuocTruBenh/FENO%20SUPER%20400ML%20catalouge.webp",
+      "webPath": "/assets/generated-images/product-feno-super.webp",
+      "localPath": "assets/generated-images/product-feno-super.webp",
+      "contentType": "image/webp",
+      "updatedAt": "2026-07-12T13:10:43.445Z"
+    },
+    "product:vang-la": {
+      "kind": "product",
+      "slug": "vang-la",
+      "sourceUrl": "https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@main/AGVN_webp_image/ThuocTruBenh/Va%23U0300ng%20la%23U0301%20catalouge.webp",
+      "webPath": "/assets/generated-images/product-vang-la.webp",
+      "localPath": "assets/generated-images/product-vang-la.webp",
+      "contentType": "image/webp",
+      "updatedAt": "2026-07-12T13:10:43.823Z"
+    },
+    "product:anwn-zn-an-do": {
+      "kind": "product",
+      "slug": "anwn-zn-an-do",
+      "sourceUrl": "https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@main/AGVN_webp_image/ThuocTruBenh/ANWIN%20ZN%20A%23U0302%23U0301N%20%23U0110O%23U0323%23U0302%201L%20catalouge.webp",
+      "webPath": "/assets/generated-images/product-anwn-zn-an-do.webp",
+      "localPath": "assets/generated-images/product-anwn-zn-an-do.webp",
+      "contentType": "image/webp",
+      "updatedAt": "2026-07-12T13:10:44.286Z"
+    },
+    "product:dac-tri-dao-on": {
+      "kind": "product",
+      "slug": "dac-tri-dao-on",
+      "sourceUrl": "https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@f9150e8fc3f4137a8ec420521cf1861e58d4b668/AGVN_webp_image/ThuocTruBenh/%23U0110A%23U0323%23U0306C%20TRI%23U0323%20%23U0110A%23U0323O%20O%23U0302N%20catalouge.webp",
+      "webPath": "/assets/generated-images/product-dac-tri-dao-on.webp",
+      "localPath": "assets/generated-images/product-dac-tri-dao-on.webp",
+      "contentType": "image/webp",
+      "updatedAt": "2026-07-12T13:10:44.743Z"
+    },
+    "product:khuan-lanh-king": {
+      "kind": "product",
+      "slug": "khuan-lanh-king",
+      "sourceUrl": "https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@main/AGVN_webp_image/ThuocTruBenh/KHUA%23U0302%23U0309N%20LA%23U0323NH%20KING%20450ML%20catalouge.webp",
+      "webPath": "/assets/generated-images/product-khuan-lanh-king.webp",
+      "localPath": "assets/generated-images/product-khuan-lanh-king.webp",
+      "contentType": "image/webp",
+      "updatedAt": "2026-07-12T13:10:45.102Z"
+    },
+    "product:lem-lep": {
+      "kind": "product",
+      "slug": "lem-lep",
+      "sourceUrl": "https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@main/AGVN_webp_image/ThuocTruBenh/Lem%20le%23U0301p%20catalog.webp",
+      "webPath": "/assets/generated-images/product-lem-lep.webp",
+      "localPath": "assets/generated-images/product-lem-lep.webp",
+      "contentType": "image/webp",
+      "updatedAt": "2026-07-12T13:10:45.548Z"
+    },
+    "product:sach-nam-khuan": {
+      "kind": "product",
+      "slug": "sach-nam-khuan",
+      "sourceUrl": "https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@main/AGVN_webp_image/ThuocTruBenh/SA%23U0323CH%20NA%23U0302%23U0301M%20KHUA%23U0302%23U0309N%20%28AGVN%29%20catalog.webp",
+      "webPath": "/assets/generated-images/product-sach-nam-khuan.webp",
+      "localPath": "assets/generated-images/product-sach-nam-khuan.webp",
+      "contentType": "image/webp",
+      "updatedAt": "2026-07-12T13:10:46.009Z"
+    },
+    "product:dao-on-promax": {
+      "kind": "product",
+      "slug": "dao-on-promax",
+      "sourceUrl": "https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@main/AGVN_webp_image/ThuocTruBenh/AGVN%20%23U0110A%23U0323O%20O%23U0302N%20PROMAX%20%28FENO%20PROMAX%29%20240ML%20catalog.webp",
+      "webPath": "/assets/generated-images/product-dao-on-promax.webp",
+      "localPath": "assets/generated-images/product-dao-on-promax.webp",
+      "contentType": "image/webp",
+      "updatedAt": "2026-07-12T13:10:46.478Z"
+    },
+    "product:pico-plus-300": {
+      "kind": "product",
+      "slug": "pico-plus-300",
+      "sourceUrl": "https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@main/AGVN_webp_image/ThuocTruBenh/AGVN%20PICOPLUS%20300%20%28AA%20YAKI%29%20240ML%20catalog.webp",
+      "webPath": "/assets/generated-images/product-pico-plus-300.webp",
+      "localPath": "assets/generated-images/product-pico-plus-300.webp",
+      "contentType": "image/webp",
+      "updatedAt": "2026-07-12T13:10:46.596Z"
+    },
+    "product:supercol-692": {
+      "kind": "product",
+      "slug": "supercol-692",
+      "sourceUrl": "https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@main/AGVN_webp_image/ThuocTruBenh/SUPERCOL%20%28AGVN%29%20catalog.webp",
+      "webPath": "/assets/generated-images/product-supercol-692.webp",
+      "localPath": "assets/generated-images/product-supercol-692.webp",
+      "contentType": "image/webp",
+      "updatedAt": "2026-07-12T13:10:47.060Z"
+    },
+    "product:diet-chich-hut": {
+      "kind": "product",
+      "slug": "diet-chich-hut",
+      "sourceUrl": "https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@main/AGVN_webp_image/ThuocTruSau/Die%23U0323%23U0302t%20Chi%23U0301ch%20Hu%23U0301t%20catalouge.webp",
+      "webPath": "/assets/generated-images/product-diet-chich-hut.webp",
+      "localPath": "assets/generated-images/product-diet-chich-hut.webp",
+      "contentType": "image/webp",
+      "updatedAt": "2026-07-12T13:10:47.528Z"
+    },
+    "product:bo-huc-vang": {
+      "kind": "product",
+      "slug": "bo-huc-vang",
+      "sourceUrl": "https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@main/AGVN_webp_image/ThuocTruSau/Bo%23U0300%20hu%23U0301c%20va%23U0300ng%20%28aa%20faros%29%20AGVN%20300ml%20catalog.webp",
+      "webPath": "/assets/generated-images/product-bo-huc-vang.webp",
+      "localPath": "assets/generated-images/product-bo-huc-vang.webp",
+      "contentType": "image/webp",
+      "updatedAt": "2026-07-12T13:10:47.980Z"
+    },
+    "product:xong-hoi-b52": {
+      "kind": "product",
+      "slug": "xong-hoi-b52",
+      "sourceUrl": "https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@main/AGVN_webp_image/ThuocTruSau/XO%23U0302NG%20HO%23U031bI%20B52%20CATALOUGE.webp",
+      "webPath": "/assets/generated-images/product-xong-hoi-b52.webp",
+      "localPath": "assets/generated-images/product-xong-hoi-b52.webp",
+      "contentType": "image/webp",
+      "updatedAt": "2026-07-12T13:10:48.501Z"
+    },
+    "product:lun-luc": {
+      "kind": "product",
+      "slug": "lun-luc",
+      "sourceUrl": "https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@main/AGVN_webp_image/ThuocDieuHoaSinhTruong/LU%23U0300N%20LU%23U031b%23U0323C%20CATALOG.webp",
+      "webPath": "/assets/generated-images/product-lun-luc.webp",
+      "localPath": "assets/generated-images/product-lun-luc.webp",
+      "contentType": "image/webp",
+      "updatedAt": "2026-07-12T13:10:48.914Z"
+    },
+    "product:number-one": {
+      "kind": "product",
+      "slug": "number-one",
+      "sourceUrl": "https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@main/AGVN_webp_image/ThuocDieuHoaSinhTruong/NUMBER%20ONE%20%28AGVN%29%20catalog.webp",
+      "webPath": "/assets/generated-images/product-number-one.webp",
+      "localPath": "assets/generated-images/product-number-one.webp",
+      "contentType": "image/webp",
+      "updatedAt": "2026-07-12T13:10:49.281Z"
+    },
+    "product:duong-dong-vang": {
+      "kind": "product",
+      "slug": "duong-dong-vang",
+      "sourceUrl": "https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@main/AGVN_webp_image/PhanBon/Du%23U031bo%23U031b%23U0303ng%20%23U0110o%23U0300ng%20Va%23U0300ng%20AGVN%20catalouge.webp",
+      "webPath": "/assets/generated-images/product-duong-dong-vang.webp",
+      "localPath": "assets/generated-images/product-duong-dong-vang.webp",
+      "contentType": "image/webp",
+      "updatedAt": "2026-07-12T13:10:49.799Z"
+    },
+    "product:hat-vang": {
+      "kind": "product",
+      "slug": "hat-vang",
+      "sourceUrl": "https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@main/AGVN_webp_image/PhanBon/Ha%23U0323t%20Va%23U0300ng%20catalouge.webp",
+      "webPath": "/assets/generated-images/product-hat-vang.webp",
+      "localPath": "assets/generated-images/product-hat-vang.webp",
+      "contentType": "image/webp",
+      "updatedAt": "2026-07-12T13:10:50.269Z"
+    },
+    "product:sieu-re-no-bui": {
+      "kind": "product",
+      "slug": "sieu-re-no-bui",
+      "sourceUrl": "https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@main/AGVN_webp_image/PhanBon/Sie%23U0302u%20Re%23U0302%23U0303%20No%23U031b%23U0309%20Bu%23U0323i%20catalouge.webp",
+      "webPath": "/assets/generated-images/product-sieu-re-no-bui.webp",
+      "localPath": "assets/generated-images/product-sieu-re-no-bui.webp",
+      "contentType": "image/webp",
+      "updatedAt": "2026-07-12T13:10:50.781Z"
+    },
+    "product:humic-zn": {
+      "kind": "product",
+      "slug": "humic-zn",
+      "sourceUrl": "https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@main/AGVN_webp_image/PhanBon/HUMIC%20KE%23U0303M%20AGVN%20%28CATALOG%29.webp",
+      "webPath": "/assets/generated-images/product-humic-zn.webp",
+      "localPath": "assets/generated-images/product-humic-zn.webp",
+      "contentType": "image/webp",
+      "updatedAt": "2026-07-12T13:10:51.209Z"
+    },
+    "product:bosimax": {
+      "kind": "product",
+      "slug": "bosimax",
+      "sourceUrl": "https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@main/AGVN_webp_image/PhanBon/bosimax%20%28sie%23U0302u%20lu%23U0300n%29%20catalouge.webp",
+      "webPath": "/assets/generated-images/product-bosimax.webp",
+      "localPath": "assets/generated-images/product-bosimax.webp",
+      "contentType": "image/webp",
+      "updatedAt": "2026-07-12T13:10:51.669Z"
+    },
+    "product:silic-k": {
+      "kind": "product",
+      "slug": "silic-k",
+      "sourceUrl": "https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@main/AGVN_webp_image/PhanBon/SILIC%20K%2B%2B%20CATALOG.webp",
+      "webPath": "/assets/generated-images/product-silic-k.webp",
+      "localPath": "assets/generated-images/product-silic-k.webp",
+      "contentType": "image/webp",
+      "updatedAt": "2026-07-12T13:10:52.033Z"
+    },
+    "news:nguyen-khai-tri-test": {
+      "kind": "news",
+      "slug": "nguyen-khai-tri-test",
+      "sourceUrl": "https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/XongHoiB52.jpg",
+      "webPath": "/assets/generated-images/news-nguyen-khai-tri-test.jpg",
+      "localPath": "assets/generated-images/news-nguyen-khai-tri-test.jpg",
+      "contentType": "image/jpeg",
+      "updatedAt": "2026-07-12T13:10:55.033Z"
+    },
+    "news:nguyen-van-a": {
+      "kind": "news",
+      "slug": "nguyen-van-a",
+      "sourceUrl": "https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/XongHoiB52.jpg",
+      "webPath": "/assets/generated-images/news-nguyen-van-a.jpg",
+      "localPath": "assets/generated-images/news-nguyen-van-a.jpg",
+      "contentType": "image/jpeg",
+      "updatedAt": "2026-07-12T13:10:55.037Z"
+    },
+    "news:toi-muon-test": {
+      "kind": "news",
+      "slug": "toi-muon-test",
+      "sourceUrl": "https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/XongHoiB52.jpg",
+      "webPath": "/assets/generated-images/news-toi-muon-test.jpg",
+      "localPath": "assets/generated-images/news-toi-muon-test.jpg",
+      "contentType": "image/jpeg",
+      "updatedAt": "2026-07-12T13:10:55.042Z"
+    },
+    "news:day-la": {
+      "kind": "news",
+      "slug": "day-la",
+      "sourceUrl": "https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/XongHoiB52.jpg",
+      "webPath": "/assets/generated-images/news-day-la.jpg",
+      "localPath": "assets/generated-images/news-day-la.jpg",
+      "contentType": "image/jpeg",
+      "updatedAt": "2026-07-12T13:10:55.046Z"
+    },
+    "news:nguyenkhai": {
+      "kind": "news",
+      "slug": "nguyenkhai",
+      "sourceUrl": "https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/XongHoiB52.jpg",
+      "webPath": "/assets/generated-images/news-nguyenkhai.jpg",
+      "localPath": "assets/generated-images/news-nguyenkhai.jpg",
+      "contentType": "image/jpeg",
+      "updatedAt": "2026-07-12T13:10:55.050Z"
+    }
+  }
+}

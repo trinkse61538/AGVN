@@ -1,0 +1,35 @@
+HUONG DAN REPLACE CHO REPOSITORY AGVN
+=====================================
+
+Bộ file này gồm:
+1. generate.js
+2. .github/workflows/sync_sheets.yml
+
+MUC TIEU
+--------
+- Khi user nhập ImageURL là link ảnh thường, GitHub raw, jsDelivr hoặc Google Drive public,
+  hệ thống sẽ tự tải ảnh về repo.
+- Ảnh sẽ được lưu vào: assets/generated-images/
+- HTML sản phẩm / tin tức sẽ dùng link nội bộ kiểu:
+  /assets/generated-images/product-dac-tri-dao-on.webp
+
+CACH THAY FILE
+--------------
+1. Upload file generate.js vào THU MUC GOC của repository AGVN để ghi đè file cũ.
+2. Upload file sync_sheets.yml vào .github/workflows/ để ghi đè file workflow cũ.
+3. Commit lên nhánh main.
+4. Vào GitHub Actions -> chạy workflow:
+   "Đồng bộ sản phẩm & tin tức từ Google Sheet + Deploy"
+
+LUU Y QUAN TRONG
+----------------
+- Link Google Drive phải để quyền:
+  Anyone with the link -> Viewer
+- Nếu không public, GitHub Actions sẽ không tải được ảnh.
+- File được đặt tên theo slug nên nếu đổi ImageURL trong Sheet, lần chạy tiếp theo sẽ tự tải lại.
+- Script có manifest ở assets/generated-images/manifest.json để hạn chế tải lại ảnh khi URL không đổi.
+
+SAU KHI CHAY XONG
+-----------------
+- Kiểm tra repo sẽ có thêm ảnh trong assets/generated-images/
+- Các file HTML trong san-pham/ và tin-tuc/ sẽ dùng ảnh nội bộ.
