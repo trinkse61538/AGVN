@@ -646,32 +646,46 @@
             .ci-img { height: 340px; }
         }
     </style>
+
+<link rel="stylesheet" href="assets/agvn-shared.css">
 </head>
 <body>
 
-    <header>
-        <div class="nav-container">
-            <a href="https://agvngroup.com" class="logo">AGVN <span>GROUP</span></a>
-            <button class="hamburger" onclick="toggleMenu()" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="https://agvngroup.com/aboutus.html">Giới Thiệu</a></li>
-                <li class="nav-dropdown">
-                    <a href="https://agvngroup.com/AGVN_product.html" class="nav-dropdown-toggle">Sản Phẩm <i class="fa-solid fa-chevron-down"></i></a>
-                    <ul class="nav-dropdown-menu">
-                        <li><a href="https://agvngroup.com/AGVN_product.html">Tất cả sản phẩm</a></li>
-                        <li><a href="#products">Các Dòng Sản Phẩm</a></li>
-                        <li><a href="#ctTruBenh">  + Thuốc Trừ Bệnh</a></li>
-                        <li><a href="#ctSauRay">  + Thuốc Trừ Sâu - Rầy</a></li>
-                        <li><a href="#ctDieuHoa">  + Thuốc Điều Hòa Sinh Trưởng</a></li>
-                        <li><a href="#ctPhanBon">  + Phân bón</a></li>
-
-                    </ul>
-                </li>
-                <li><a href="#testimonials">Bà Con Nói Về AGVN</a></li>
-                <li><a href="#footer">Liên Hệ</a></li>
-            </ul>
-        </div>
-    </header>
+    <header class="agvn-site-header" data-agvn-shared="header">
+  <div class="agvn-nav-shell">
+    <a class="agvn-brand" href="https://agvngroup.com/" aria-label="AGVN Group - Trang chủ">
+      <span class="agvn-brand__main">AGVN</span><span class="agvn-brand__sub">GROUP</span>
+    </a>
+    <button class="agvn-menu-toggle" type="button" aria-label="Mở menu" aria-controls="navMenu" aria-expanded="false">
+      <i class="fa-solid fa-bars" aria-hidden="true"></i>
+    </button>
+    <nav class="agvn-primary-nav" id="navMenu" aria-label="Điều hướng chính">
+      <ul class="agvn-nav-list">
+        <li class="agvn-nav-item"><a class="agvn-nav-link" data-nav="home" href="https://agvngroup.com/">Trang Chủ</a></li>
+        <li class="agvn-nav-item"><a class="agvn-nav-link" data-nav="about" href="https://agvngroup.com/aboutus.html">Giới Thiệu</a></li>
+        <li class="agvn-nav-item agvn-nav-item--products">
+          <div class="agvn-nav-combo">
+            <a class="agvn-nav-link" data-nav="products" href="https://agvngroup.com/AGVN_product.html">Sản Phẩm</a>
+            <button class="agvn-dropdown-button" type="button" aria-label="Mở danh mục sản phẩm" aria-expanded="false">
+              <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+            </button>
+          </div>
+          <ul class="agvn-submenu">
+            <li><a href="https://agvngroup.com/AGVN_product.html"><i class="fa-solid fa-layer-group"></i>Tất cả sản phẩm</a></li>
+            <li><a href="https://agvngroup.com/AGVN_product.html#ctTruBenh"><i class="fa-solid fa-shield-halved"></i>Thuốc Trừ Bệnh</a></li>
+            <li><a href="https://agvngroup.com/AGVN_product.html#ctSauRay"><i class="fa-solid fa-bug"></i>Thuốc Trừ Sâu - Rầy</a></li>
+            <li><a href="https://agvngroup.com/AGVN_product.html#ctDieuHoa"><i class="fa-solid fa-seedling"></i>Điều Hòa Sinh Trưởng</a></li>
+            <li><a href="https://agvngroup.com/AGVN_product.html#ctPhanBon"><i class="fa-solid fa-leaf"></i>Phân Bón</a></li>
+          </ul>
+        </li>
+        <li class="agvn-nav-item"><a class="agvn-nav-link" data-nav="process" href="https://agvngroup.com/quytrinhcanhtaclua.html">Quy Trình Canh Tác Lúa</a></li>
+        <!-- Tin tức đã được đặt sẵn trong menu nhưng tạm ẩn. Xóa class agvn-nav-news--hidden để hiển thị. -->
+        <li class="agvn-nav-item agvn-nav-news--hidden" hidden><a class="agvn-nav-link" data-nav="news" href="https://agvngroup.com/tintuc.html">Tin Tức</a></li>
+        <li class="agvn-nav-item"><a class="agvn-nav-link" href="https://agvngroup.com/#footer">Liên Hệ</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
     <div class="banner-section">
         <div class="banner-container">
@@ -685,7 +699,7 @@
                 <div class="about-content" data-aos="fade-right">
                     <h2 style="color: var(--primary-color); margin-bottom: 10px;">VỀ TẬP ĐOÀN AGVN GROUP</h2>
                     <h3 style="font-weight: 400; color: #555;">Người bạn đồng hành của nhà nông Việt</h3>
-                    <p style="margin-top: 15px;">Tập Đoàn Nông Nghiệp AGVN Group tự hại là đơn vị tiên phong cung cấp các giải pháp vật tư nông nghiệp công nghệ cao. Với bộ sản phẩm tiên tiến, chúng tôi cam kết đồng hành cùng bà con từ lúc làm đất, bón phân cho tới ngày gặt hái quả ngọt thắng lợi.</p>
+                    <p style="margin-top: 15px;">Tập Đoàn Nông Nghiệp AGVN Group tự hào là đơn vị tiên phong cung cấp các giải pháp vật tư nông nghiệp công nghệ cao. Với bộ sản phẩm tiên tiến, chúng tôi cam kết đồng hành cùng bà con từ lúc làm đất, bón phân cho tới ngày gặt hái quả ngọt thắng lợi.</p>
                     <p>Chúng tôi luôn nỗ lực không ngừng để nghiên cứu các dòng sản phẩm an toàn, bảo vệ hệ sinh thái đất và mang đến giá trị kinh tế bền vững nhất cho nông sản Việt Nam vươn tầm quốc tế.</p>
                 </div>
                 <div class="mission-cards" data-aos="fade-left">
@@ -731,7 +745,7 @@
                                 <ul class="ci-features">
                                     <li><span>✅</span> Nội hấp, lưu dẫn mạnh: Thuốc thấm sâu vào cây, bảo vệ toàn diện từ gốc đến ngọn.</li>
                                     <li><span>✅</span> Hiệu lực kéo dài, thấm sâu nhanh giúp bảo vệ toàn diện các mô cây non mới ra.</li>
-                                    <li><span>✅</span> An toàn cho lúa: Sản phẩm dạng SC (huyền phục đậm đặc) không gây nóng, an toàn cho cây trồng ở mọi giai đoạn.</li>
+                                    <li><span>✅</span> An toàn cho lúa: Sản phẩm dạng SC (huyền phù đậm đặc) không gây nóng, an toàn cho cây trồng ở mọi giai đoạn.</li>
                                 </ul>
                                 <button class="product-detail-more-btn" onclick="toggleProductDetail(this)">Xem thêm <i class="fa-solid fa-chevron-down"></i></button>
                             </div>
@@ -901,7 +915,7 @@
                                 <span class="pt-red">Thuốc Trừ Sâu - Rầy</span>
                                 <div class="ci-title">XÔNG HƠI B52</div>
                                 <ul class="ci-features">
-                                    <li><span>✅</span> Xông hơi cực mạnh: Lan tỏa khắp tán lá and thân cây, diệt cả côn trùng ẩn sâu bên trong.</li>
+                                    <li><span>✅</span> Xông hơi cực mạnh: Lan tỏa khắp tán lá và thân cây, diệt cả côn trùng ẩn sâu bên trong.</li>
                                     <li><span>✅</span> Tiếp xúc nhanh: Hiệu quả nhanh, kéo dài nhiều ngày giúp giảm số lần phun, tiết kiệm chi phí.</li>
                                     <li><span>✅</span> Nội hấp: Nội hấp vượt trội, thấm sâu vào mô cây diệt tức thì côn trùng và ổ trứng gây hại.</li>
                                 </ul>
@@ -940,7 +954,7 @@
                                 <span class="pt-teal">Thuốc Điều Hoà Sinh Trưởng</span>
                                 <div class="ci-title">NUMBER ONE</div>
                                 <ul class="ci-features">
-                                    <li><span>✅</span> Ưu điểm vượt trội của Pyraclostrobin kiểm soát hiệu quả many loại nấm là các tác nhân gây ra các loại bệnh phổ biến.</li>
+                                    <li><span>✅</span> Ưu điểm vượt trội của Pyraclostrobin kiểm soát hiệu quả nhiều loại nấm là các tác nhân gây ra các loại bệnh phổ biến.</li>
                                     <li><span>✅</span> Kích thích hoạt động quang hợp: Hoạt chất này làm tăng hàm lượng diệp lục tố, giúp lá cây xanh lâu hơn, nâng cao hiệu quả hấp thụ ánh sáng.</li>
                                     <li><span>✅</span> Cải thiện khả năng hấp thụ dinh dưỡng và nước: Đặc biệt với Nitơ, cây trồng có thể sử dụng nguồn dinh dưỡng một cách tối ưu hơn, từ đó phát triển mạnh mẽ và đồng đều.</li>
                                     <li><span>✅</span> Tăng cường sức đề kháng: với khả năng kích hoạt gen PR (Gen PR phòng thủ sinh học) cây trồng có khả năng chống chịu tốt hơn trước stress môi trường, bao gồm nhiệt độ cao, hạn hán hoặc độ ẩm cao.</li>
@@ -966,8 +980,8 @@
                                 <span class="pt-grn">Phân bón hữu cơ</span>
                                 <div class="ci-title">DƯỠNG ĐÒNG VÀNG</div>
                                 <ul class="ci-features">
-                                    <li><span>✅</span> Bổ sung toàn diện: Cung cấp đầy đủ chất hữu cơ, đa lượng NPK và các trung vi lượng thiết yếu, giúp lúa khỏe mạnh, cứng cáp and tăng sức đề kháng.</li>
-                                    <li><span>✅</span> Cải tạo đất, chắc hạt: Thành phần hữu cơ giúp cải tạo đất, kích thích rễ phát triển mạnh, từ đó hấp thụ dinh dưỡng tốt hơn, giúp cây đứng lá and hạt chắc.</li>
+                                    <li><span>✅</span> Bổ sung toàn diện: Cung cấp đầy đủ chất hữu cơ, đa lượng NPK và các trung vi lượng thiết yếu, giúp lúa khỏe mạnh, cứng cáp và tăng sức đề kháng.</li>
+                                    <li><span>✅</span> Cải tạo đất, chắc hạt: Thành phần hữu cơ giúp cải tạo đất, kích thích rễ phát triển mạnh, từ đó hấp thụ dinh dưỡng tốt hơn, giúp cây đứng lá và hạt chắc.</li>
                                     <li><span>✅</span> Kích thích đòng to, bông dài, hạt nhiều, lúa trổ thoát nhanh và đồng loạt.</li>
                                 </ul>
                                 <button class="product-detail-more-btn" onclick="toggleProductDetail(this)">Xem thêm <i class="fa-solid fa-chevron-down"></i></button>
@@ -1035,7 +1049,7 @@
                                     <li><span>✅</span> Vô gạo thần tốc, to chắc hạt: Giúp lúa chín chắc tới cây, hạn chế đổ ngã.</li>
                                     <li><span>✅</span> Siêu lớn trái, ngọt trái: Trái to, đẹp màu, xanh gai, nặng ký; hạn chế rụng hoa/trái non.</li>
                                     <li><span>✅</span> Ra rễ cực mạnh, cứng cây: Tạo lớp giáp bảo vệ đa tầng, chống chịu phèn, hạn, mặn và thời tiết bất lợi.</li>
-                                    <li><span>✅</span> Tăng năng suất: Tốiưu hấp thụ phân bón và giữ nước, gia tăng chất lượng nông sản.</li>
+                                    <li><span>✅</span> Tăng năng suất: Tối ưu hấp thụ phân bón và giữ nước, gia tăng chất lượng nông sản.</li>
                                 </ul>
                                 <button class="product-detail-more-btn" onclick="toggleProductDetail(this)">Xem thêm <i class="fa-solid fa-chevron-down"></i></button>
                             </div>
@@ -1058,59 +1072,60 @@
         </div>
     </section>
 
-    <footer id="footer">
-        <div class="footer-grid">
-            <div class="footer-about">
-                <h3>AGVN GROUP</h3>
-                <p>Bộ sản phẩm tiên tiến hàng đầu Việt Nam giúp thúc đẩy nền nông nghiệp xanh bền vững, mang lại vụ mùa ấm no cho mọi gia đình nhà nông.</p>
-                <p style="color: var(--accent-color); font-weight: 600;"><i class="fa-solid fa-clock"></i> Thời gian làm việc: 24/7 (Hỗ trợ kỹ thuật bất cứ khi nào bà con cần)</p>
-            </div>
-            <div class="footer-links">
-                <h4>Chuyên Mục</h4>
-                <ul>
-                    <li><a href="https://agvngroup.com/aboutus.html"><i class="fa-solid fa-angle-right"></i> Về chúng tôi</a></li>
-                    <li><a href="#products"><i class="fa-solid fa-angle-right"></i> Các dòng sản phẩm</a></li>
-                    <li><a href="#testimonials"><i class="fa-solid fa-angle-right"></i> Kết quả thực tế</a></li>
-                </ul>
-            </div>
-            <div class="footer-contact">
-                <h4>Thông Tin Liên Hệ</h4>
-                <div class="footer-contact-item">
-                    <i class="fa-solid fa-location-dot"></i>
-                    <a href="https://www.google.com/maps/search/?api=1&query=Số+12+Đường+Dự+Định+Khóm+Đông+Thịnh+9+Phường+Long+Xuyên+Long+Xuyên+Việt+Nam" target="_blank" title="Xem trên Google Maps">
-                        <span>Số 12 Đường Dự Định, Khóm Đông Thịnh 9, Phường Long Xuyên, Long Xuyên, Vietnam</span>
-                    </a>
-                </div>
-                <div class="footer-contact-item">
-                    <i class="fa-solid fa-phone-volume"></i>
-                    <span><a href="tel:0869980098"><strong>0869 980 098</strong></a></span>
-                </div>
-                <div class="footer-contact-item">
-                    <i class="fa-solid fa-envelope"></i>
-                    <span><a href="mailto:agvngroup2025@gmail.com">agvngroup2025@gmail.com</a></span>
-                </div>
-            </div>
+    <footer class="agvn-site-footer" id="footer" data-agvn-shared="footer">
+  <div class="agvn-footer-shell">
+    <div class="agvn-footer-grid">
+      <section aria-label="Giới thiệu AGVN Group">
+        <a class="agvn-footer-brand" href="https://agvngroup.com/">
+          <span class="agvn-brand__main">AGVN</span><span class="agvn-brand__sub">GROUP</span>
+        </a>
+        <p class="agvn-footer-text">Đồng hành cùng nhà nông bằng các giải pháp vật tư nông nghiệp, kỹ thuật canh tác và bộ sản phẩm hướng đến hiệu quả bền vững.</p>
+        <div class="agvn-footer-legal">
+          <p><strong>CÔNG TY TNHH TẬP ĐOÀN NÔNG NGHIỆP AGVN GROUP</strong></p>
+</div>
+      </section>
+      <section aria-label="Liên kết nhanh">
+        <h2 class="agvn-footer-title">Liên Kết Nhanh</h2>
+        <ul class="agvn-footer-list">
+          <li><a href="https://agvngroup.com/"><i class="fa-solid fa-angle-right"></i>Trang Chủ</a></li>
+          <li><a href="https://agvngroup.com/aboutus.html"><i class="fa-solid fa-angle-right"></i>Giới Thiệu</a></li>
+          <li><a href="https://agvngroup.com/AGVN_product.html"><i class="fa-solid fa-angle-right"></i>Sản Phẩm</a></li>
+          <li><a href="https://agvngroup.com/quytrinhcanhtaclua.html"><i class="fa-solid fa-angle-right"></i>Quy Trình Canh Tác Lúa</a></li>
+        </ul>
+      </section>
+      <section aria-label="Danh mục sản phẩm">
+        <h2 class="agvn-footer-title">Danh Mục</h2>
+        <ul class="agvn-footer-list">
+          <li><a href="https://agvngroup.com/AGVN_product.html#ctTruBenh"><i class="fa-solid fa-shield-halved"></i>Thuốc Trừ Bệnh</a></li>
+          <li><a href="https://agvngroup.com/AGVN_product.html#ctSauRay"><i class="fa-solid fa-bug"></i>Thuốc Trừ Sâu - Rầy</a></li>
+          <li><a href="https://agvngroup.com/AGVN_product.html#ctDieuHoa"><i class="fa-solid fa-seedling"></i>Điều Hòa Sinh Trưởng</a></li>
+          <li><a href="https://agvngroup.com/AGVN_product.html#ctPhanBon"><i class="fa-solid fa-leaf"></i>Phân Bón</a></li>
+        </ul>
+      </section>
+      <section aria-label="Thông tin liên hệ">
+        <h2 class="agvn-footer-title">Thông Tin Liên Hệ</h2>
+        <ul class="agvn-footer-list">
+          <li><a href="https://www.google.com/maps/search/?api=1&amp;query=S%E1%BB%91+12+%C4%90%C6%B0%E1%BB%9Dng+D%E1%BB%B1+%C4%90%E1%BB%8Bnh%2C+Kh%C3%B3m+%C4%90%C3%B4ng+Th%E1%BB%8Bnh+9%2C+Ph%C6%B0%E1%BB%9Dng+Long+Xuy%C3%AAn%2C+Long+Xuy%C3%AAn%2C+Vietnam" target="_blank" rel="noopener"><i class="fa-solid fa-location-dot"></i><span>Số 12 Đường Dự Định, Khóm Đông Thịnh 9, Phường Long Xuyên, Long Xuyên, Vietnam</span></a></li>
+          <li><a href="tel:0869980098"><i class="fa-solid fa-phone"></i><span>0869 980 098</span></a></li>
+          <li><a href="mailto:agvngroup2025@gmail.com"><i class="fa-solid fa-envelope"></i><span>agvngroup2025@gmail.com</span></a></li>
+        </ul>
+        <div class="agvn-social-row">
+          <a class="agvn-social-link" href="https://www.facebook.com/agvngroup" target="_blank" rel="noopener" aria-label="Facebook AGVN Group"><i class="fa-brands fa-facebook-f"></i></a>
+          <a class="agvn-social-link" href="https://m.me/agvngroup" target="_blank" rel="noopener" aria-label="Messenger AGVN Group"><i class="fa-brands fa-facebook-messenger"></i></a>
+          <a class="agvn-social-link" href="https://zalo.me/0869980098" target="_blank" rel="noopener" aria-label="Zalo AGVN Group"><span style="font-size:.67rem;font-weight:800;">ZALO</span></a>
         </div>
-        <div class="footer-bottom">
-            <p>© 2026 Tập Đoàn Nông Nghiệp AGVN Group. Thiết kế chuyên nghiệp vì nhà nông.</p>
-        </div>
-    </footer>
-
-    <div class="floating-buttons">
-        <a href="tel:0969882442" class="float-btn float-phone" title="Gọi ngay tư vấn kỹ thuật">
-            <i class="fa-solid fa-phone"></i>
-        </a>
-        <a href="https://zalo.me/0969882442" target="_blank" class="float-btn float-zalo" title="Chat qua Zalo">
-            <span style="font-size: 0.75rem; font-weight: bold; letter-spacing: -0.5px;">ZALO</span>
-        </a>
-        <a href="https://m.me/agvngroup" target="_blank" class="float-btn float-messenger" title="Chat qua Facebook Messenger">
-            <i class="fa-brands fa-facebook-messenger"></i>
-        </a>
+      </section>
     </div>
+    <div class="agvn-footer-bottom">
+      <p>© 2026 CÔNG TY TNHH TẬP ĐOÀN NÔNG NGHIỆP AGVN GROUP. Tất cả quyền được bảo lưu.</p>
+      <p>Website: agvngroup.com</p>
+    </div>
+  </div>
+</footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({
+        if (window.AOS) AOS.init({
             duration: 1000,
             once: true
         });
@@ -1286,5 +1301,12 @@
         }
     });
     </script>
+
+<div class="floating-buttons agvn-floating-buttons" aria-label="Liên hệ nhanh">
+  <a class="float-btn float-phone" href="tel:0869980098" aria-label="Gọi AGVN Group: 0869 980 098" title="Gọi 0869 980 098"><i class="fa-solid fa-phone"></i></a>
+  <a class="float-btn float-zalo" href="https://zalo.me/0869980098" target="_blank" rel="noopener" aria-label="Chat Zalo với AGVN Group" title="Chat Zalo">ZALO</a>
+  <a class="float-btn float-messenger" href="https://m.me/agvngroup" target="_blank" rel="noopener" aria-label="Chat Messenger với AGVN Group" title="Chat Messenger"><i class="fa-brands fa-facebook-messenger"></i></a>
+</div>
+<script src="assets/agvn-shared.js"></script>
 </body>
 </html>
