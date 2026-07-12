@@ -1,12 +1,9 @@
 name: Đồng bộ sản phẩm & tin tức từ Google Sheet + Deploy
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
   schedule:
     - cron: '0 * * * *'
-  workflow_dispatch:
 
 permissions:
   contents: write
@@ -18,36 +15,28 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '23'
+          node-version: '20'
 
-      - name: Generate All Pages
+      - name: Generate products, news, and local images
         run: node generate.js
 
-      - name: Commit và Push
+      - name: Commit and push generated files
         run: |
-          git config --global user.name "AGVN Automation Bot"
-          git config --global user.email "bot@agvngroup.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add -f san-pham/*.html 2>/dev/null || true
-          git add -f tin-tuc/*.html 2>/dev/null || true
-          git add -f tintuc.html 2>/dev/null || true
+          git add -A san-pham tin-tuc tintuc.html assets/generated-images
 
           if git diff --cached --quiet; then
-            echo "✅ Không có thay đổi mới từ Google Sheet"
-          else
-            git commit -m "Tự động đồng bộ sản phẩm & tin tức từ Google Sheet"
-            git push origin HEAD:main
-            echo "✅ Đã push thay đổi lên GitHub"
+            echo "No changes to commit."
+            exit 0
           fi
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .
-          user_name: "AGVN Automation Bot"
-          user_email: "bot@agvngroup.com"
+          git commit -m "Auto-sync sheet content and downloaded images"
+          git push
