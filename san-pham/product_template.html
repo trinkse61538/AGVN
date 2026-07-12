@@ -526,37 +526,46 @@
             .float-btn { width: 50px; height: 50px; font-size: 1.4rem; }
         }
     </style>
+
+<link rel="stylesheet" href="../assets/agvn-shared.css">
 </head>
 <body>
 
-    <div class="floating-buttons">
-        <a href="tel:0869980098" class="float-btn float-phone" title="Gọi ngay tư vấn kỹ thuật"><i class="fa-solid fa-phone"></i></a>
-        <a href="https://zalo.me/0869980098" target="_blank" class="float-btn float-zalo" title="Chat qua Zalo">ZALO</a>
-        <a href="https://m.me/agvngroup" target="_blank" class="float-btn float-messenger" title="Chat qua Facebook Messenger"><i class="fa-brands fa-facebook-messenger"></i></a>
-    </div>    
-
-    <header>
-        <div class="nav-container">
-            <a href="https://agvngroup.com" class="logo">AGVN <span>GROUP</span></a>
-            <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
-                <i class="fa-solid fa-bars"></i>
+    <header class="agvn-site-header" data-agvn-shared="header">
+  <div class="agvn-nav-shell">
+    <a class="agvn-brand" href="https://agvngroup.com/" aria-label="AGVN Group - Trang chủ">
+      <span class="agvn-brand__main">AGVN</span><span class="agvn-brand__sub">GROUP</span>
+    </a>
+    <button class="agvn-menu-toggle" type="button" aria-label="Mở menu" aria-controls="navMenu" aria-expanded="false">
+      <i class="fa-solid fa-bars" aria-hidden="true"></i>
+    </button>
+    <nav class="agvn-primary-nav" id="navMenu" aria-label="Điều hướng chính">
+      <ul class="agvn-nav-list">
+        <li class="agvn-nav-item"><a class="agvn-nav-link" data-nav="home" href="https://agvngroup.com/">Trang Chủ</a></li>
+        <li class="agvn-nav-item"><a class="agvn-nav-link" data-nav="about" href="https://agvngroup.com/aboutus.html">Giới Thiệu</a></li>
+        <li class="agvn-nav-item agvn-nav-item--products">
+          <div class="agvn-nav-combo">
+            <a class="agvn-nav-link" data-nav="products" href="https://agvngroup.com/AGVN_product.html">Sản Phẩm</a>
+            <button class="agvn-dropdown-button" type="button" aria-label="Mở danh mục sản phẩm" aria-expanded="false">
+              <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
             </button>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="https://agvngroup.com/">Trang Chủ</a></li>
-                <li><a href="https://agvngroup.com/aboutus.html">Giới Thiệu</a></li>
-                <li class="nav-dropdown">
-                    <a href="https://agvngroup.com/AGVN_product.html" class="nav-dropdown-toggle" onclick="toggleDropdown(event)">Sản Phẩm <i class="fa-solid fa-chevron-down"></i></a>
-                    <ul class="nav-dropdown-menu" id="productDropdown">
-                        <li><a href="https://agvngroup.com/AGVN_product.html#ctTruBenh" onclick="closeMenuMobile()">Thuốc Trừ Bệnh</a></li>
-                        <li><a href="https://agvngroup.com/AGVN_product.html#ctSauRay" onclick="closeMenuMobile()">Thuốc Trừ Sâu - Rầy</a></li>
-                        <li><a href="https://agvngroup.com/AGVN_product.html#ctDieuHoa" onclick="closeMenuMobile()">Thuốc Điều Hòa Sinh Trưởng</a></li>
-                        <li><a href="https://agvngroup.com/AGVN_product.html#ctPhanBon" onclick="closeMenuMobile()">Phân bón</a></li>
-                    </ul>
-                </li>
-                <li><a href="#footer">Liên Hệ</a></li>
-            </ul>
-        </div>
-    </header>
+          </div>
+          <ul class="agvn-submenu">
+            <li><a href="https://agvngroup.com/AGVN_product.html"><i class="fa-solid fa-layer-group"></i>Tất cả sản phẩm</a></li>
+            <li><a href="https://agvngroup.com/AGVN_product.html#ctTruBenh"><i class="fa-solid fa-shield-halved"></i>Thuốc Trừ Bệnh</a></li>
+            <li><a href="https://agvngroup.com/AGVN_product.html#ctSauRay"><i class="fa-solid fa-bug"></i>Thuốc Trừ Sâu - Rầy</a></li>
+            <li><a href="https://agvngroup.com/AGVN_product.html#ctDieuHoa"><i class="fa-solid fa-seedling"></i>Điều Hòa Sinh Trưởng</a></li>
+            <li><a href="https://agvngroup.com/AGVN_product.html#ctPhanBon"><i class="fa-solid fa-leaf"></i>Phân Bón</a></li>
+          </ul>
+        </li>
+        <li class="agvn-nav-item"><a class="agvn-nav-link" data-nav="process" href="https://agvngroup.com/quytrinhcanhtaclua.html">Quy Trình Canh Tác Lúa</a></li>
+        <!-- Tin tức đã được đặt sẵn trong menu nhưng tạm ẩn. Xóa class agvn-nav-news--hidden để hiển thị. -->
+        <li class="agvn-nav-item agvn-nav-news--hidden" hidden><a class="agvn-nav-link" data-nav="news" href="https://agvngroup.com/tintuc.html">Tin Tức</a></li>
+        <li class="agvn-nav-item"><a class="agvn-nav-link" href="https://agvngroup.com/#footer">Liên Hệ</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
     <div class="breadcrumb-section">
         <div class="container">
@@ -610,58 +619,60 @@
         </div>
     </section>
 
-    <footer>
-        <div id="footer" class="footer-container">
-            <div class="footer-col" data-aos="fade-up" data-aos-delay="100">
-                <h3>CÔNG TY TNHH TẬP ĐOÀN NÔNG NGHIỆP AGVN GROUP</h3>
-                <p>MST: 0318787572</p>
-                <p>Người đại diện PL: Trần Thị Giang</p>
-                <div class="social-links">
-                    <a href="https://www.facebook.com/agvngroup" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="https://www.youtube.com/@nongnghiepagvngroup" aria-label="Youtube"><i class="fa-brands fa-youtube"></i></a>
-                    <a href="https://www.tiktok.com/@agvn.group" aria-label="Tiktok"><i class="fa-brands fa-tiktok"></i></a>
-                </div>
-            </div>
-            <div class="footer-col" data-aos="fade-up" data-aos-delay="200">
-                <h3>Liên Hệ</h3>
-                <p>
-                    <i class="fa-solid fa-location-dot" style="color: #ffffff; margin-right: 10px;"></i> 
-                    <a href="https://www.google.com/maps/search/?api=1&query=Số+12+Đường+Dự+Định+Khóm+Đông+Thịnh+9+Phường+Long+Xuyên+Long+Xuyên+Việt+Nam" target="_blank" title="Xem trên Google Maps" style="color: #ffffff; text-decoration: none;">
-                        <span>Số 12 Đường Dự Định, Khóm Đông Thịnh 9, Phường Long Xuyên, Long Xuyên, Vietnam</span>
-                    </a>
-                </p>
-                <p>
-                    <i class="fa-solid fa-phone" style="color: #ffffff; margin-right: 10px;"></i>
-                    <a href="tel:0869980098" style="color: #ffffff; text-decoration: none;"><strong>0869 980 098</strong></a>
-                </p>
-                <p>
-                    <i class="fa-solid fa-envelope" style="color: #ffffff; margin-right: 10px;"></i>
-                    <span style="color: #ffffff;">agvngroup2025@gmail.com</span>
-                </p>
-            </div>
-            <div class="footer-col" data-aos="fade-up" data-aos-delay="300">
-                <h3>Liên Kết</h3>
-                <ul>
-                    <li><a href="https://agvngroup.com">Trang Chủ</a></li>
-                    <li><a href="https://agvngroup.com/AGVN_product.html#organic-section">Phân Bón Hữu Cơ</a></li>
-                    <li><a href="https://agvngroup.com/AGVN_product.html#protection-section">Thuốc BVTV</a></li>
-                </ul>
-            </div>
-            <div class="footer-col" data-aos="fade-up" data-aos-delay="400">
-                <h3>Vị Trí</h3>
-                <div class="map-container">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3924.9745337233267!2d105.44102607589255!3d10.343930867000863!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a0cb6c52a0a21%3A0x6d87e07eb423cb11!2zU-G7kSAxMiDEkMaw4budbmcgROG7sSDEkOG7i25oLCBLaMOzbSDEkMO0bmcgVGjhu4tuaCA5LCBMb25nIFh1eeG7 racismLCBBbiBHaWFuZywgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1719225600000!5m2!1svi!2s" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                </div>
-            </div>
+    <footer class="agvn-site-footer" id="footer" data-agvn-shared="footer">
+  <div class="agvn-footer-shell">
+    <div class="agvn-footer-grid">
+      <section aria-label="Giới thiệu AGVN Group">
+        <a class="agvn-footer-brand" href="https://agvngroup.com/">
+          <span class="agvn-brand__main">AGVN</span><span class="agvn-brand__sub">GROUP</span>
+        </a>
+        <p class="agvn-footer-text">Đồng hành cùng nhà nông bằng các giải pháp vật tư nông nghiệp, kỹ thuật canh tác và bộ sản phẩm hướng đến hiệu quả bền vững.</p>
+        <div class="agvn-footer-legal">
+          <p><strong>CÔNG TY TNHH TẬP ĐOÀN NÔNG NGHIỆP AGVN GROUP</strong></p>
+</div>
+      </section>
+      <section aria-label="Liên kết nhanh">
+        <h2 class="agvn-footer-title">Liên Kết Nhanh</h2>
+        <ul class="agvn-footer-list">
+          <li><a href="https://agvngroup.com/"><i class="fa-solid fa-angle-right"></i>Trang Chủ</a></li>
+          <li><a href="https://agvngroup.com/aboutus.html"><i class="fa-solid fa-angle-right"></i>Giới Thiệu</a></li>
+          <li><a href="https://agvngroup.com/AGVN_product.html"><i class="fa-solid fa-angle-right"></i>Sản Phẩm</a></li>
+          <li><a href="https://agvngroup.com/quytrinhcanhtaclua.html"><i class="fa-solid fa-angle-right"></i>Quy Trình Canh Tác Lúa</a></li>
+        </ul>
+      </section>
+      <section aria-label="Danh mục sản phẩm">
+        <h2 class="agvn-footer-title">Danh Mục</h2>
+        <ul class="agvn-footer-list">
+          <li><a href="https://agvngroup.com/AGVN_product.html#ctTruBenh"><i class="fa-solid fa-shield-halved"></i>Thuốc Trừ Bệnh</a></li>
+          <li><a href="https://agvngroup.com/AGVN_product.html#ctSauRay"><i class="fa-solid fa-bug"></i>Thuốc Trừ Sâu - Rầy</a></li>
+          <li><a href="https://agvngroup.com/AGVN_product.html#ctDieuHoa"><i class="fa-solid fa-seedling"></i>Điều Hòa Sinh Trưởng</a></li>
+          <li><a href="https://agvngroup.com/AGVN_product.html#ctPhanBon"><i class="fa-solid fa-leaf"></i>Phân Bón</a></li>
+        </ul>
+      </section>
+      <section aria-label="Thông tin liên hệ">
+        <h2 class="agvn-footer-title">Thông Tin Liên Hệ</h2>
+        <ul class="agvn-footer-list">
+          <li><a href="https://www.google.com/maps/search/?api=1&amp;query=S%E1%BB%91+12+%C4%90%C6%B0%E1%BB%9Dng+D%E1%BB%B1+%C4%90%E1%BB%8Bnh%2C+Kh%C3%B3m+%C4%90%C3%B4ng+Th%E1%BB%8Bnh+9%2C+Ph%C6%B0%E1%BB%9Dng+Long+Xuy%C3%AAn%2C+Long+Xuy%C3%AAn%2C+Vietnam" target="_blank" rel="noopener"><i class="fa-solid fa-location-dot"></i><span>Số 12 Đường Dự Định, Khóm Đông Thịnh 9, Phường Long Xuyên, Long Xuyên, Vietnam</span></a></li>
+          <li><a href="tel:0869980098"><i class="fa-solid fa-phone"></i><span>0869 980 098</span></a></li>
+          <li><a href="mailto:agvngroup2025@gmail.com"><i class="fa-solid fa-envelope"></i><span>agvngroup2025@gmail.com</span></a></li>
+        </ul>
+        <div class="agvn-social-row">
+          <a class="agvn-social-link" href="https://www.facebook.com/agvngroup" target="_blank" rel="noopener" aria-label="Facebook AGVN Group"><i class="fa-brands fa-facebook-f"></i></a>
+          <a class="agvn-social-link" href="https://m.me/agvngroup" target="_blank" rel="noopener" aria-label="Messenger AGVN Group"><i class="fa-brands fa-facebook-messenger"></i></a>
+          <a class="agvn-social-link" href="https://zalo.me/0869980098" target="_blank" rel="noopener" aria-label="Zalo AGVN Group"><span style="font-size:.67rem;font-weight:800;">ZALO</span></a>
         </div>
-        <div class="footer-bottom">
-            <p>© 2026 AGVN Group. Tất cả quyền được bảo lưu.</p>
-        </div>
-    </footer>
+      </section>
+    </div>
+    <div class="agvn-footer-bottom">
+      <p>© 2026 CÔNG TY TNHH TẬP ĐOÀN NÔNG NGHIỆP AGVN GROUP. Tất cả quyền được bảo lưu.</p>
+      <p>Website: agvngroup.com</p>
+    </div>
+  </div>
+</footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1000, once: true });
+        if (window.AOS) AOS.init({ duration: 1000, once: true });
 
         function toggleMenu() {
             var m = document.getElementById('navMenu');
@@ -687,5 +698,12 @@
             }
         }
     </script>
+
+<div class="floating-buttons agvn-floating-buttons" aria-label="Liên hệ nhanh">
+  <a class="float-btn float-phone" href="tel:0869980098" aria-label="Gọi AGVN Group: 0869 980 098" title="Gọi 0869 980 098"><i class="fa-solid fa-phone"></i></a>
+  <a class="float-btn float-zalo" href="https://zalo.me/0869980098" target="_blank" rel="noopener" aria-label="Chat Zalo với AGVN Group" title="Chat Zalo">ZALO</a>
+  <a class="float-btn float-messenger" href="https://m.me/agvngroup" target="_blank" rel="noopener" aria-label="Chat Messenger với AGVN Group" title="Chat Messenger"><i class="fa-brands fa-facebook-messenger"></i></a>
+</div>
+<script src="../assets/agvn-shared.js"></script>
 </body>
 </html>
