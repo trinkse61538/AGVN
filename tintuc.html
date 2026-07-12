@@ -1,20 +1,24 @@
 <!DOCTYPE html>
-
 <html lang="vi">
 <head>
-<meta content="noindex, nofollow" name="robots"/>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Tin Tức Nông Nghiệp - Tập Đoàn Nông Nghiệp AGVN Group</title>
-<link href="https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@c44d6fc7a5a0c4ad73e18c1bc6cf97cbd221bdf9/AGVN_Logo.jpg" rel="icon" type="image/jpeg"/>
-<link href="https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@c44d6fc7a5a0c4ad73e18c1bc6cf97cbd221bdf9/AGVN_Logo.jpg" rel="shortcut icon" type="image/jpeg"/>
-<link crossorigin="" href="https://cdn.jsdelivr.net" rel="preconnect"/>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
-<style>
+<meta name="robots" content="noindex, nofollow">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tin Tức Nông Nghiệp - Tập Đoàn Nông Nghiệp AGVN Group</title>
+    
+    <link rel="icon" type="image/jpeg" href="https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@c44d6fc7a5a0c4ad73e18c1bc6cf97cbd221bdf9/AGVN_Logo.jpg">
+    <link rel="shortcut icon" type="image/jpeg" href="https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@c44d6fc7a5a0c4ad73e18c1bc6cf97cbd221bdf9/AGVN_Logo.jpg">
+    
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
         :root {
             --primary-color: #007A33; 
             --secondary-color: #8DC63F; 
@@ -539,79 +543,474 @@
             .section-title { font-size:1.8rem; }
         }
     </style>
-<link href="assets/agvn-shared.css" rel="stylesheet"/>
+
+<!-- AGVN shared header/footer styles are inlined so every page works locally and on GitHub Pages. -->
+<style id="agvn-shared-inline">
+/* =========================================================
+   AGVN shared site chrome
+   Đồng bộ header, footer và nút liên hệ cho toàn bộ website.
+   ========================================================= */
+:root {
+  --agvn-green-900: #064e2f;
+  --agvn-green-800: #08643c;
+  --agvn-green-700: #087a43;
+  --agvn-green-100: #eaf6ee;
+  --agvn-gold: #f2b705;
+  --agvn-ink: #17342a;
+  --agvn-muted: #63766f;
+  --agvn-line: rgba(8, 100, 60, 0.14);
+  --agvn-white: #ffffff;
+}
+
+html { scroll-behavior: smooth; }
+body { overflow-x: hidden; }
+
+/* ---------- Header ---------- */
+header.agvn-site-header {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 10000 !important;
+  width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  color: var(--agvn-ink) !important;
+  background: rgba(255, 255, 255, 0.97) !important;
+  border-bottom: 1px solid var(--agvn-line) !important;
+  box-shadow: 0 8px 26px rgba(9, 72, 44, 0.08) !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.agvn-site-header *,
+.agvn-site-footer * { box-sizing: border-box; }
+
+.agvn-nav-shell {
+  width: min(1240px, calc(100% - 40px));
+  min-height: 74px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+}
+
+.agvn-brand {
+  display: inline-flex !important;
+  align-items: baseline;
+  gap: 7px;
+  flex: 0 0 auto;
+  color: var(--agvn-green-800) !important;
+  text-decoration: none !important;
+  letter-spacing: -0.035em;
+  font-weight: 800 !important;
+  line-height: 1;
+}
+
+.agvn-brand__main { font-size: clamp(1.35rem, 2vw, 1.7rem); }
+.agvn-brand__sub {
+  color: var(--agvn-gold);
+  font-size: clamp(0.9rem, 1.35vw, 1.05rem);
+  letter-spacing: 0.05em;
+}
+
+.agvn-menu-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--agvn-line);
+  border-radius: 12px;
+  color: var(--agvn-green-800);
+  background: var(--agvn-white);
+  cursor: pointer;
+  font-size: 1.25rem;
+}
+
+.agvn-primary-nav { margin-left: auto; }
+.agvn-nav-list {
+  display: flex !important;
+  align-items: center;
+  gap: 5px;
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none !important;
+}
+
+.agvn-nav-item { position: relative; margin: 0 !important; }
+.agvn-nav-link,
+.agvn-dropdown-button {
+  min-height: 42px;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 9px 12px !important;
+  border: 0;
+  border-radius: 11px;
+  color: var(--agvn-ink) !important;
+  background: transparent;
+  text-decoration: none !important;
+  font-size: 0.92rem !important;
+  font-weight: 650 !important;
+  line-height: 1.3;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color .2s ease, background .2s ease, transform .2s ease;
+}
+
+.agvn-nav-link:hover,
+.agvn-nav-link:focus-visible,
+.agvn-nav-link.is-active,
+.agvn-dropdown-button:hover,
+.agvn-dropdown-button:focus-visible {
+  color: var(--agvn-green-800) !important;
+  background: var(--agvn-green-100) !important;
+  outline: none;
+}
+
+.agvn-nav-link.is-active { box-shadow: inset 0 -2px 0 var(--agvn-gold); }
+.agvn-nav-combo { display: flex; align-items: center; }
+.agvn-nav-combo > .agvn-nav-link { padding-right: 5px !important; border-radius: 11px 0 0 11px; }
+.agvn-dropdown-button {
+  width: 32px;
+  padding: 0 !important;
+  border-radius: 0 11px 11px 0;
+  font-size: .72rem !important;
+}
+.agvn-dropdown-button i { transition: transform .2s ease; }
+.agvn-nav-item.is-open .agvn-dropdown-button i { transform: rotate(180deg); }
+
+.agvn-submenu {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  z-index: 10020;
+  min-width: 270px;
+  margin: 0 !important;
+  padding: 9px !important;
+  list-style: none !important;
+  border: 1px solid var(--agvn-line);
+  border-radius: 15px;
+  background: var(--agvn-white);
+  box-shadow: 0 18px 45px rgba(9, 72, 44, .16);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-7px);
+  transition: opacity .2s ease, visibility .2s ease, transform .2s ease;
+}
+.agvn-nav-item:hover > .agvn-submenu,
+.agvn-nav-item:focus-within > .agvn-submenu,
+.agvn-nav-item.is-open > .agvn-submenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.agvn-submenu a {
+  display: flex !important;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 12px !important;
+  border-radius: 10px;
+  color: var(--agvn-ink) !important;
+  text-decoration: none !important;
+  font-size: .9rem !important;
+  font-weight: 600 !important;
+}
+.agvn-submenu a:hover,
+.agvn-submenu a:focus-visible {
+  color: var(--agvn-green-800) !important;
+  background: var(--agvn-green-100) !important;
+  outline: none;
+}
+.agvn-submenu i { width: 18px; color: var(--agvn-green-700); text-align: center; }
+
+/* Tin tức đã có trong mã nguồn nhưng tạm ẩn.
+   Khi cần bật: xóa class "agvn-nav-news--hidden" trong shared header
+   hoặc đổi display bên dưới thành list-item. */
+.agvn-nav-news--hidden { display: none !important; }
+
+/* ---------- Footer ---------- */
+footer.agvn-site-footer {
+  position: relative !important;
+  z-index: 2;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  color: rgba(255,255,255,.86) !important;
+  background:
+    radial-gradient(circle at 85% 0%, rgba(242,183,5,.12), transparent 28%),
+    linear-gradient(145deg, #043823 0%, #075434 56%, #063d29 100%) !important;
+  border: 0 !important;
+}
+.agvn-footer-shell {
+  width: min(1240px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 58px 0 24px;
+}
+.agvn-footer-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 1.05fr .8fr 1.1fr;
+  gap: 34px;
+  align-items: start;
+}
+.agvn-footer-brand {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 7px;
+  margin-bottom: 16px;
+  color: #fff !important;
+  text-decoration: none !important;
+  font-weight: 800;
+}
+.agvn-footer-brand .agvn-brand__sub { color: var(--agvn-gold); }
+.agvn-footer-title {
+  margin: 0 0 15px !important;
+  color: #fff !important;
+  font-size: 1rem !important;
+  line-height: 1.35;
+  font-weight: 750 !important;
+}
+.agvn-footer-text {
+  margin: 0 !important;
+  color: rgba(255,255,255,.74) !important;
+  font-size: .93rem !important;
+  line-height: 1.75 !important;
+}
+.agvn-footer-legal {
+  margin-top: 16px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255,255,255,.12);
+}
+.agvn-footer-legal p { margin: 5px 0 !important; color: rgba(255,255,255,.78) !important; font-size: .88rem !important; }
+.agvn-footer-list {
+  display: grid !important;
+  gap: 9px;
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none !important;
+}
+.agvn-footer-list li { margin: 0 !important; padding: 0 !important; }
+.agvn-footer-list a {
+  display: inline-flex !important;
+  align-items: flex-start;
+  gap: 9px;
+  color: rgba(255,255,255,.78) !important;
+  text-decoration: none !important;
+  font-size: .91rem !important;
+  line-height: 1.55;
+  transition: color .2s ease, transform .2s ease;
+}
+.agvn-footer-list a:hover { color: #fff !important; transform: translateX(3px); }
+.agvn-footer-list i { width: 17px; margin-top: 4px; color: var(--agvn-gold); text-align: center; flex: 0 0 17px; }
+.agvn-social-row { display: flex; gap: 10px; margin-top: 18px; }
+.agvn-social-link {
+  width: 42px;
+  height: 42px;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 12px;
+  color: #fff !important;
+  background: rgba(255,255,255,.08);
+  text-decoration: none !important;
+  transition: transform .2s ease, background .2s ease;
+}
+.agvn-social-link:hover { transform: translateY(-2px); background: rgba(255,255,255,.16); }
+.agvn-footer-bottom {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,.13);
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  color: rgba(255,255,255,.62);
+  font-size: .84rem;
+  line-height: 1.55;
+}
+.agvn-footer-bottom p { margin: 0 !important; color: inherit !important; font-size: inherit !important; }
+
+/* ---------- Floating contact buttons ---------- */
+body .floating-buttons.agvn-floating-buttons {
+  position: fixed !important;
+  right: max(18px, env(safe-area-inset-right)) !important;
+  bottom: max(22px, env(safe-area-inset-bottom)) !important;
+  z-index: 9998 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+body .agvn-floating-buttons .float-btn {
+  width: 50px !important;
+  height: 50px !important;
+  min-width: 50px !important;
+  min-height: 50px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  border: 2px solid rgba(255,255,255,.9) !important;
+  border-radius: 50% !important;
+  color: #fff !important;
+  text-decoration: none !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,.2) !important;
+  font-size: 1.18rem !important;
+  line-height: 1 !important;
+  animation: none !important;
+  transition: transform .2s ease, box-shadow .2s ease !important;
+}
+body .agvn-floating-buttons .float-btn:hover { transform: translateY(-3px) scale(1.04) !important; box-shadow: 0 12px 28px rgba(0,0,0,.25) !important; }
+body .agvn-floating-buttons .float-phone { background: #ef4444 !important; }
+body .agvn-floating-buttons .float-zalo { background: #0068ff !important; font-size: .67rem !important; font-weight: 800 !important; letter-spacing: -.02em; }
+body .agvn-floating-buttons .float-messenger { background: linear-gradient(135deg,#00b2ff,#006aff) !important; }
+
+@media (max-width: 1060px) {
+  .agvn-nav-shell { width: min(100% - 28px, 1240px); min-height: 68px; }
+  .agvn-menu-toggle { display: inline-flex; }
+  .agvn-primary-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: 0;
+    overflow: hidden;
+    margin: 0;
+    background: rgba(255,255,255,.99);
+    border-bottom: 1px solid var(--agvn-line);
+    box-shadow: 0 18px 35px rgba(9,72,44,.13);
+    transition: max-height .28s ease;
+  }
+  .agvn-site-header.is-menu-open .agvn-primary-nav { max-height: min(78vh, 620px); overflow-y: auto; }
+  .agvn-nav-list { display: grid !important; gap: 2px; width: min(100% - 28px, 1240px); margin: 0 auto !important; padding: 12px 0 18px !important; }
+  .agvn-nav-link { width: 100%; justify-content: flex-start; padding: 12px 13px !important; }
+  .agvn-nav-combo { width: 100%; }
+  .agvn-nav-combo > .agvn-nav-link { flex: 1; }
+  .agvn-dropdown-button { width: 46px; height: 46px; flex: 0 0 46px; }
+  .agvn-submenu {
+    position: static;
+    display: none;
+    min-width: 0;
+    margin: 2px 0 7px 14px !important;
+    padding: 6px !important;
+    border-radius: 12px;
+    box-shadow: none;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    background: #f7fbf8;
+  }
+  .agvn-nav-item:hover > .agvn-submenu,
+  .agvn-nav-item:focus-within > .agvn-submenu { display: none; }
+  .agvn-nav-item.is-open > .agvn-submenu { display: block; }
+  .agvn-footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 680px) {
+  .agvn-nav-shell { width: calc(100% - 24px); }
+  .agvn-footer-shell { width: calc(100% - 32px); padding-top: 44px; }
+  .agvn-footer-grid { grid-template-columns: 1fr; gap: 30px; }
+  .agvn-footer-bottom { margin-top: 30px; flex-direction: column; gap: 6px; }
+  body .floating-buttons.agvn-floating-buttons { right: 12px !important; bottom: 14px !important; gap: 8px !important; }
+  body .agvn-floating-buttons .float-btn { width: 46px !important; height: 46px !important; min-width: 46px !important; min-height: 46px !important; }
+}
+</style>
 </head>
 <body>
-<!-- ===== HEADER ===== -->
-<header class="agvn-site-header" data-agvn-shared="header">
-<div class="agvn-nav-shell">
-<a aria-label="AGVN Group - Trang chủ" class="agvn-brand" href="https://agvngroup.com/">
-<span class="agvn-brand__main">AGVN</span><span class="agvn-brand__sub">GROUP</span>
-</a>
-<button aria-controls="navMenu" aria-expanded="false" aria-label="Mở menu" class="agvn-menu-toggle" type="button">
-<i aria-hidden="true" class="fa-solid fa-bars"></i>
-</button>
-<nav aria-label="Điều hướng chính" class="agvn-primary-nav" id="navMenu">
-<ul class="agvn-nav-list">
-<li class="agvn-nav-item"><a class="agvn-nav-link" data-nav="home" href="https://agvngroup.com/">Trang Chủ</a></li>
-<li class="agvn-nav-item"><a class="agvn-nav-link" data-nav="about" href="https://agvngroup.com/aboutus.html">Giới Thiệu</a></li>
-<li class="agvn-nav-item agvn-nav-item--products">
-<div class="agvn-nav-combo">
-<a class="agvn-nav-link" data-nav="products" href="https://agvngroup.com/AGVN_product.html">Sản Phẩm</a>
-<button aria-expanded="false" aria-label="Mở danh mục sản phẩm" class="agvn-dropdown-button" type="button">
-<i aria-hidden="true" class="fa-solid fa-chevron-down"></i>
-</button>
-</div>
-<ul class="agvn-submenu">
-<li><a href="https://agvngroup.com/AGVN_product.html"><i class="fa-solid fa-layer-group"></i>Tất cả sản phẩm</a></li>
-<li><a href="https://agvngroup.com/AGVN_product.html#ctTruBenh"><i class="fa-solid fa-shield-halved"></i>Thuốc Trừ Bệnh</a></li>
-<li><a href="https://agvngroup.com/AGVN_product.html#ctSauRay"><i class="fa-solid fa-bug"></i>Thuốc Trừ Sâu - Rầy</a></li>
-<li><a href="https://agvngroup.com/AGVN_product.html#ctDieuHoa"><i class="fa-solid fa-seedling"></i>Điều Hòa Sinh Trưởng</a></li>
-<li><a href="https://agvngroup.com/AGVN_product.html#ctPhanBon"><i class="fa-solid fa-leaf"></i>Phân Bón</a></li>
-</ul>
-</li>
-<li class="agvn-nav-item"><a class="agvn-nav-link" data-nav="process" href="https://agvngroup.com/quytrinhcanhtaclua.html">Quy Trình Canh Tác Lúa</a></li>
-<!-- Tin tức đã được đặt sẵn trong menu nhưng tạm ẩn. Xóa class agvn-nav-news--hidden để hiển thị. -->
-<li class="agvn-nav-item agvn-nav-news--hidden" hidden><a class="agvn-nav-link" data-nav="news" href="https://agvngroup.com/tintuc.html">Tin Tức</a></li>
-<li class="agvn-nav-item"><a class="agvn-nav-link" href="https://agvngroup.com/#footer">Liên Hệ</a></li>
-</ul>
-</nav>
-</div>
+
+    <!-- ===== HEADER ===== -->
+    <header class="agvn-site-header" data-agvn-shared="header">
+  <div class="agvn-nav-shell">
+    <a class="agvn-brand" href="https://agvngroup.com/" aria-label="AGVN Group - Trang chủ">
+      <span class="agvn-brand__main">AGVN</span><span class="agvn-brand__sub">GROUP</span>
+    </a>
+    <button class="agvn-menu-toggle" type="button" aria-label="Mở menu" aria-controls="navMenu" aria-expanded="false">
+      <i class="fa-solid fa-bars" aria-hidden="true"></i>
+    </button>
+    <nav class="agvn-primary-nav" id="navMenu" aria-label="Điều hướng chính">
+      <ul class="agvn-nav-list">
+        <li class="agvn-nav-item"><a class="agvn-nav-link" data-nav="home" href="https://agvngroup.com/">Trang Chủ</a></li>
+        <li class="agvn-nav-item"><a class="agvn-nav-link" data-nav="about" href="https://agvngroup.com/aboutus.html">Giới Thiệu</a></li>
+        <li class="agvn-nav-item agvn-nav-item--products">
+          <div class="agvn-nav-combo">
+            <a class="agvn-nav-link" data-nav="products" href="https://agvngroup.com/AGVN_product.html">Sản Phẩm</a>
+            <button class="agvn-dropdown-button" type="button" aria-label="Mở danh mục sản phẩm" aria-expanded="false">
+              <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+            </button>
+          </div>
+          <ul class="agvn-submenu">
+            <li><a href="https://agvngroup.com/AGVN_product.html"><i class="fa-solid fa-layer-group"></i>Tất cả sản phẩm</a></li>
+            <li><a href="https://agvngroup.com/AGVN_product.html#ctTruBenh"><i class="fa-solid fa-shield-halved"></i>Thuốc Trừ Bệnh</a></li>
+            <li><a href="https://agvngroup.com/AGVN_product.html#ctSauRay"><i class="fa-solid fa-bug"></i>Thuốc Trừ Sâu - Rầy</a></li>
+            <li><a href="https://agvngroup.com/AGVN_product.html#ctDieuHoa"><i class="fa-solid fa-seedling"></i>Điều Hòa Sinh Trưởng</a></li>
+            <li><a href="https://agvngroup.com/AGVN_product.html#ctPhanBon"><i class="fa-solid fa-leaf"></i>Phân Bón</a></li>
+          </ul>
+        </li>
+        <li class="agvn-nav-item"><a class="agvn-nav-link" data-nav="process" href="https://agvngroup.com/quytrinhcanhtaclua.html">Quy Trình Canh Tác Lúa</a></li>
+        <!-- Tin tức đã được đặt sẵn trong menu nhưng tạm ẩn. Xóa class agvn-nav-news--hidden để hiển thị. -->
+        <li class="agvn-nav-item agvn-nav-news--hidden" hidden><a class="agvn-nav-link" data-nav="news" href="https://agvngroup.com/tintuc.html">Tin Tức</a></li>
+        <li class="agvn-nav-item"><a class="agvn-nav-link" href="https://agvngroup.com/#footer">Liên Hệ</a></li>
+      </ul>
+    </nav>
+  </div>
 </header>
-<!-- ===== HERO BANNER ===== -->
-<section class="news-hero">
-<h1>TIN TỨC NÔNG NGHIỆP</h1>
-<p>Cập nhật kiến thức canh tác, kỹ thuật mới nhất và những câu chuyện thành công từ bà con nông dân trên khắp cả nước</p>
-</section>
-<!-- ===== BREADCRUMB ===== -->
-<div class="breadcrumb-section">
-<div class="breadcrumb-links">
-<a href="https://agvngroup.com">Trang Chủ</a>
-<i class="fa-solid fa-chevron-right"></i>
-<span>Tin Tức</span>
-</div>
-</div>
-<!-- ===== BỘ LỌC DANH MỤC ===== -->
-<div class="news-filter">
-<div class="filter-container">
-<button class="filter-btn active" onclick="filterNews('all', this)">Tất Cả</button>
-<button class="filter-btn" onclick="filterNews('kienthuc', this)">Kiến Thức Canh Tác</button>
-<button class="filter-btn" onclick="filterNews('kythuat', this)">Kỹ Thuật Mới</button>
-<button class="filter-btn" onclick="filterNews('thanhcong', this)">Câu Chuyện Thành Công</button>
-<button class="filter-btn" onclick="filterNews('sanpham', this)">Sản Phẩm Mới</button>
-<button class="filter-btn" onclick="filterNews('hoatdong', this)">Hoạt Động AGVN</button>
-</div>
-</div>
-<!-- ===== BÀI MỚI NHẤT (Hero) ===== -->
 
-<section class="latest-news" id="latestNews">
-<div class="container">
-<h2 class="section-title" data-aos="fade-up">BÀI VIẾT MỚI NHẤT</h2>
+    <!-- ===== HERO BANNER ===== -->
+    <section class="news-hero">
+        <h1>TIN TỨC NÔNG NGHIỆP</h1>
+        <p>Cập nhật kiến thức canh tác, kỹ thuật mới nhất và những câu chuyện thành công từ bà con nông dân trên khắp cả nước</p>
+    </section>
 
+    <!-- ===== BREADCRUMB ===== -->
+    <div class="breadcrumb-section">
+        <div class="breadcrumb-links">
+            <a href="https://agvngroup.com">Trang Chủ</a>
+            <i class="fa-solid fa-chevron-right"></i>
+            <span>Tin Tức</span>
+        </div>
+    </div>
+
+    <!-- ===== BỘ LỌC DANH MỤC ===== -->
+    <div class="news-filter">
+        <div class="filter-container">
+            <button class="filter-btn active" onclick="filterNews('all', this)">Tất Cả</button>
+            <button class="filter-btn" onclick="filterNews('kienthuc', this)">Kiến Thức Canh Tác</button>
+            <button class="filter-btn" onclick="filterNews('kythuat', this)">Kỹ Thuật Mới</button>
+            <button class="filter-btn" onclick="filterNews('thanhcong', this)">Câu Chuyện Thành Công</button>
+            <button class="filter-btn" onclick="filterNews('sanpham', this)">Sản Phẩm Mới</button>
+            <button class="filter-btn" onclick="filterNews('hoatdong', this)">Hoạt Động AGVN</button>
+        </div>
+    </div>
+
+    <!-- ===== BÀI MỚI NHẤT (Hero) ===== -->
+    <!-- generate.js sẽ thay 
+            <div class="latest-card" data-aos="fade-up">
+                <div class="latest-card-img">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='18' viewBox='0 0 32 18'%3E%3Crect width='32' height='18' fill='%23f0f7f0'/%3E%3C/svg%3E" data-src="https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/XongHoiB52.jpg"  alt="nguyenkhai" loading="lazy" decoding="async" class="agvn-lazy-img">
+                </div>
+                <div class="latest-card-body">
+                    <span class="latest-tag" style="background:#8DC63F;">Hoạt Động</span>
+                    <h3 class="latest-title">nguyenkhai</h3>
+                    <p class="latest-excerpt">Hãy xem thử cái này nhé</p>
+                    <div class="latest-meta">
+                        <span><i class="fa-regular fa-calendar"></i> 03/07/2026</span>
+                        <span><i class="fa-regular fa-user"></i> Trí Nguyễn</span>
+                    </div>
+                    <a href="/tin-tuc/nguyenkhai.html" class="latest-readmore">
+                        Đọc thêm <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div> bằng bài đầu tiên (dòng cuối sheet) -->
+    <section class="latest-news" id="latestNews">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">BÀI VIẾT MỚI NHẤT</h2>
             
             <div class="latest-card" data-aos="fade-up">
                 <div class="latest-card-img">
-                    <img src="https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/XongHoiB52.jpg" alt="nguyenkhai" loading="lazy" decoding="async">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='18' viewBox='0 0 32 18'%3E%3Crect width='32' height='18' fill='%23f0f7f0'/%3E%3C/svg%3E" data-src="https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/XongHoiB52.jpg"  alt="nguyenkhai" loading="lazy" decoding="async" class="agvn-lazy-img">
                 </div>
                 <div class="latest-card-body">
                     <span class="latest-tag" style="background:#8DC63F;">Hoạt Động</span>
@@ -626,19 +1025,14 @@
                     </a>
                 </div>
             </div>
+        </div>
+    </section>
 
-</div>
-</section>
-<!-- ===== DANH SÁCH TIN TỨC ===== -->
-
-<section class="news-section" id="newsList">
-<div class="container">
-<h2 class="section-title" data-aos="fade-up">TIN TỨC KHÁC</h2>
-<div class="news-grid" data-aos="fade-up">
-                
+    <!-- ===== DANH SÁCH TIN TỨC ===== -->
+    <!-- generate.js sẽ thay 
                     <article class="news-card" data-category="sanpham">
                         <div class="news-card-img">
-                            <img src="https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/XongHoiB52.jpg" alt="day la" loading="lazy" decoding="async">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='18' viewBox='0 0 32 18'%3E%3Crect width='32' height='18' fill='%23f0f7f0'/%3E%3C/svg%3E" data-src="https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/XongHoiB52.jpg"  alt="day la" loading="lazy" decoding="async" class="agvn-lazy-img">
                             <span class="news-card-date"><i class="fa-regular fa-calendar"></i> 03/07/2026</span>
                             <span class="news-card-tag" style="background:#00A896;">Sản Phẩm</span>
                         </div>
@@ -653,7 +1047,7 @@
                     </article>
                     <article class="news-card" data-category="thanhcong">
                         <div class="news-card-img">
-                            <img src="https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/XongHoiB52.jpg" alt="Toi Muon Test" loading="lazy" decoding="async">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='18' viewBox='0 0 32 18'%3E%3Crect width='32' height='18' fill='%23f0f7f0'/%3E%3C/svg%3E" data-src="https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/XongHoiB52.jpg"  alt="Toi Muon Test" loading="lazy" decoding="async" class="agvn-lazy-img">
                             <span class="news-card-date"><i class="fa-regular fa-calendar"></i> 03/07/2026</span>
                             <span class="news-card-tag" style="background:#FF4D4D;">Thành Công</span>
                         </div>
@@ -668,7 +1062,7 @@
                     </article>
                     <article class="news-card" data-category="kythuat">
                         <div class="news-card-img">
-                            <img src="https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/XongHoiB52.jpg" alt="Nguyen Van A" loading="lazy" decoding="async">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='18' viewBox='0 0 32 18'%3E%3Crect width='32' height='18' fill='%23f0f7f0'/%3E%3C/svg%3E" data-src="https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/XongHoiB52.jpg"  alt="Nguyen Van A" loading="lazy" decoding="async" class="agvn-lazy-img">
                             <span class="news-card-date"><i class="fa-regular fa-calendar"></i> 03/07/2026</span>
                             <span class="news-card-tag" style="background:#FFB81C;">Kỹ Thuật</span>
                         </div>
@@ -683,7 +1077,72 @@
                     </article>
                     <article class="news-card" data-category="kienthuc">
                         <div class="news-card-img">
-                            <img src="https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/XongHoiB52.jpg" alt="Nguyễn Khai Trí Test" loading="lazy" decoding="async">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='18' viewBox='0 0 32 18'%3E%3Crect width='32' height='18' fill='%23f0f7f0'/%3E%3C/svg%3E" data-src="https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/XongHoiB52.jpg"  alt="Nguyễn Khai Trí Test" loading="lazy" decoding="async" class="agvn-lazy-img">
+                            <span class="news-card-date"><i class="fa-regular fa-calendar"></i> 03/07/2026</span>
+                            <span class="news-card-tag" style="background:#007A33;">Kiến Thức</span>
+                        </div>
+                        <div class="news-card-body">
+                            <h3 class="news-card-title">Nguyễn Khai Trí Test</h3>
+                            <p class="news-card-excerpt">Hãy xem thử cái này nhé</p>
+                            <div class="news-card-meta">
+                                <span><i class="fa-regular fa-user"></i> Trí Nguyễn</span>
+                                <a href="/tin-tuc/nguyen-khai-tri-test.html" class="news-card-link">Đọc tiếp <i class="fa-solid fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </article> bằng các card từ sheet (trừ bài mới nhất) -->
+    <section class="news-section" id="newsList">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">TIN TỨC KHÁC</h2>
+            <div class="news-grid" data-aos="fade-up">
+                
+                    <article class="news-card" data-category="sanpham">
+                        <div class="news-card-img">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='18' viewBox='0 0 32 18'%3E%3Crect width='32' height='18' fill='%23f0f7f0'/%3E%3C/svg%3E" data-src="https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/XongHoiB52.jpg"  alt="day la" loading="lazy" decoding="async" class="agvn-lazy-img">
+                            <span class="news-card-date"><i class="fa-regular fa-calendar"></i> 03/07/2026</span>
+                            <span class="news-card-tag" style="background:#00A896;">Sản Phẩm</span>
+                        </div>
+                        <div class="news-card-body">
+                            <h3 class="news-card-title">day la</h3>
+                            <p class="news-card-excerpt">Hãy xem thử cái này nhé</p>
+                            <div class="news-card-meta">
+                                <span><i class="fa-regular fa-user"></i> Trí Nguyễn</span>
+                                <a href="/tin-tuc/day-la.html" class="news-card-link">Đọc tiếp <i class="fa-solid fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="news-card" data-category="thanhcong">
+                        <div class="news-card-img">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='18' viewBox='0 0 32 18'%3E%3Crect width='32' height='18' fill='%23f0f7f0'/%3E%3C/svg%3E" data-src="https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/XongHoiB52.jpg"  alt="Toi Muon Test" loading="lazy" decoding="async" class="agvn-lazy-img">
+                            <span class="news-card-date"><i class="fa-regular fa-calendar"></i> 03/07/2026</span>
+                            <span class="news-card-tag" style="background:#FF4D4D;">Thành Công</span>
+                        </div>
+                        <div class="news-card-body">
+                            <h3 class="news-card-title">Toi Muon Test</h3>
+                            <p class="news-card-excerpt">Hãy xem thử cái này nhé</p>
+                            <div class="news-card-meta">
+                                <span><i class="fa-regular fa-user"></i> Trí Nguyễn</span>
+                                <a href="/tin-tuc/toi-muon-test.html" class="news-card-link">Đọc tiếp <i class="fa-solid fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="news-card" data-category="kythuat">
+                        <div class="news-card-img">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='18' viewBox='0 0 32 18'%3E%3Crect width='32' height='18' fill='%23f0f7f0'/%3E%3C/svg%3E" data-src="https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/XongHoiB52.jpg"  alt="Nguyen Van A" loading="lazy" decoding="async" class="agvn-lazy-img">
+                            <span class="news-card-date"><i class="fa-regular fa-calendar"></i> 03/07/2026</span>
+                            <span class="news-card-tag" style="background:#FFB81C;">Kỹ Thuật</span>
+                        </div>
+                        <div class="news-card-body">
+                            <h3 class="news-card-title">Nguyen Van A</h3>
+                            <p class="news-card-excerpt">Hãy xem thử cái này nhé</p>
+                            <div class="news-card-meta">
+                                <span><i class="fa-regular fa-user"></i> Trí Nguyễn</span>
+                                <a href="/tin-tuc/nguyen-van-a.html" class="news-card-link">Đọc tiếp <i class="fa-solid fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="news-card" data-category="kienthuc">
+                        <div class="news-card-img">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='18' viewBox='0 0 32 18'%3E%3Crect width='32' height='18' fill='%23f0f7f0'/%3E%3C/svg%3E" data-src="https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@91e8d2d9a67080acdf3a06029b587a5210f452e8/images/sp_tien_tien/XongHoiB52.jpg"  alt="Nguyễn Khai Trí Test" loading="lazy" decoding="async" class="agvn-lazy-img">
                             <span class="news-card-date"><i class="fa-regular fa-calendar"></i> 03/07/2026</span>
                             <span class="news-card-tag" style="background:#007A33;">Kiến Thức</span>
                         </div>
@@ -697,72 +1156,75 @@
                         </div>
                     </article>
             </div>
-<div class="pagination" data-aos="fade-up">
-<button class="page-btn"><i class="fa-solid fa-chevron-left"></i></button>
-<button class="page-btn active">1</button>
-<button class="page-btn">2</button>
-<button class="page-btn">3</button>
-<button class="page-btn"><i class="fa-solid fa-ellipsis-h"></i></button>
-<button class="page-btn">8</button>
-<button class="page-btn"><i class="fa-solid fa-chevron-right"></i></button>
+
+            <div class="pagination" data-aos="fade-up">
+                <button class="page-btn"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn"><i class="fa-solid fa-ellipsis-h"></i></button>
+                <button class="page-btn">8</button>
+                <button class="page-btn"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="agvn-site-footer" id="footer" data-agvn-shared="footer">
+  <div class="agvn-footer-shell">
+    <div class="agvn-footer-grid">
+      <section aria-label="Giới thiệu AGVN Group">
+        <a class="agvn-footer-brand" href="https://agvngroup.com/">
+          <span class="agvn-brand__main">AGVN</span><span class="agvn-brand__sub">GROUP</span>
+        </a>
+        <p class="agvn-footer-text">Đồng hành cùng nhà nông bằng các giải pháp vật tư nông nghiệp, kỹ thuật canh tác và bộ sản phẩm hướng đến hiệu quả bền vững.</p>
+        <div class="agvn-footer-legal">
+          <p><strong>CÔNG TY TNHH TẬP ĐOÀN NÔNG NGHIỆP AGVN GROUP</strong></p>
 </div>
-</div>
-</section>
-<!-- ===== FOOTER ===== -->
-<footer class="agvn-site-footer" data-agvn-shared="footer" id="footer">
-<div class="agvn-footer-shell">
-<div class="agvn-footer-grid">
-<section aria-label="Giới thiệu AGVN Group">
-<a class="agvn-footer-brand" href="https://agvngroup.com/">
-<span class="agvn-brand__main">AGVN</span><span class="agvn-brand__sub">GROUP</span>
-</a>
-<p class="agvn-footer-text">Đồng hành cùng nhà nông bằng các giải pháp vật tư nông nghiệp, kỹ thuật canh tác và bộ sản phẩm hướng đến hiệu quả bền vững.</p>
-<div class="agvn-footer-legal">
-<p><strong>CÔNG TY TNHH TẬP ĐOÀN NÔNG NGHIỆP AGVN GROUP</strong></p>
-</div>
-</section>
-<section aria-label="Liên kết nhanh">
-<h2 class="agvn-footer-title">Liên Kết Nhanh</h2>
-<ul class="agvn-footer-list">
-<li><a href="https://agvngroup.com/"><i class="fa-solid fa-angle-right"></i>Trang Chủ</a></li>
-<li><a href="https://agvngroup.com/aboutus.html"><i class="fa-solid fa-angle-right"></i>Giới Thiệu</a></li>
-<li><a href="https://agvngroup.com/AGVN_product.html"><i class="fa-solid fa-angle-right"></i>Sản Phẩm</a></li>
-<li><a href="https://agvngroup.com/quytrinhcanhtaclua.html"><i class="fa-solid fa-angle-right"></i>Quy Trình Canh Tác Lúa</a></li>
-</ul>
-</section>
-<section aria-label="Danh mục sản phẩm">
-<h2 class="agvn-footer-title">Danh Mục</h2>
-<ul class="agvn-footer-list">
-<li><a href="https://agvngroup.com/AGVN_product.html#ctTruBenh"><i class="fa-solid fa-shield-halved"></i>Thuốc Trừ Bệnh</a></li>
-<li><a href="https://agvngroup.com/AGVN_product.html#ctSauRay"><i class="fa-solid fa-bug"></i>Thuốc Trừ Sâu - Rầy</a></li>
-<li><a href="https://agvngroup.com/AGVN_product.html#ctDieuHoa"><i class="fa-solid fa-seedling"></i>Điều Hòa Sinh Trưởng</a></li>
-<li><a href="https://agvngroup.com/AGVN_product.html#ctPhanBon"><i class="fa-solid fa-leaf"></i>Phân Bón</a></li>
-</ul>
-</section>
-<section aria-label="Thông tin liên hệ">
-<h2 class="agvn-footer-title">Thông Tin Liên Hệ</h2>
-<ul class="agvn-footer-list">
-<li><a href="https://www.google.com/maps/search/?api=1&amp;query=S%E1%BB%91+12+%C4%90%C6%B0%E1%BB%9Dng+D%E1%BB%B1+%C4%90%E1%BB%8Bnh%2C+Kh%C3%B3m+%C4%90%C3%B4ng+Th%E1%BB%8Bnh+9%2C+Ph%C6%B0%E1%BB%9Dng+Long+Xuy%C3%AAn%2C+Long+Xuy%C3%AAn%2C+Vietnam" rel="noopener" target="_blank"><i class="fa-solid fa-location-dot"></i><span>Số 12 Đường Dự Định, Khóm Đông Thịnh 9, Phường Long Xuyên, Long Xuyên, Vietnam</span></a></li>
-<li><a href="tel:0869980098"><i class="fa-solid fa-phone"></i><span>0869 980 098</span></a></li>
-<li><a href="mailto:agvngroup2025@gmail.com"><i class="fa-solid fa-envelope"></i><span>agvngroup2025@gmail.com</span></a></li>
-</ul>
-<div class="agvn-social-row">
-<a aria-label="Facebook AGVN Group" class="agvn-social-link" href="https://www.facebook.com/agvngroup" rel="noopener" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
-<a aria-label="Messenger AGVN Group" class="agvn-social-link" href="https://m.me/agvngroup" rel="noopener" target="_blank"><i class="fa-brands fa-facebook-messenger"></i></a>
-<a aria-label="Zalo AGVN Group" class="agvn-social-link" href="https://zalo.me/0869980098" rel="noopener" target="_blank"><span style="font-size:.67rem;font-weight:800;">ZALO</span></a>
-</div>
-</section>
-</div>
-<div class="agvn-footer-bottom">
-<p>© 2026 CÔNG TY TNHH TẬP ĐOÀN NÔNG NGHIỆP AGVN GROUP. Tất cả quyền được bảo lưu.</p>
-<p>Website: agvngroup.com</p>
-</div>
-</div>
+      </section>
+      <section aria-label="Liên kết nhanh">
+        <h2 class="agvn-footer-title">Liên Kết Nhanh</h2>
+        <ul class="agvn-footer-list">
+          <li><a href="https://agvngroup.com/"><i class="fa-solid fa-angle-right"></i>Trang Chủ</a></li>
+          <li><a href="https://agvngroup.com/aboutus.html"><i class="fa-solid fa-angle-right"></i>Giới Thiệu</a></li>
+          <li><a href="https://agvngroup.com/AGVN_product.html"><i class="fa-solid fa-angle-right"></i>Sản Phẩm</a></li>
+          <li><a href="https://agvngroup.com/quytrinhcanhtaclua.html"><i class="fa-solid fa-angle-right"></i>Quy Trình Canh Tác Lúa</a></li>
+        </ul>
+      </section>
+      <section aria-label="Danh mục sản phẩm">
+        <h2 class="agvn-footer-title">Danh Mục</h2>
+        <ul class="agvn-footer-list">
+          <li><a href="https://agvngroup.com/AGVN_product.html#ctTruBenh"><i class="fa-solid fa-shield-halved"></i>Thuốc Trừ Bệnh</a></li>
+          <li><a href="https://agvngroup.com/AGVN_product.html#ctSauRay"><i class="fa-solid fa-bug"></i>Thuốc Trừ Sâu - Rầy</a></li>
+          <li><a href="https://agvngroup.com/AGVN_product.html#ctDieuHoa"><i class="fa-solid fa-seedling"></i>Điều Hòa Sinh Trưởng</a></li>
+          <li><a href="https://agvngroup.com/AGVN_product.html#ctPhanBon"><i class="fa-solid fa-leaf"></i>Phân Bón</a></li>
+        </ul>
+      </section>
+      <section aria-label="Thông tin liên hệ">
+        <h2 class="agvn-footer-title">Thông Tin Liên Hệ</h2>
+        <ul class="agvn-footer-list">
+          <li><a href="https://www.google.com/maps/search/?api=1&amp;query=S%E1%BB%91+12+%C4%90%C6%B0%E1%BB%9Dng+D%E1%BB%B1+%C4%90%E1%BB%8Bnh%2C+Kh%C3%B3m+%C4%90%C3%B4ng+Th%E1%BB%8Bnh+9%2C+Ph%C6%B0%E1%BB%9Dng+Long+Xuy%C3%AAn%2C+Long+Xuy%C3%AAn%2C+Vietnam" target="_blank" rel="noopener"><i class="fa-solid fa-location-dot"></i><span>Số 12 Đường Dự Định, Khóm Đông Thịnh 9, Phường Long Xuyên, Long Xuyên, Vietnam</span></a></li>
+          <li><a href="tel:0869980098"><i class="fa-solid fa-phone"></i><span>0869 980 098</span></a></li>
+          <li><a href="mailto:agvngroup2025@gmail.com"><i class="fa-solid fa-envelope"></i><span>agvngroup2025@gmail.com</span></a></li>
+        </ul>
+        <div class="agvn-social-row">
+          <a class="agvn-social-link" href="https://www.facebook.com/agvngroup" target="_blank" rel="noopener" aria-label="Facebook AGVN Group"><i class="fa-brands fa-facebook-f"></i></a>
+          <a class="agvn-social-link" href="https://m.me/agvngroup" target="_blank" rel="noopener" aria-label="Messenger AGVN Group"><i class="fa-brands fa-facebook-messenger"></i></a>
+          <a class="agvn-social-link" href="https://zalo.me/0869980098" target="_blank" rel="noopener" aria-label="Zalo AGVN Group"><span style="font-size:.67rem;font-weight:800;">ZALO</span></a>
+        </div>
+      </section>
+    </div>
+    <div class="agvn-footer-bottom">
+      <p>© 2026 CÔNG TY TNHH TẬP ĐOÀN NÔNG NGHIỆP AGVN GROUP. Tất cả quyền được bảo lưu.</p>
+      <p>Website: agvngroup.com</p>
+    </div>
+  </div>
 </footer>
-<!-- ===== FLOATING BUTTONS ===== -->
-<!-- ===== SCRIPTS ===== -->
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
+
+    <!-- ===== FLOATING BUTTONS ===== -->
+    <!-- ===== SCRIPTS ===== -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
         if (window.AOS) AOS.init({ duration: 1000, once: true });
 
 
@@ -882,11 +1344,83 @@
             });
         }
     </script>
-<div aria-label="Liên hệ nhanh" class="floating-buttons agvn-floating-buttons">
-<a aria-label="Gọi AGVN Group: 0869 980 098" class="float-btn float-phone" href="tel:0869980098" title="Gọi 0869 980 098"><i class="fa-solid fa-phone"></i></a>
-<a aria-label="Chat Zalo với AGVN Group" class="float-btn float-zalo" href="https://zalo.me/0869980098" rel="noopener" target="_blank" title="Chat Zalo">ZALO</a>
-<a aria-label="Chat Messenger với AGVN Group" class="float-btn float-messenger" href="https://m.me/agvngroup" rel="noopener" target="_blank" title="Chat Messenger"><i class="fa-brands fa-facebook-messenger"></i></a>
+
+<div class="floating-buttons agvn-floating-buttons" aria-label="Liên hệ nhanh">
+  <a class="float-btn float-phone" href="tel:0869980098" aria-label="Gọi AGVN Group: 0869 980 098" title="Gọi 0869 980 098"><i class="fa-solid fa-phone"></i></a>
+  <a class="float-btn float-zalo" href="https://zalo.me/0869980098" target="_blank" rel="noopener" aria-label="Chat Zalo với AGVN Group" title="Chat Zalo">ZALO</a>
+  <a class="float-btn float-messenger" href="https://m.me/agvngroup" target="_blank" rel="noopener" aria-label="Chat Messenger với AGVN Group" title="Chat Messenger"><i class="fa-brands fa-facebook-messenger"></i></a>
 </div>
-<script src="assets/agvn-shared.js"></script>
+
+<!-- AGVN shared header/footer behavior is inlined to avoid path/deployment errors. -->
+<script id="agvn-shared-inline-script">
+(() => {
+  'use strict';
+
+  const header = document.querySelector('.agvn-site-header');
+  if (!header) return;
+
+  const menuButton = header.querySelector('.agvn-menu-toggle');
+  const nav = header.querySelector('.agvn-primary-nav');
+  const dropdownItem = header.querySelector('.agvn-nav-item--products');
+  const dropdownButton = header.querySelector('.agvn-dropdown-button');
+
+  const closeMenu = () => {
+    header.classList.remove('is-menu-open');
+    if (menuButton) menuButton.setAttribute('aria-expanded', 'false');
+    if (dropdownItem) dropdownItem.classList.remove('is-open');
+    if (dropdownButton) dropdownButton.setAttribute('aria-expanded', 'false');
+  };
+
+  if (menuButton && nav) {
+    menuButton.addEventListener('click', () => {
+      const isOpen = header.classList.toggle('is-menu-open');
+      menuButton.setAttribute('aria-expanded', String(isOpen));
+    });
+  }
+
+  if (dropdownButton && dropdownItem) {
+    dropdownButton.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      const isOpen = dropdownItem.classList.toggle('is-open');
+      dropdownButton.setAttribute('aria-expanded', String(isOpen));
+    });
+  }
+
+  header.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      if (window.matchMedia('(max-width: 1060px)').matches) closeMenu();
+    });
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!header.contains(event.target) && dropdownItem) {
+      dropdownItem.classList.remove('is-open');
+      if (dropdownButton) dropdownButton.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeMenu();
+  });
+
+  window.addEventListener('resize', () => {
+    if (!window.matchMedia('(max-width: 1060px)').matches) closeMenu();
+  });
+
+  const path = window.location.pathname.toLowerCase();
+  let active = 'home';
+  if (path.includes('aboutus')) active = 'about';
+  else if (path.includes('quytrinhcanhtaclua') || path.includes('quytrinh2')) active = 'process';
+  else if (path.includes('tintuc') || path.includes('/tin-tuc/')) active = 'news';
+  else if (path.includes('/san-pham/') || path.includes('product')) active = 'products';
+
+  const activeLink = header.querySelector(`[data-nav="${active}"]`);
+  if (activeLink) {
+    activeLink.classList.add('is-active');
+    activeLink.setAttribute('aria-current', 'page');
+  }
+})();
+</script>
 </body>
 </html>

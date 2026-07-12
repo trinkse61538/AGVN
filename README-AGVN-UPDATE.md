@@ -32,3 +32,10 @@
 Các file dùng đường dẫn tương đối tới `assets/agvn-shared.css` và `assets/agvn-shared.js`, vì vậy có thể mở `index.html` trực tiếp bằng Chrome (`file://`) mà header/footer vẫn hiển thị đúng.
 
 Mục **Tin Tức** có cả class `agvn-nav-news--hidden` và thuộc tính `hidden`. Khi muốn hiển thị, cần xóa cả class và thuộc tính `hidden` khỏi mục menu.
+
+## Bản sửa V3 – Header/footer độc lập
+
+CSS và JavaScript của header/footer đã được nhúng trực tiếp vào từng file HTML.
+Website không còn phụ thuộc vào đường dẫn `assets/agvn-shared.css` hoặc `assets/agvn-shared.js`,
+vì vậy hoạt động khi mở trực tiếp bằng `file://`, khi đặt trong thư mục con, và khi triển khai GitHub Pages.
+Hai file trong thư mục `assets` vẫn được giữ lại làm bản nguồn để tiện chỉnh sửa sau này.
