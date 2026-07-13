@@ -1051,6 +1051,13 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 </style>
+<!-- AGVN IMAGE REPAIR v2 -->
+<style id="agvn-image-repair-css">
+.banner-picture{display:block;width:100%;line-height:0}
+.banner-picture .banner-img{display:block;width:100%;height:auto;aspect-ratio:2532/964;object-fit:cover}
+.lazy-agvn-img.is-loaded{opacity:1!important}
+.product-image-box.is-loaded::after{display:none!important}
+</style>
 </head>
 <body>
 <header class="agvn-site-header" data-agvn-shared="header">
@@ -1093,7 +1100,11 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
 <picture class="banner-picture">
   <source type="image/avif" srcset="/assets/performance/agvn-banner-640.avif 640w, /assets/performance/agvn-banner-960.avif 960w, /assets/performance/agvn-banner-1280.avif 1280w, /assets/performance/agvn-banner-1920.avif 1920w" sizes="100vw">
   <source type="image/webp" srcset="/assets/performance/agvn-banner-640.webp 640w, /assets/performance/agvn-banner-960.webp 960w, /assets/performance/agvn-banner-1280.webp 1280w, /assets/performance/agvn-banner-1920.webp 1920w" sizes="100vw">
-  <img class="banner-img" src="/assets/performance/agvn-banner-1280.webp" srcset="/assets/performance/agvn-banner-640.webp 640w, /assets/performance/agvn-banner-960.webp 960w, /assets/performance/agvn-banner-1280.webp 1280w, /assets/performance/agvn-banner-1920.webp 1920w" sizes="100vw" width="2532" height="964" alt="Banner AGVN Group" loading="eager" decoding="async" fetchpriority="high">
+  <img class="banner-img" src="/assets/performance/agvn-banner-1280.webp"
+       srcset="/assets/performance/agvn-banner-640.webp 640w, /assets/performance/agvn-banner-960.webp 960w, /assets/performance/agvn-banner-1280.webp 1280w, /assets/performance/agvn-banner-1920.webp 1920w"
+       sizes="100vw" width="2532" height="964" alt="Banner AGVN Group"
+       loading="eager" decoding="async" fetchpriority="high"
+       onerror="this.onerror=null;this.parentElement.querySelectorAll('source').forEach(function(s){s.remove()});this.removeAttribute('srcset');this.src='/AGVN%20Banner%202.jpg';">
 </picture>
 </div>
 </div>
