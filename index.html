@@ -13,9 +13,7 @@
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;700&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'" data-agvn-async-css="google-fonts">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;700&amp;display=swap"></noscript>
 <!-- AGVN PERFORMANCE PATCH v1: non-blocking Font Awesome -->
-<link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" onload="this.onload=null;this.rel='stylesheet'" data-agvn-async-css="font-awesome">
-<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
-<link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" media="(min-width: 769px)" data-agvn-desktop-only="aos">
+<noscript></noscript>
 <style>
         :root {
             --primary-color: #007A33; 
@@ -1058,6 +1056,48 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
 .lazy-agvn-img.is-loaded{opacity:1!important}
 .product-image-box.is-loaded::after{display:none!important}
 </style>
+<!-- AGVN PERFORMANCE V33 CSS START -->
+<style id="agvn-performance-v33-css">
+.fa,.fas,.far,.fab,.fa-solid,.fa-regular,.fa-brands{
+  font-family:inherit!important;font-style:normal!important;font-weight:700;
+  display:inline-flex;align-items:center;justify-content:center;min-width:1em;line-height:1
+}
+.fa::before,.fas::before,.far::before,.fab::before,
+.fa-solid::before,.fa-regular::before,.fa-brands::before{content:"•"}
+.fa-bars::before{content:"☰"}.fa-xmark::before,.fa-times::before{content:"×"}
+.fa-chevron-down::before{content:"⌄"}.fa-chevron-up::before{content:"⌃"}
+.fa-chevron-left::before{content:"‹";font-size:1.5em}.fa-chevron-right::before{content:"›";font-size:1.5em}
+.fa-arrow-left::before{content:"←"}.fa-arrow-right::before{content:"→"}
+.fa-arrow-up::before{content:"↑"}.fa-arrow-down::before{content:"↓"}
+.fa-phone::before,.fa-phone-alt::before,.fa-phone-volume::before{content:"☎"}
+.fa-envelope::before{content:"✉"}.fa-location-dot::before,.fa-map-marker-alt::before,.fa-map-pin::before{content:"⌖"}
+.fa-globe::before,.fa-earth-asia::before{content:"◎"}.fa-home::before,.fa-house::before{content:"⌂"}
+.fa-building::before{content:"▦"}.fa-seedling::before,.fa-leaf::before{content:"♧"}
+.fa-wheat-awn::before{content:"≋"}.fa-bug::before{content:"✦"}.fa-flask::before{content:"⚗"}
+.fa-microscope::before{content:"⌕"}.fa-shield-alt::before,.fa-shield-halved::before{content:"◆"}
+.fa-chart-line::before{content:"↗"}.fa-check::before,.fa-check-circle::before,.fa-circle-check::before{content:"✓"}
+.fa-info::before,.fa-info-circle::before,.fa-circle-info::before{content:"i"}
+.fa-clock::before{content:"◷"}.fa-calendar::before,.fa-calendar-days::before{content:"□"}
+.fa-user::before{content:"●";font-size:.72em}.fa-tag::before{content:"#"}
+.fa-newspaper::before{content:"▤"}.fa-box::before,.fa-box-open::before{content:"□"}
+.fa-bottle-droplet::before{content:"◈"}.fa-play::before,.fa-circle-play::before,.fa-youtube::before{content:"▶"}
+.fa-facebook::before,.fa-facebook-f::before{content:"f";font-family:Arial,sans-serif!important}
+.fa-facebook-messenger::before{content:"m";font-family:Arial,sans-serif!important}
+.fa-expand::before{content:"⛶"}
+
+.agvn-lite-youtube{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:inherit;background:#07170d;contain:layout paint style}
+.agvn-lite-youtube__button{position:absolute;inset:0;width:100%;height:100%;padding:0;overflow:hidden;border:0;color:#fff;background:#07170d;cursor:pointer}
+.agvn-lite-youtube__thumbnail{width:100%;height:100%;display:block;object-fit:cover}
+.agvn-lite-youtube__shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.48))}
+.agvn-lite-youtube__play{position:absolute;top:50%;left:50%;width:72px;height:52px;display:grid;place-items:center;padding-left:4px;border-radius:16px;color:#fff;background:#e62117;box-shadow:0 12px 30px rgba(0,0,0,.32);font-size:24px;transform:translate(-50%,-50%);transition:transform .2s ease,background .2s ease}
+.agvn-lite-youtube__label{position:absolute;left:50%;bottom:18px;padding:7px 12px;border-radius:999px;background:rgba(0,0,0,.68);font-size:.86rem;font-weight:650;white-space:nowrap;transform:translateX(-50%)}
+.agvn-lite-youtube__button:hover .agvn-lite-youtube__play,.agvn-lite-youtube__button:focus-visible .agvn-lite-youtube__play{background:#ff2a20;transform:translate(-50%,-50%) scale(1.07)}
+.agvn-lite-youtube__button:focus-visible{outline:4px solid #f2b705;outline-offset:-4px}
+.agvn-lite-youtube iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+@media(max-width:600px){.agvn-lite-youtube__play{width:60px;height:44px;border-radius:13px;font-size:20px}.agvn-lite-youtube__label{bottom:12px;font-size:.76rem}}
+@media(prefers-reduced-motion:reduce){.agvn-lite-youtube__play{transition:none}}
+</style>
+<!-- AGVN PERFORMANCE V33 CSS END -->
 </head>
 <body>
 <header class="agvn-site-header" data-agvn-shared="header">
@@ -1111,13 +1151,13 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
 <section class="about-section" id="about">
 <div class="container">
 <div class="about-grid">
-<div class="about-content" data-aos="fade-right">
+<div class="about-content">
 <h2 style="color: var(--primary-color); margin-bottom: 10px;">VỀ TẬP ĐOÀN AGVN GROUP</h2>
 <h3 style="font-weight: 400; color: #555;">Người bạn đồng hành của nhà nông Việt</h3>
 <p style="margin-top: 15px;">Tập Đoàn Nông Nghiệp AGVN Group tự hào là đơn vị tiên phong cung cấp các giải pháp vật tư nông nghiệp công nghệ cao. Với bộ sản phẩm tiên tiến, chúng tôi cam kết đồng hành cùng bà con từ lúc làm đất, bón phân cho tới ngày gặt hái quả ngọt thắng lợi.</p>
 <p>Chúng tôi luôn nỗ lực không ngừng để nghiên cứu các dòng sản phẩm an toàn, bảo vệ hệ sinh thái đất và mang đến giá trị kinh tế bền vững nhất cho nông sản Việt Nam vươn tầm quốc tế.</p>
 </div>
-<div class="mission-cards" data-aos="fade-left">
+<div class="mission-cards">
 <div class="card">
 <i class="fa-solid fa-rocket"></i>
 <h3>Sứ Mệnh</h3>
@@ -1144,7 +1184,7 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
 </section>
 <section class="product-section" id="products">
 <div class="container">
-<h2 class="section-title" data-aos="fade-up">SẢN PHẨM NỔI BẬT</h2>
+<h2 class="section-title">SẢN PHẨM NỔI BẬT</h2>
 <h3 style="color:var(--thuoc-color);font-size:1.3rem;margin-bottom:18px; font-weight: 700;">🧪 Thuốc Trừ Bệnh</h3>
 <div class="cw">
 <button class="cb cb-prev" onclick="goTruBenh(-1)">‹</button>
@@ -1511,10 +1551,25 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
 </section>
 <section class="testimonial-section" id="testimonials">
 <div class="container">
-<h2 class="section-title" data-aos="fade-up">BÀ CON NÓI VỀ AGVN GROUP</h2>
+<h2 class="section-title">BÀ CON NÓI VỀ AGVN GROUP</h2>
 <p style="text-align:center;margin-bottom:30px;font-size:.95rem;color:#555;">Kết quả thực tế từ những cánh đồng sử dụng trọn bộ giải pháp AGVN</p>
-<div class="video-container" data-aos="zoom-in">
-<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" src="https://www.youtube.com/embed/x-YZqLrYdys" title="YouTube video player"></iframe>
+<div class="video-container">
+<div class="agvn-lite-youtube" data-video-id="x-YZqLrYdys">
+  <button class="agvn-lite-youtube__button" type="button" aria-label="Phát YouTube video player">
+    <img class="agvn-lite-youtube__thumbnail"
+         src="https://i.ytimg.com/vi_webp/x-YZqLrYdys/hqdefault.webp"
+         width="480" height="360"
+         loading="lazy" decoding="async" fetchpriority="low"
+         alt="YouTube video player"
+         onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/x-YZqLrYdys/hqdefault.jpg';">
+    <span class="agvn-lite-youtube__shade" aria-hidden="true"></span>
+    <span class="agvn-lite-youtube__play" aria-hidden="true">▶</span>
+    <span class="agvn-lite-youtube__label">Bấm để xem video</span>
+  </button>
+  <noscript>
+    <a href="https://www.youtube.com/watch?v=x-YZqLrYdys" target="_blank" rel="noopener">Xem video trên YouTube</a>
+  </noscript>
+</div>
 </div>
 </div>
 </section>
@@ -1671,7 +1726,7 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
     if(d.getElementById('agvn-aos-lib')) return;
     var s=d.createElement('script');
     s.id='agvn-aos-lib';
-    s.src='https://unpkg.com/aos@2.3.1/dist/aos.js';
+    s.src='data:text/javascript,';
     s.defer=true;
     s.onload=function(){ if(w.AOS && w.AOS.init){ w.AOS.init(pending||opts); } };
     d.head.appendChild(s);
@@ -1681,10 +1736,7 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
 })(window,document);
 </script>
 <script>
-        if (window.AOS) AOS.init({
-            duration: 1000,
-            once: true
-        });
+        if (window.AOS) 
 
         function runCar(name) {
             var track = document.getElementById('ct' + name);
@@ -1940,5 +1992,30 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
   }
 })();
 </script>
+<!-- AGVN PERFORMANCE V33 JS START -->
+<script id="agvn-performance-v33-js">
+(function(){
+  "use strict";
+  function activate(wrapper){
+    if(!wrapper||wrapper.dataset.loaded==="true")return;
+    var id=wrapper.getAttribute("data-video-id");
+    if(!id)return;
+    wrapper.dataset.loaded="true";
+    var iframe=document.createElement("iframe");
+    iframe.src="https://www.youtube-nocookie.com/embed/"+encodeURIComponent(id)+"?autoplay=1&rel=0&modestbranding=1&playsinline=1";
+    iframe.title="Video thực tế từ khách hàng AGVN";
+    iframe.loading="eager";
+    iframe.allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+    iframe.referrerPolicy="strict-origin-when-cross-origin";
+    iframe.allowFullscreen=true;
+    wrapper.replaceChildren(iframe);
+  }
+  document.addEventListener("click",function(event){
+    var button=event.target.closest(".agvn-lite-youtube__button");
+    if(button)activate(button.closest(".agvn-lite-youtube"));
+  });
+})();
+</script>
+<!-- AGVN PERFORMANCE V33 JS END -->
 </body>
 </html>
