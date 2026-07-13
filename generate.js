@@ -556,7 +556,7 @@ async function buildNews(manifest) {
     const latestHtml = `
             <div class="latest-card" data-aos="fade-up">
                 <div class="latest-card-img">
-                    <img src="${latest.finalImg}" alt="${latest.encodedTitle}" loading="lazy" decoding="async">
+                    <img src="${latest.finalImg}" alt="${latest.encodedTitle}" loading="eager" fetchpriority="high" decoding="async">
                 </div>
                 <div class="latest-card-body">
                     <span class="latest-tag" style="background:${latest.tagInfo.color};">${latest.tagInfo.label}</span>

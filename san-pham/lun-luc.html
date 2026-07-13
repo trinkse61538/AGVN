@@ -5,14 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LÙN LỰC - Tập Đoàn Nông Nghiệp AGVN Group</title>
     
-    <link rel="icon" type="image/jpeg" href="https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@c44d6fc7a5a0c4ad73e18c1bc6cf97cbd221bdf9/AGVN_Logo.jpg">
-    <link rel="shortcut icon" type="image/jpeg" href="https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@c44d6fc7a5a0c4ad73e18c1bc6cf97cbd221bdf9/AGVN_Logo.jpg">
+    <link rel="icon" type="image/png" href="/assets/performance/agvn-favicon-64.png" sizes="64x64">
+    <link rel="shortcut icon" type="image/png" href="/assets/performance/agvn-favicon-64.png" sizes="64x64">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- AGVN PERFORMANCE PATCH v1: non-blocking Google Fonts -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap" onload="this.onload=null;this.rel='stylesheet'" data-agvn-async-css="google-fonts">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap"></noscript>
+    <!-- AGVN PERFORMANCE PATCH v1: non-blocking Font Awesome -->
+<link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" onload="this.onload=null;this.rel='stylesheet'" data-agvn-async-css="font-awesome">
+<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" media="(min-width: 769px)" data-agvn-desktop-only="aos">
 
     <style>
         :root {
@@ -932,6 +936,16 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
   body .agvn-floating-buttons .float-btn { width: 46px !important; height: 46px !important; min-width: 46px !important; min-height: 46px !important; }
 }
 </style>
+<!-- AGVN PERFORMANCE PATCH v1: mobile rendering safeguards -->
+<style id="agvn-performance-css">
+.banner-picture{display:block;width:100%;line-height:0}.banner-picture .banner-img{display:block;width:100%;height:auto;aspect-ratio:2532/964}
+@media(max-width:768px){
+  [data-aos]{opacity:1!important;transform:none!important;transition:none!important;animation:none!important}
+  .about-section,.product-section,.testimonial-section,.news-section,.latest-news,footer,.agvn-site-footer{content-visibility:auto;contain-intrinsic-size:1px 850px}
+  .floating-buttons .float-btn,.agvn-floating-buttons .float-btn{animation:none!important}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
 </head>
 <body>
 
@@ -990,7 +1004,7 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
                 <!-- Cột Trái: Hình Ảnh Lớn -->
                 <div class="product-image-wrapper" data-aos="fade-right">
                     <div class="product-image-box is-loading">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='1200' viewBox='0 0 900 1200'%3E%3Crect width='900' height='1200' fill='%23fafafa'/%3E%3C/svg%3E" data-src="/assets/generated-images/product-lun-luc.webp" alt="LÙN LỰC" class="lazy-agvn-img" loading="eager" decoding="async" fetchpriority="high" referrerpolicy="no-referrer">
+                        <img src="/assets/generated-images/product-lun-luc.webp" alt="LÙN LỰC" class="lazy-agvn-img" loading="eager" decoding="async" fetchpriority="high" referrerpolicy="no-referrer">
                     </div>
                 </div>
                 
@@ -1074,7 +1088,26 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
   </div>
 </footer>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- AGVN PERFORMANCE PATCH v1: AOS disabled on mobile and delayed on desktop -->
+<script id="agvn-aos-loader">
+(function(w,d){
+  var opts={duration:700,once:true,offset:60};
+  var pending=opts;
+  w.AOS={init:function(o){pending=o||opts;},refresh:function(){},refreshHard:function(){}};
+  if(!w.matchMedia || w.matchMedia('(max-width: 768px)').matches || w.matchMedia('(prefers-reduced-motion: reduce)').matches){return;}
+  function load(){
+    if(d.getElementById('agvn-aos-lib')) return;
+    var s=d.createElement('script');
+    s.id='agvn-aos-lib';
+    s.src='https://unpkg.com/aos@2.3.1/dist/aos.js';
+    s.defer=true;
+    s.onload=function(){ if(w.AOS && w.AOS.init){ w.AOS.init(pending||opts); } };
+    d.head.appendChild(s);
+  }
+  if('requestIdleCallback' in w){ w.requestIdleCallback(load,{timeout:3500}); }
+  else { w.setTimeout(load,2200); }
+})(window,document);
+</script>
     <script>
 
         const AGVN_IMAGE_PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='1200' viewBox='0 0 900 1200'%3E%3Crect width='900' height='1200' fill='%23fafafa'/%3E%3C/svg%3E";

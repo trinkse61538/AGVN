@@ -5,15 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tập Đoàn Nông Nghiệp AGVN Group</title>
     
-    <link rel="icon" type="image/jpeg" href="https://raw.githubusercontent.com/trinkse61538/AGVN/c44d6fc7a5a0c4ad73e18c1bc6cf97cbd221bdf9/AGVN_Logo.jpg">
-    <link rel="shortcut icon" type="image/jpeg" href="https://raw.githubusercontent.com/trinkse61538/AGVN/c44d6fc7a5a0c4ad73e18c1bc6cf97cbd221bdf9/AGVN_Logo.jpg">
+    <link rel="icon" type="image/png" href="/assets/performance/agvn-favicon-64.png" sizes="64x64">
+    <link rel="shortcut icon" type="image/png" href="/assets/performance/agvn-favicon-64.png" sizes="64x64">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- AGVN PERFORMANCE PATCH v1: non-blocking Google Fonts -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" data-agvn-async-css="google-fonts">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;700&display=swap"></noscript>
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- AGVN PERFORMANCE PATCH v1: non-blocking Font Awesome -->
+<link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" onload="this.onload=null;this.rel='stylesheet'" data-agvn-async-css="font-awesome">
+<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" media="(min-width: 769px)" data-agvn-desktop-only="aos">
 
     <style>
         :root {
@@ -1021,6 +1025,18 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
   body .agvn-floating-buttons .float-btn { width: 46px !important; height: 46px !important; min-width: 46px !important; min-height: 46px !important; }
 }
 </style>
+<!-- AGVN PERFORMANCE PATCH v1: responsive LCP image preload -->
+<link rel="preload" as="image" type="image/avif" href="/assets/performance/agvn-banner-640.avif" imagesrcset="/assets/performance/agvn-banner-640.avif 640w, /assets/performance/agvn-banner-960.avif 960w, /assets/performance/agvn-banner-1280.avif 1280w, /assets/performance/agvn-banner-1920.avif 1920w" imagesizes="100vw" fetchpriority="high">
+<!-- AGVN PERFORMANCE PATCH v1: mobile rendering safeguards -->
+<style id="agvn-performance-css">
+.banner-picture{display:block;width:100%;line-height:0}.banner-picture .banner-img{display:block;width:100%;height:auto;aspect-ratio:2532/964}
+@media(max-width:768px){
+  [data-aos]{opacity:1!important;transform:none!important;transition:none!important;animation:none!important}
+  .about-section,.product-section,.testimonial-section,.news-section,.latest-news,footer,.agvn-site-footer{content-visibility:auto;contain-intrinsic-size:1px 850px}
+  .floating-buttons .float-btn,.agvn-floating-buttons .float-btn{animation:none!important}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
 </head>
 <body>
 
@@ -1062,7 +1078,11 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
 
     <div class="banner-section">
         <div class="banner-container">
-            <img src="https://raw.githubusercontent.com/trinkse61538/AGVN/c754eafe559f3903c26ef784231fd86d50da8c39/AGVN%20Banner%202.jpg" alt="Banner AGVN Group" class="banner-img" width="1920" height="635" fetchpriority="high">
+            <picture class="banner-picture">
+  <source type="image/avif" srcset="/assets/performance/agvn-banner-640.avif 640w, /assets/performance/agvn-banner-960.avif 960w, /assets/performance/agvn-banner-1280.avif 1280w, /assets/performance/agvn-banner-1920.avif 1920w" sizes="100vw">
+  <source type="image/webp" srcset="/assets/performance/agvn-banner-640.webp 640w, /assets/performance/agvn-banner-960.webp 960w, /assets/performance/agvn-banner-1280.webp 1280w, /assets/performance/agvn-banner-1920.webp 1920w" sizes="100vw">
+  <img class="banner-img" src="/assets/performance/agvn-banner-1280.webp" srcset="/assets/performance/agvn-banner-640.webp 640w, /assets/performance/agvn-banner-960.webp 960w, /assets/performance/agvn-banner-1280.webp 1280w, /assets/performance/agvn-banner-1920.webp 1920w" sizes="100vw" width="2532" height="964" alt="Banner AGVN Group" loading="eager" decoding="async" fetchpriority="high">
+</picture>
         </div>
     </div>
 
@@ -1111,7 +1131,7 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
                 <div class="cv">
                     <div class="ct" id="ctTruBenh">
                         <div class="ci">
-                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/ThuocTruBenh/FENO%20SUPER%20400ML%20catalouge.webp" alt="FENO SUPER" loading="lazy"></div>
+                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/ThuocTruBenh/FENO%20SUPER%20400ML%20catalouge.webp" alt="FENO SUPER" loading="lazy" decoding="async" fetchpriority="low"></div>
                             <div class="ci-info">
                                 <span class="pt-ylw">Thuốc Trừ Bệnh</span>
                                 <div class="ci-title">FENO SUPER</div>
@@ -1124,7 +1144,7 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
                             </div>
                         </div>
                         <div class="ci">
-                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/ThuocTruBenh/Va%23U0300ng%20la%23U0301%20catalouge.webp" alt="VÀNG LÁ" loading="lazy"></div>
+                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/ThuocTruBenh/Va%23U0300ng%20la%23U0301%20catalouge.webp" alt="VÀNG LÁ" loading="lazy" decoding="async" fetchpriority="low"></div>
                             <div class="ci-info">
                                 <span class="pt-ylw">Thuốc Trừ Bệnh</span>
                                 <div class="ci-title">VÀNG LÁ</div>
@@ -1137,7 +1157,7 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
                             </div>
                         </div>
                         <div class="ci">
-                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/ThuocTruBenh/ANWIN%20ZN%20A%23U0302%23U0301N%20%23U0110O%23U0323%23U0302%201L%20catalouge.webp" alt="ANWN Zn+ Ấn Độ" loading="lazy"></div>
+                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/ThuocTruBenh/ANWIN%20ZN%20A%23U0302%23U0301N%20%23U0110O%23U0323%23U0302%201L%20catalouge.webp" alt="ANWN Zn+ Ấn Độ" loading="lazy" decoding="async" fetchpriority="low"></div>
                             <div class="ci-info">
                                 <span class="pt-ylw">Thuốc Trừ Bệnh</span>
                                 <div class="ci-title">ANWN Zn+ ẤN ĐỘ</div>
@@ -1151,7 +1171,7 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
                             </div>
                         </div>
                         <div class="ci">
-                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/ThuocTruBenh/%23U0110A%23U0323%23U0306C%20TRI%23U0323%20%23U0110A%23U0323O%20O%23U0302N%20catalouge.webp" alt="Đặc trị đạo ôn" loading="lazy"></div>
+                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/ThuocTruBenh/%23U0110A%23U0323%23U0306C%20TRI%23U0323%20%23U0110A%23U0323O%20O%23U0302N%20catalouge.webp" alt="Đặc trị đạo ôn" loading="lazy" decoding="async" fetchpriority="low"></div>
                             <div class="ci-info">
                                 <span class="pt-ylw">Thuốc Trừ Bệnh</span>
                                 <div class="ci-title">ĐẶC TRỊ ĐẠO ÔN</div>
@@ -1165,7 +1185,7 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
                             </div>
                         </div>
                         <div class="ci">
-                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/ThuocTruBenh/KHUA%23U0302%23U0309N%20LA%23U0323NH%20KING%20450ML%20catalouge.webp" alt="Khuẩn lạnh King" loading="lazy"></div>
+                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/ThuocTruBenh/KHUA%23U0302%23U0309N%20LA%23U0323NH%20KING%20450ML%20catalouge.webp" alt="Khuẩn lạnh King" loading="lazy" decoding="async" fetchpriority="low"></div>
                             <div class="ci-info">
                                 <span class="pt-ylw">Thuốc Trừ Bệnh</span>
                                 <div class="ci-title">KHUẨN LẠNH KING</div>
@@ -1178,7 +1198,7 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
                             </div>
                         </div>
                         <div class="ci">
-                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/ThuocTruBenh/Lem%20le%23U0301p%20catalog.webp" alt="Lem Lép Hạt" loading="lazy"></div>
+                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/ThuocTruBenh/Lem%20le%23U0301p%20catalog.webp" alt="Lem Lép Hạt" loading="lazy" decoding="async" fetchpriority="low"></div>
                             <div class="ci-info">
                                 <span class="pt-ylw">Thuốc Trừ Bệnh</span>
                                 <div class="ci-title">LEM LÉP HẠT</div>
@@ -1191,7 +1211,7 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
                             </div>
                         </div>
                         <div class="ci">
-                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/ThuocTruBenh/SA%23U0323CH%20NA%23U0302%23U0301M%20KHUA%23U0302%23U0309N%20%28AGVN%29%20catalog.webp" alt="Sạch Nấm Khuẩn" loading="lazy"></div>
+                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/ThuocTruBenh/SA%23U0323CH%20NA%23U0302%23U0301M%20KHUA%23U0302%23U0309N%20%28AGVN%29%20catalog.webp" alt="Sạch Nấm Khuẩn" loading="lazy" decoding="async" fetchpriority="low"></div>
                             <div class="ci-info">
                                 <span class="pt-ylw">Thuốc Trừ Bệnh</span>
                                 <div class="ci-title">SẠCH NẤM KHUẨN</div>
@@ -1204,7 +1224,7 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
                             </div>
                         </div>
                         <div class="ci">
-                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/ThuocTruBenh/AGVN%20%23U0110A%23U0323O%20O%23U0302N%20PROMAX%20%28FENO%20PROMAX%29%20240ML%20catalog.webp" alt="ĐẠO ÔN PROMAX" loading="lazy"></div>
+                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/ThuocTruBenh/AGVN%20%23U0110A%23U0323O%20O%23U0302N%20PROMAX%20%28FENO%20PROMAX%29%20240ML%20catalog.webp" alt="ĐẠO ÔN PROMAX" loading="lazy" decoding="async" fetchpriority="low"></div>
                             <div class="ci-info">
                                 <span class="pt-ylw">Thuốc Trừ Bệnh</span>
                                 <div class="ci-title">ĐẠO ÔN PROMAX</div>
@@ -1217,7 +1237,7 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
                             </div>
                         </div>
                         <div class="ci">
-                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/ThuocTruBenh/AGVN%20PICOPLUS%20300%20%28AA%20YAKI%29%20240ML%20catalog.webp" alt="PICO PLUS 300" loading="lazy"></div>
+                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/ThuocTruBenh/AGVN%20PICOPLUS%20300%20%28AA%20YAKI%29%20240ML%20catalog.webp" alt="PICO PLUS 300" loading="lazy" decoding="async" fetchpriority="low"></div>
                             <div class="ci-info">
                                 <span class="pt-ylw">Thuốc Trừ Bệnh</span>
                                 <div class="ci-title">PICO PLUS 300</div>
@@ -1232,7 +1252,7 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
                             </div>
                         </div>
                         <div class="ci">
-                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/ThuocTruBenh/SUPERCOL%20%28AGVN%29%20catalog.webp" alt="Supecol 692" loading="lazy"></div>
+                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/ThuocTruBenh/SUPERCOL%20%28AGVN%29%20catalog.webp" alt="Supecol 692" loading="lazy" decoding="async" fetchpriority="low"></div>
                             <div class="ci-info">
                                 <span class="pt-ylw">Thuốc Trừ Bệnh</span>
                                 <div class="ci-title">SUPERCOL 692</div>
@@ -1255,7 +1275,7 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
                 <div class="cv">
                     <div class="ct" id="ctSauRay">
                         <div class="ci">
-                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/ThuocTruSau/Die%23U0323%23U0302t%20Chi%23U0301ch%20Hu%23U0301t%20catalouge.webp" alt="Diệt chích hút" loading="lazy"></div>
+                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/ThuocTruSau/Die%23U0323%23U0302t%20Chi%23U0301ch%20Hu%23U0301t%20catalouge.webp" alt="Diệt chích hút" loading="lazy" decoding="async" fetchpriority="low"></div>
                             <div class="ci-info">
                                 <span class="pt-red">Thuốc Trừ Sâu - Rầy</span>
                                 <div class="ci-title">DIỆT CHÍCH HÚT</div>
@@ -1270,7 +1290,7 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
                             </div>
                         </div>
                         <div class="ci">
-                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/ThuocTruSau/Bo%23U0300%20hu%23U0301c%20va%23U0300ng%20%28aa%20faros%29%20AGVN%20300ml%20catalog.webp" alt="BÒ HÚC VÀNG" loading="lazy"></div>
+                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/ThuocTruSau/Bo%23U0300%20hu%23U0301c%20va%23U0300ng%20%28aa%20faros%29%20AGVN%20300ml%20catalog.webp" alt="BÒ HÚC VÀNG" loading="lazy" decoding="async" fetchpriority="low"></div>
                             <div class="ci-info">
                                 <span class="pt-red">Thuốc Trừ Sâu - Rầy</span>
                                 <div class="ci-title">BÒ HÚC VÀNG</div>
@@ -1283,7 +1303,7 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
                             </div>
                         </div>
                         <div class="ci">
-                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/ThuocTruSau/XO%23U0302NG%20HO%23U031bI%20B52%20CATALOUGE.webp" alt="Xông hơi B52" loading="lazy"></div>
+                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/ThuocTruSau/XO%23U0302NG%20HO%23U031bI%20B52%20CATALOUGE.webp" alt="Xông hơi B52" loading="lazy" decoding="async" fetchpriority="low"></div>
                             <div class="ci-info">
                                 <span class="pt-red">Thuốc Trừ Sâu - Rầy</span>
                                 <div class="ci-title">XÔNG HƠI B52</div>
@@ -1307,7 +1327,7 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
                 <div class="cv">
                     <div class="ct" id="ctDieuHoa">
                         <div class="ci">
-                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/ThuocDieuHoaSinhTruong/LU%23U0300N%20LU%23U031b%23U0323C%20CATALOG.webp" alt="LÙN LỰC" loading="lazy"></div>
+                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/ThuocDieuHoaSinhTruong/LU%23U0300N%20LU%23U031b%23U0323C%20CATALOG.webp" alt="LÙN LỰC" loading="lazy" decoding="async" fetchpriority="low"></div>
                             <div class="ci-info">
                                 <span class="pt-teal">Thuốc Điều Hoà Sinh Trưởng</span>
                                 <div class="ci-title">LÙN LỰC</div>
@@ -1322,7 +1342,7 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
                             </div>
                         </div>
                         <div class="ci">
-                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/ThuocDieuHoaSinhTruong/NUMBER%20ONE%20%28AGVN%29%20catalog.webp" alt="Number One" loading="lazy"></div>
+                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/ThuocDieuHoaSinhTruong/NUMBER%20ONE%20%28AGVN%29%20catalog.webp" alt="Number One" loading="lazy" decoding="async" fetchpriority="low"></div>
                             <div class="ci-info">
                                 <span class="pt-teal">Thuốc Điều Hoà Sinh Trưởng</span>
                                 <div class="ci-title">NUMBER ONE</div>
@@ -1348,7 +1368,7 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
                 <div class="cv">
                     <div class="ct" id="ctPhanBon">
                         <div class="ci">
-                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/PhanBon/Du%23U031bo%23U031b%23U0303ng%20%23U0110o%23U0300ng%20Va%23U0300ng%20AGVN%20catalouge.webp" alt="DƯỠNG ĐÒNG VÀNG" loading="lazy"></div>
+                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/PhanBon/Du%23U031bo%23U031b%23U0303ng%20%23U0110o%23U0300ng%20Va%23U0300ng%20AGVN%20catalouge.webp" alt="DƯỠNG ĐÒNG VÀNG" loading="lazy" decoding="async" fetchpriority="low"></div>
                             <div class="ci-info">
                                 <span class="pt-grn">Phân bón hữu cơ</span>
                                 <div class="ci-title">DƯỠNG ĐÒNG VÀNG</div>
@@ -1361,7 +1381,7 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
                             </div>
                         </div>
                         <div class="ci">
-                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/PhanBon/Ha%23U0323t%20Va%23U0300ng%20catalouge.webp" alt="HẠT VÀNG" loading="lazy"></div>
+                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/PhanBon/Ha%23U0323t%20Va%23U0300ng%20catalouge.webp" alt="HẠT VÀNG" loading="lazy" decoding="async" fetchpriority="low"></div>
                             <div class="ci-info">
                                 <span class="pt-grn">Phân bón hữu cơ</span>
                                 <div class="ci-title">HẠT VÀNG</div>
@@ -1374,7 +1394,7 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
                             </div>
                         </div>
                         <div class="ci">
-                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/PhanBon/Sie%23U0302u%20Re%23U0302%23U0303%20No%23U031b%23U0309%20Bu%23U0323i%20catalouge.webp" alt="SIÊU RỄ NỞ BỤI" loading="lazy"></div>
+                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/PhanBon/Sie%23U0302u%20Re%23U0302%23U0303%20No%23U031b%23U0309%20Bu%23U0323i%20catalouge.webp" alt="SIÊU RỄ NỞ BỤI" loading="lazy" decoding="async" fetchpriority="low"></div>
                             <div class="ci-info">
                                 <span class="pt-grn">Phân bón hữu cơ</span>
                                 <div class="ci-title">SIÊU RỄ NỞ BỤI</div>
@@ -1387,7 +1407,7 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
                             </div>
                         </div>
                         <div class="ci">
-                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/PhanBon/HUMIC%20KE%23U0303M%20AGVN%20%28CATALOG%29.webp" alt="HUMIC Zn++" loading="lazy"></div>
+                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/PhanBon/HUMIC%20KE%23U0303M%20AGVN%20%28CATALOG%29.webp" alt="HUMIC Zn++" loading="lazy" decoding="async" fetchpriority="low"></div>
                             <div class="ci-info">
                                 <span class="pt-grn">Phân bón hữu cơ</span>
                                 <div class="ci-title">HUMIC Zn++</div>
@@ -1402,7 +1422,7 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
                             </div>
                         </div>
                         <div class="ci">
-                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/PhanBon/bosimax%20%28sie%23U0302u%20lu%23U0300n%29%20catalouge.webp" alt="BOSIMAX" loading="lazy"></div>
+                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/PhanBon/bosimax%20%28sie%23U0302u%20lu%23U0300n%29%20catalouge.webp" alt="BOSIMAX" loading="lazy" decoding="async" fetchpriority="low"></div>
                             <div class="ci-info">
                                 <span class="pt-grn">Phân bón vi lượng</span>
                                 <div class="ci-title">BOSIMAX</div>
@@ -1414,7 +1434,7 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
                             </div>
                         </div>
                         <div class="ci">
-                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/PhanBon/SILIC%20K%2B%2B%20CATALOG.webp" alt="Silic K++" loading="lazy"></div>
+                            <div class="ci-img"><img src="https://agvngroup.com/AGVN_webp_image/PhanBon/SILIC%20K%2B%2B%20CATALOG.webp" alt="Silic K++" loading="lazy" decoding="async" fetchpriority="low"></div>
                             <div class="ci-info">
                                 <span class="pt-grn">Phân bón vi lượng</span>
                                 <div class="ci-title">SILIC K++</div>
@@ -1496,7 +1516,26 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
   </div>
 </footer>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- AGVN PERFORMANCE PATCH v1: AOS disabled on mobile and delayed on desktop -->
+<script id="agvn-aos-loader">
+(function(w,d){
+  var opts={duration:700,once:true,offset:60};
+  var pending=opts;
+  w.AOS={init:function(o){pending=o||opts;},refresh:function(){},refreshHard:function(){}};
+  if(!w.matchMedia || w.matchMedia('(max-width: 768px)').matches || w.matchMedia('(prefers-reduced-motion: reduce)').matches){return;}
+  function load(){
+    if(d.getElementById('agvn-aos-lib')) return;
+    var s=d.createElement('script');
+    s.id='agvn-aos-lib';
+    s.src='https://unpkg.com/aos@2.3.1/dist/aos.js';
+    s.defer=true;
+    s.onload=function(){ if(w.AOS && w.AOS.init){ w.AOS.init(pending||opts); } };
+    d.head.appendChild(s);
+  }
+  if('requestIdleCallback' in w){ w.requestIdleCallback(load,{timeout:3500}); }
+  else { w.setTimeout(load,2200); }
+})(window,document);
+</script>
     <script>
         if (window.AOS) AOS.init({
             duration: 1000,
