@@ -82,16 +82,36 @@ function escapeRegExp(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-function removeExternalAos(html) {
-  // CSS AOS.
-  html = html.replace(
-    /<link\b[^>]*href=(["'])[^"']*(?:unpkg\.com\/aos|cdnjs\.cloudflare\.com\/ajax\/libs\/aos)[^"']*\1[^>]*>\s*/gi,
-    ''
-  );
+function containsAosReference(value) {
+  return /(?:unpkg\.com\/aos(?:@|\/)|cdnjs\.cloudflare\.com\/ajax\/libs\/aos\/)/i.test(value);
+}
 
-  // JS AOS.
+function containsFontAwesomeReference(value) {
+  return /(?:font-awesome|fontawesome|cdnjs\.cloudflare\.com\/ajax\/libs\/font-awesome)/i.test(value);
+}
+
+function removeExternalAos(html) {
+  let removedLinks = 0;
+  let removedScripts = 0;
+
+  // Duyệt từng thẻ thay vì phụ thuộc thứ tự thuộc tính href/rel.
+  html = html.replace(/<link\b[^>]*>\s*/gi, tag => {
+    if (!containsAosReference(tag)) return tag;
+    removedLinks += 1;
+    return '';
+  });
+
+  // Xóa script AOS ngoài, bất kể thứ tự thuộc tính.
+  html = html.replace(/<script\b[^>]*>[\s\S]*?<\/script>\s*/gi, block => {
+    const openingTag = (block.match(/^<script\b[^>]*>/i) || [''])[0];
+    if (!containsAosReference(openingTag)) return block;
+    removedScripts += 1;
+    return '';
+  });
+
+  // Xóa các lời gọi tải AOS dạng inline phổ biến.
   html = html.replace(
-    /<script\b[^>]*src=(["'])[^"']*(?:unpkg\.com\/aos|cdnjs\.cloudflare\.com\/ajax\/libs\/aos)[^"']*\1[^>]*>\s*<\/script>\s*/gi,
+    /(?:loadCss|loadCSS|loadScript|import)\s*\(\s*(["'`])[^"'`]*(?:unpkg\.com\/aos|cdnjs\.cloudflare\.com\/ajax\/libs\/aos)[^"'`]*\1\s*\)\s*;?/gi,
     ''
   );
 
@@ -107,14 +127,21 @@ function removeExternalAos(html) {
     ''
   );
 
+  console.log(`AOS đã xóa: ${removedLinks} link, ${removedScripts} script`);
   return html;
 }
 
 function removeFontAwesome(html) {
-  return html.replace(
-    /<link\b[^>]*href=(["'])[^"']*(?:font-awesome|fontawesome)[^"']*\1[^>]*>\s*/gi,
-    ''
-  );
+  let removedLinks = 0;
+
+  html = html.replace(/<link\b[^>]*>\s*/gi, tag => {
+    if (!containsFontAwesomeReference(tag)) return tag;
+    removedLinks += 1;
+    return '';
+  });
+
+  console.log(`Font Awesome đã xóa: ${removedLinks} link`);
+  return html;
 }
 
 function buildLiteYoutube(iframeTag, fullMatch) {
@@ -392,8 +419,11 @@ function verify(html) {
     problems.push('index.html vẫn còn tham chiếu Font Awesome.');
   }
 
-  if (/(?:unpkg\.com\/aos|cdnjs\.cloudflare\.com\/ajax\/libs\/aos)/i.test(html)) {
-    problems.push('index.html vẫn còn tham chiếu AOS.');
+  const remainingAos = html.match(
+    /[^\r\n]{0,100}(?:unpkg\.com\/aos|cdnjs\.cloudflare\.com\/ajax\/libs\/aos)[^\r\n]{0,100}/i
+  );
+  if (remainingAos) {
+    problems.push(`index.html vẫn còn tham chiếu AOS: ${remainingAos[0].trim()}`);
   }
 
   if (/<iframe\b[^>]*(?:youtube(?:-nocookie)?\.com|youtu\.be)/i.test(html)) {
