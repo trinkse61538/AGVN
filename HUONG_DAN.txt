@@ -1,35 +1,45 @@
-HUONG DAN REPLACE CHO REPOSITORY AGVN
-=====================================
+AGVN FRONTEND FIX - HƯỚNG DẪN
 
-Bộ file này gồm:
-1. generate.js
-2. .github/workflows/sync_sheets.yml
+Gói này không yêu cầu bạn tự sửa từng file HTML.
+Workflow sẽ tự động sửa các file hiện có trong repository và tạo lại các trang tự generate.
 
-MUC TIEU
---------
-- Khi user nhập ImageURL là link ảnh thường, GitHub raw, jsDelivr hoặc Google Drive public,
-  hệ thống sẽ tự tải ảnh về repo.
-- Ảnh sẽ được lưu vào: assets/generated-images/
-- HTML sản phẩm / tin tức sẽ dùng link nội bộ kiểu:
-  /assets/generated-images/product-dac-tri-dao-on.webp
+CÁC VẤN ĐỀ ĐƯỢC SỬA
+1. Nội dung desktop bị ẩn khi AOS tải chậm hoặc lỗi.
+2. Banner trang chủ gọi các file AVIF/WebP không tồn tại rồi mới fallback sang JPG.
+3. Ảnh sản phẩm phải đợi JavaScript chuyển data-src thành src nên xuất hiện chậm.
+4. Ảnh bài tin tức chi tiết trong news_template được đặt lại đúng {{ImageURL}}.
+5. URL raw.githubusercontent.com được chuyển sang jsDelivr khi có thể.
 
-CACH THAY FILE
---------------
-1. Upload file generate.js vào THU MUC GOC của repository AGVN để ghi đè file cũ.
-2. Upload file sync_sheets.yml vào .github/workflows/ để ghi đè file workflow cũ.
-3. Commit lên nhánh main.
-4. Vào GitHub Actions -> chạy workflow:
-   "Đồng bộ sản phẩm & tin tức từ Google Sheet + Deploy"
+CÁC FILE/THƯ MỤC SẼ ĐƯỢC CẬP NHẬT
+- index.html
+- aboutus.html
+- AGVN_product.html
+- quytrinhcanhtaclua.html
+- product_template.html
+- news_template.html
+- tintuc_template.html
+- tintuc.html
+- san-pham/*.html
+- tin-tuc/*.html
 
-LUU Y QUAN TRONG
-----------------
-- Link Google Drive phải để quyền:
-  Anyone with the link -> Viewer
-- Nếu không public, GitHub Actions sẽ không tải được ảnh.
-- File được đặt tên theo slug nên nếu đổi ImageURL trong Sheet, lần chạy tiếp theo sẽ tự tải lại.
-- Script có manifest ở assets/generated-images/manifest.json để hạn chế tải lại ảnh khi URL không đổi.
+CÁCH CÀI
+1. Giải nén ZIP.
+2. Upload nguyên hai thư mục .github và scripts vào thư mục gốc repository AGVN.
+3. Commit vào nhánh main.
+4. Vào tab Actions.
+5. Chọn workflow "Apply AGVN frontend image and AOS fixes".
+6. Chọn Run workflow > Run workflow.
+7. Chờ workflow hoàn tất màu xanh.
+8. Mở website bằng Ctrl + F5 hoặc cửa sổ ẩn danh.
 
-SAU KHI CHAY XONG
------------------
-- Kiểm tra repo sẽ có thêm ảnh trong assets/generated-images/
-- Các file HTML trong san-pham/ và tin-tuc/ sẽ dùng ảnh nội bộ.
+LƯU Ý FILE ẨN
+- ZIP có thư mục .github bắt đầu bằng dấu chấm.
+- Trên Windows, bật View > Show > Hidden items nếu không nhìn thấy thư mục này.
+- Phải giữ đúng đường dẫn: .github/workflows/apply-agvn-frontend-fix.yml
+
+SAU KHI CHẠY THÀNH CÔNG
+Bạn có thể giữ hai file patch để dùng lại hoặc xóa:
+- scripts/apply-agvn-frontend-fix.js
+- .github/workflows/apply-agvn-frontend-fix.yml
+
+Workflow có thể chạy lại an toàn; patch được thiết kế để không chèn trùng CSS.
