@@ -940,6 +940,24 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 </style>
+
+<!-- AGVN FIX: native image loading must never remain transparent -->
+<style id="agvn-native-image-failsafe">
+.agvn-lazy-img,
+.lazy-img,
+.agvn-lazy-image,
+.article-featured-img,
+.product-image-box img {
+  opacity: 1 !important;
+  filter: none !important;
+}
+.ci-img,
+.product-image-box,
+.latest-card-img,
+.news-card-img {
+  background-color: #f4f8f5;
+}
+</style>
 </head>
 <body>
 <!-- ===== HEADER ===== -->

@@ -724,6 +724,24 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 </style>
+
+<!-- AGVN FIX: native image loading must never remain transparent -->
+<style id="agvn-native-image-failsafe">
+.agvn-lazy-img,
+.lazy-img,
+.agvn-lazy-image,
+.article-featured-img,
+.product-image-box img {
+  opacity: 1 !important;
+  filter: none !important;
+}
+.ci-img,
+.product-image-box,
+.latest-card-img,
+.news-card-img {
+  background-color: #f4f8f5;
+}
+</style>
 </head>
 <body>
 
@@ -789,7 +807,7 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
     <!-- ARTICLE CONTENT -->
     <section class="article-section">
         <div class="article-wrapper">
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='675' viewBox='0 0 1200 675'%3E%3Crect width='1200' height='675' fill='%23f0f7f0'/%3E%3Cpath d='M540 305h120v65H540z' fill='%238DC63F' opacity='.32'/%3E%3Ccircle cx='600' cy='337' r='92' fill='%23007A33' opacity='.10'/%3E%3C/svg%3E" alt="nguyenkhai" class="article-featured-img agvn-lazy-image" loading="eager" decoding="async" fetchpriority="high">
+            <img src="/assets/generated-images/news-nguyenkhai.jpg" alt="nguyenkhai" class="article-featured-img agvn-lazy-image" loading="eager" decoding="async" fetchpriority="high">
             <div class="article-content">
                 <p>Khi tìm hiểu về thị trường, một trong những câu hỏi nền tảng của kinh tế học là: Một trong những yếu tố ảnh hưởng đến cung là gì? Hiểu được điều này, bạn sẽ lý giải được vì sao giá hàng hóa phái sinh như cà phê, bạc hay đậu  lại biến động mạnh mỗi khi nguồn cung thay đổi. Nguồn cung (Supply) chịu tác động của nhiều yếu tố: Từ giá bán, chi phí sản xuất, công nghệ, chính sách cho tới thời tiết. Trong bài viết này, Anfin sẽ cùng bạn đi qua đầy đủ 8 yếu tố ảnh hưởng đến cung và quan trọng hơn, xem chúng vận hành thế nào trên thị trường hàng hóa thực tế. Cùng khám phá ngay!</p><p>1. Cung là gì? Quy luật cung và các khái niệm cần nắm<br>Trước khi đi vào các yếu tố tác động, bạn cần nắm chắc khái niệm gốc về cung. Đây là nền tảng giúp phân biệt vì sao có lúc lượng hàng bán ra thay đổi do giá, có lúc lại do những nguyên nhân hoàn toàn khác. Để có cái nhìn hệ thống, bạn có thể tham khảo thêm chuyên mục kiến thức đầu tư hàng hóa của Anfin.</p>
             </div>

@@ -17,6 +17,17 @@
 <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" onload="this.onload=null;this.rel='stylesheet'" data-agvn-async-css="font-awesome">
 <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" media="(min-width: 769px)" data-agvn-desktop-only="aos">
+<!-- AGVN FIX: always keep content visible if AOS is slow or unavailable -->
+<style id="agvn-aos-desktop-failsafe">
+@media (min-width: 769px) {
+  [data-aos] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+}
+</style>
 
     <style>
         :root {
@@ -914,6 +925,24 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
   .floating-buttons .float-btn,.agvn-floating-buttons .float-btn{animation:none!important}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+
+<!-- AGVN FIX: native image loading must never remain transparent -->
+<style id="agvn-native-image-failsafe">
+.agvn-lazy-img,
+.lazy-img,
+.agvn-lazy-image,
+.article-featured-img,
+.product-image-box img {
+  opacity: 1 !important;
+  filter: none !important;
+}
+.ci-img,
+.product-image-box,
+.latest-card-img,
+.news-card-img {
+  background-color: #f4f8f5;
+}
 </style>
 </head>
 <body>
