@@ -1,33 +1,35 @@
 const fs = require('fs');
 const path = require('path');
 
-// ================================================================
-// PHẦN 1: SẢN PHẨM
-// ================================================================
-
 const SHEET_ID = '1LFD5TFBzRImhyWDQGoNw8I4aVgaYDZ-H1iwktL5P5-Y';
-const API_URL = `https://opensheet.elk.sh/${SHEET_ID}/1`;
-
-// ================================================================
-// PHẦN 2: TIN TỨC
-// ================================================================
-
 const NEWS_SHEET_ID = '1H5CENOofHF7mZ_A-kq2nue1Y6eVeJBm6RS2RrMjb6Lc';
-const NEWS_API_URL = `https://opensheet.elk.sh/${NEWS_SHEET_ID}/1`;
+// Có thể để null. Hệ thống sẽ ưu tiên gid, sau đó tự dò tab theo header.
+const PRODUCT_SHEET_GID = null;
+const NEWS_SHEET_GID = null;
 
-// ================================================================
-// CẤU HÌNH ẢNH TỰ ĐỘNG TẢI VỀ REPO
-// ================================================================
+const PRODUCT_SHEET_NAMES = ['Products', 'Sản phẩm', 'San pham', '1', 'Sheet1'];
+const NEWS_SHEET_NAMES = ['News', 'Tin tức', 'Tin tuc', '1', 'Sheet1'];
+
+const PRODUCT_REQUIRED_FIELDS = {
+  slug: ['Slug'],
+  name: ['ProductName', 'Product Name', 'Tên sản phẩm', 'Ten san pham'],
+};
+
+const NEWS_REQUIRED_FIELDS = {
+  slugOrTitle: ['Slug', 'Title', 'Tiêu đề', 'Tieu de'],
+  title: ['Title', 'Tiêu đề', 'Tieu de'],
+};
 
 const GENERATED_IMAGE_DIR = path.join(__dirname, 'assets', 'generated-images');
 const GENERATED_IMAGE_WEB_PREFIX = '/assets/generated-images';
 const IMAGE_MANIFEST_PATH = path.join(GENERATED_IMAGE_DIR, 'manifest.json');
-
 const TRANSPARENT_PLACEHOLDER =
   'data:image/svg+xml;charset=UTF-8,' +
   encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 9"></svg>');
-
 const DEFAULT_NEWS_IMAGE = 'https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@main/images/bonglua.png';
+
+const FETCH_TIMEOUT_MS = 30000;
+const FETCH_RETRIES = 3;
 
 const IMAGE_EXTENSION_BY_TYPE = {
   'image/jpeg': 'jpg',
@@ -43,17 +45,15 @@ const IMAGE_EXTENSION_BY_TYPE = {
 };
 
 const TAG_MAP = {
-  'kienthuc':  { label: 'Kiến Thức',  color: '#007A33' },
-  'kythuat':   { label: 'Kỹ Thuật',   color: '#FFB81C' },
-  'thanhcong': { label: 'Thành Công', color: '#FF4D4D' },
-  'sanpham':   { label: 'Sản Phẩm',   color: '#00A896' },
-  'hoatdong':  { label: 'Hoạt Động',  color: '#8DC63F' },
+  kienthuc: { label: 'Kiến Thức', color: '#007A33' },
+  kythuat: { label: 'Kỹ Thuật', color: '#FFB81C' },
+  thanhcong: { label: 'Thành Công', color: '#FF4D4D' },
+  sanpham: { label: 'Sản Phẩm', color: '#00A896' },
+  hoatdong: { label: 'Hoạt Động', color: '#8DC63F' },
 };
 
 function ensureDirSync(dirPath) {
-  if (!fs.existsSync(dirPath)) {
-    fs.mkdirSync(dirPath, { recursive: true });
-  }
+  if (!fs.existsSync(dirPath)) fs.mkdirSync(dirPath, { recursive: true });
 }
 
 function fileExists(filePath) {
@@ -64,13 +64,16 @@ function fileExists(filePath) {
   }
 }
 
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 function normalizeAmpersands(input) {
   return String(input || '').trim().replace(/&amp;/g, '&');
 }
 
 function toCdnUrl(url) {
   if (!url || typeof url !== 'string') return '';
-
   const cleanUrl = normalizeAmpersands(url);
   if (!cleanUrl) return '';
 
@@ -78,22 +81,13 @@ function toCdnUrl(url) {
     const parsed = new URL(cleanUrl);
     const parts = parsed.pathname.split('/').filter(Boolean);
 
-    // raw.githubusercontent.com => jsDelivr
     if (parsed.hostname === 'raw.githubusercontent.com' && parts.length >= 4) {
-      const owner = parts[0];
-      const repo = parts[1];
-      const ref = parts[2];
-      const filePath = parts.slice(3).join('/');
-      return `https://cdn.jsdelivr.net/gh/${owner}/${repo}@${ref}/${filePath}`;
+      const [owner, repo, ref] = parts;
+      return `https://cdn.jsdelivr.net/gh/${owner}/${repo}@${ref}/${parts.slice(3).join('/')}`;
     }
 
-    // github.com/{owner}/{repo}/blob/{ref}/{path} => jsDelivr
     if (parsed.hostname === 'github.com' && parts.length >= 5 && parts[2] === 'blob') {
-      const owner = parts[0];
-      const repo = parts[1];
-      const ref = parts[3];
-      const filePath = parts.slice(4).join('/');
-      return `https://cdn.jsdelivr.net/gh/${owner}/${repo}@${ref}/${filePath}`;
+      return `https://cdn.jsdelivr.net/gh/${parts[0]}/${parts[1]}@${parts[3]}/${parts.slice(4).join('/')}`;
     }
 
     return cleanUrl;
@@ -104,9 +98,8 @@ function toCdnUrl(url) {
 
 function cdnizeHtml(input) {
   if (!input || typeof input !== 'string') return input || '';
-
-  let output = input.replace(/https:\/\/raw\.githubusercontent\.com\/[^\s"'<>]+/g, (match) => toCdnUrl(match));
-  output = output.replace(/https:\/\/github\.com\/[^\s"'<>]+\/blob\/[^\s"'<>]+/g, (match) => toCdnUrl(match));
+  let output = input.replace(/https:\/\/raw\.githubusercontent\.com\/[^\s"'<>]+/g, toCdnUrl);
+  output = output.replace(/https:\/\/github\.com\/[^\s"'<>]+\/blob\/[^\s"'<>]+/g, toCdnUrl);
   return output;
 }
 
@@ -120,17 +113,9 @@ function escapeAttr(value) {
 
 function extractSlug(fullUrl) {
   if (!fullUrl) return '';
-
-  let cleanUrl = String(fullUrl).trim();
-
-  if (cleanUrl.toLowerCase().endsWith('.html')) {
-    cleanUrl = cleanUrl.substring(0, cleanUrl.length - 5);
-  }
-
+  let cleanUrl = String(fullUrl).trim().replace(/\.html$/i, '');
   const parts = cleanUrl.split('/');
-  let slug = parts[parts.length - 1] || '';
-  slug = slug.replace(/[^a-zA-Z0-9-_]/g, '');
-  return slug;
+  return (parts[parts.length - 1] || '').replace(/[^a-zA-Z0-9-_]/g, '');
 }
 
 function sanitizeFilePart(value) {
@@ -160,28 +145,19 @@ function toSlug(text) {
 }
 
 function estimateReadTime(content) {
-  if (!content) return '1';
-  const cleanText = String(content).replace(/<[^>]*>/g, '');
-  const charCount = cleanText.length;
-  const minutes = Math.max(1, Math.round(charCount / 500));
-  return String(minutes);
+  const cleanText = String(content || '').replace(/<[^>]*>/g, '');
+  return String(Math.max(1, Math.round(cleanText.length / 500)));
 }
 
 function loadImageManifest() {
   ensureDirSync(GENERATED_IMAGE_DIR);
-
-  if (!fileExists(IMAGE_MANIFEST_PATH)) {
-    return { items: {} };
-  }
+  if (!fileExists(IMAGE_MANIFEST_PATH)) return { items: {} };
 
   try {
-    const raw = fs.readFileSync(IMAGE_MANIFEST_PATH, 'utf8');
-    const parsed = JSON.parse(raw);
-    if (!parsed || typeof parsed !== 'object' || typeof parsed.items !== 'object') {
-      return { items: {} };
-    }
-    return parsed;
-  } catch {
+    const parsed = JSON.parse(fs.readFileSync(IMAGE_MANIFEST_PATH, 'utf8'));
+    return parsed && typeof parsed.items === 'object' ? parsed : { items: {} };
+  } catch (error) {
+    console.warn(`⚠️ Manifest ảnh bị lỗi, sẽ tạo lại: ${error.message}`);
     return { items: {} };
   }
 }
@@ -191,10 +167,263 @@ function saveImageManifest(manifest) {
   fs.writeFileSync(IMAGE_MANIFEST_PATH, JSON.stringify(manifest, null, 2), 'utf8');
 }
 
+async function fetchWithTimeout(url, options = {}, timeoutMs = FETCH_TIMEOUT_MS) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    return await fetch(url, { ...options, signal: controller.signal });
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+async function fetchTextWithRetry(url, label, options = {}) {
+  let lastError;
+  for (let attempt = 1; attempt <= FETCH_RETRIES; attempt += 1) {
+    try {
+      const response = await fetchWithTimeout(url, options);
+      if (!response.ok) {
+        const body = (await response.text()).slice(0, 300);
+        throw new Error(`HTTP ${response.status}${body ? ` — ${body}` : ''}`);
+      }
+      return await response.text();
+    } catch (error) {
+      lastError = error;
+      console.warn(`⚠️ ${label}: lần ${attempt}/${FETCH_RETRIES} thất bại — ${error.message}`);
+      if (attempt < FETCH_RETRIES) await sleep(attempt * 2500);
+    }
+  }
+  throw new Error(`${label} thất bại sau ${FETCH_RETRIES} lần: ${lastError?.message || 'Unknown error'}`);
+}
+
+function parseCsv(csvText) {
+  const rows = [];
+  let row = [];
+  let value = '';
+  let inQuotes = false;
+
+  for (let i = 0; i < csvText.length; i += 1) {
+    const char = csvText[i];
+    const next = csvText[i + 1];
+
+    if (char === '"') {
+      if (inQuotes && next === '"') {
+        value += '"';
+        i += 1;
+      } else {
+        inQuotes = !inQuotes;
+      }
+    } else if (char === ',' && !inQuotes) {
+      row.push(value);
+      value = '';
+    } else if ((char === '\n' || char === '\r') && !inQuotes) {
+      if (char === '\r' && next === '\n') i += 1;
+      row.push(value);
+      value = '';
+      if (row.some((cell) => cell.trim() !== '')) rows.push(row);
+      row = [];
+    } else {
+      value += char;
+    }
+  }
+
+  if (value || row.length) {
+    row.push(value);
+    if (row.some((cell) => cell.trim() !== '')) rows.push(row);
+  }
+
+  if (rows.length < 2) return [];
+  const headers = rows[0].map((header) => header.replace(/^\uFEFF/, '').trim());
+  return rows.slice(1).map((cells) => {
+    const item = {};
+    headers.forEach((header, index) => {
+      if (header) item[header] = String(cells[index] ?? '').trim();
+    });
+    return item;
+  });
+}
+
+function normalizeHeader(value) {
+  return String(value || '')
+    .trim()
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/đ/g, 'd')
+    .replace(/[^a-z0-9]+/g, '');
+}
+
+function getRowValue(row, aliases) {
+  const normalizedMap = new Map(
+    Object.entries(row || {}).map(([key, value]) => [normalizeHeader(key), value])
+  );
+  for (const alias of aliases) {
+    const value = normalizedMap.get(normalizeHeader(alias));
+    if (value !== undefined) return String(value ?? '').trim();
+  }
+  return '';
+}
+
+function validateSheetHeaders(rows, requiredFields) {
+  if (!Array.isArray(rows) || rows.length === 0) {
+    return { ok: false, missing: ['dữ liệu'] };
+  }
+
+  const headers = Object.keys(rows[0] || {}).map(normalizeHeader);
+  const missing = [];
+  for (const [field, aliases] of Object.entries(requiredFields)) {
+    const found = aliases.some((alias) => headers.includes(normalizeHeader(alias)));
+    if (!found) missing.push(`${field} (${aliases.join(' / ')})`);
+  }
+  return { ok: missing.length === 0, missing };
+}
+
+function decodeGoogleEscapedString(value) {
+  try {
+    return JSON.parse(`"${String(value).replace(/"/g, '\\"')}"`);
+  } catch {
+    return String(value || '');
+  }
+}
+
+async function discoverSheetTabs(sheetId, label) {
+  const url = `https://docs.google.com/spreadsheets/d/${sheetId}/edit`;
+  try {
+    const html = await fetchTextWithRetry(url, `${label}: đọc danh sách tab`, {
+      headers: { 'User-Agent': 'Mozilla/5.0 AGVN Sheet Sync' },
+    });
+
+    const found = new Map();
+    const patterns = [
+      /"sheetId"\s*:\s*(\d+)[\s\S]{0,500}?"title"\s*:\s*"((?:\\.|[^"\\])*)"/g,
+      /"title"\s*:\s*"((?:\\.|[^"\\])*)"[\s\S]{0,500}?"sheetId"\s*:\s*(\d+)/g,
+      /\[\s*(\d+)\s*,\s*"((?:\\.|[^"\\])*)"\s*,/g,
+    ];
+
+    for (let patternIndex = 0; patternIndex < patterns.length; patternIndex += 1) {
+      const regex = patterns[patternIndex];
+      let match;
+      while ((match = regex.exec(html)) !== null) {
+        const gid = patternIndex === 1 ? match[2] : match[1];
+        const rawName = patternIndex === 1 ? match[1] : match[2];
+        const name = decodeGoogleEscapedString(rawName);
+        if (gid && name && !found.has(gid)) found.set(gid, { gid, name });
+      }
+    }
+
+    const tabs = [...found.values()];
+    if (tabs.length) {
+      console.log(`✅ ${label}: tìm thấy ${tabs.length} tab: ${tabs.map((t) => `${t.name} (gid=${t.gid})`).join(', ')}`);
+    } else {
+      console.warn(`⚠️ ${label}: không đọc được danh sách tab tự động; sẽ dùng danh sách dự phòng.`);
+    }
+    return tabs;
+  } catch (error) {
+    console.warn(`⚠️ ${label}: không thể dò danh sách tab — ${error.message}`);
+    return [];
+  }
+}
+
+async function fetchRowsFromSource({ sheetId, sheetName, gid, label }) {
+  const sources = [];
+  if (sheetName) {
+    const encodedSheet = encodeURIComponent(sheetName);
+    sources.push({
+      name: `OpenSheet / ${sheetName}`,
+      url: `https://opensheet.elk.sh/${sheetId}/${encodedSheet}`,
+      parse: (text) => JSON.parse(text),
+    });
+    sources.push({
+      name: `Google GViz / ${sheetName}`,
+      url: `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=${encodedSheet}`,
+      parse: parseCsv,
+    });
+  }
+  if (gid !== null && gid !== undefined && String(gid) !== '') {
+    sources.push({
+      name: `Google GViz / gid=${gid}`,
+      url: `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&gid=${encodeURIComponent(gid)}`,
+      parse: parseCsv,
+    });
+  }
+
+  const errors = [];
+  for (const source of sources) {
+    try {
+      console.log(`↳ ${label}: thử ${source.name}...`);
+      const text = await fetchTextWithRetry(source.url, `${label} qua ${source.name}`, {
+        headers: { 'User-Agent': 'Mozilla/5.0 AGVN Sheet Sync' },
+      });
+      const rows = source.parse(text);
+      if (!Array.isArray(rows)) throw new Error('Dữ liệu trả về không phải danh sách');
+      return rows;
+    } catch (error) {
+      errors.push(`${source.name}: ${error.message}`);
+    }
+  }
+  throw new Error(errors.join(' | '));
+}
+
+async function fetchSheetRowsAuto({
+  sheetId,
+  preferredGid,
+  preferredNames,
+  requiredFields,
+  label,
+}) {
+  const candidates = [];
+  const seen = new Set();
+  const addCandidate = (candidate) => {
+    const key = `${candidate.gid ?? ''}|${candidate.name ?? ''}`;
+    if (!seen.has(key)) {
+      seen.add(key);
+      candidates.push(candidate);
+    }
+  };
+
+  if (preferredGid !== null && preferredGid !== undefined && String(preferredGid) !== '') {
+    addCandidate({ gid: String(preferredGid), name: null, reason: 'gid cấu hình' });
+  }
+
+  const discoveredTabs = await discoverSheetTabs(sheetId, label);
+  for (const preferredName of preferredNames) {
+    const exact = discoveredTabs.find(
+      (tab) => normalizeHeader(tab.name) === normalizeHeader(preferredName)
+    );
+    if (exact) addCandidate({ ...exact, reason: 'tên ưu tiên' });
+  }
+  for (const tab of discoveredTabs) addCandidate({ ...tab, reason: 'tự dò' });
+  for (const name of preferredNames) addCandidate({ name, gid: null, reason: 'tên dự phòng' });
+  addCandidate({ gid: '0', name: null, reason: 'tab đầu tiên dự phòng' });
+
+  const errors = [];
+  for (const candidate of candidates) {
+    try {
+      const rows = await fetchRowsFromSource({
+        sheetId,
+        sheetName: candidate.name,
+        gid: candidate.gid,
+        label,
+      });
+      const validation = validateSheetHeaders(rows, requiredFields);
+      if (!validation.ok) {
+        throw new Error(`thiếu header bắt buộc: ${validation.missing.join(', ')}`);
+      }
+      console.log(
+        `✅ ${label}: chọn tab ${candidate.name || '(không rõ tên)'}${candidate.gid !== null && candidate.gid !== undefined ? `, gid=${candidate.gid}` : ''}; ${rows.length} dòng.`
+      );
+      return rows;
+    } catch (error) {
+      errors.push(`${candidate.name || `gid=${candidate.gid}`}: ${error.message}`);
+      console.warn(`⚠️ ${label}: bỏ qua ứng viên ${candidate.name || `gid=${candidate.gid}`} — ${error.message}`);
+    }
+  }
+
+  throw new Error(`Không tìm được tab hợp lệ. ${errors.join(' | ')}`);
+}
+
 function extractGoogleDriveFileId(input) {
   const url = normalizeAmpersands(input);
-  if (!url) return '';
-
   const patterns = [
     /drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/i,
     /drive\.google\.com\/open\?.*?[?&]id=([a-zA-Z0-9_-]+)/i,
@@ -202,145 +431,93 @@ function extractGoogleDriveFileId(input) {
     /drive\.google\.com\/thumbnail\?.*?[?&]id=([a-zA-Z0-9_-]+)/i,
     /[?&]id=([a-zA-Z0-9_-]+)/i,
   ];
-
   for (const pattern of patterns) {
     const match = url.match(pattern);
-    if (match && match[1]) return match[1];
+    if (match?.[1]) return match[1];
   }
-
   return '';
-}
-
-function isLocalGeneratedImageUrl(input) {
-  const value = String(input || '').trim();
-  return value.startsWith('/assets/generated-images/') || value.startsWith('assets/generated-images/');
-}
-
-function normalizeLocalGeneratedImageUrl(input) {
-  const value = String(input || '').trim();
-  if (value.startsWith('/')) return value;
-  return '/' + value.replace(/^\/+/, '');
 }
 
 function getExtensionFromUrl(url) {
   try {
-    const parsed = new URL(url);
-    const pathname = decodeURIComponent(parsed.pathname || '').toLowerCase();
+    const pathname = decodeURIComponent(new URL(url).pathname || '').toLowerCase();
     const match = pathname.match(/\.([a-z0-9]{2,5})$/i);
     if (!match) return '';
     const ext = match[1].toLowerCase();
-    if (['jpg', 'jpeg', 'png', 'webp', 'gif', 'avif', 'svg', 'bmp', 'ico'].includes(ext)) {
-      return ext === 'jpeg' ? 'jpg' : ext;
-    }
-    return '';
+    return ['jpg', 'jpeg', 'png', 'webp', 'gif', 'avif', 'svg', 'bmp', 'ico'].includes(ext)
+      ? ext.replace('jpeg', 'jpg')
+      : '';
   } catch {
     return '';
   }
 }
 
-function guessExtension({ contentType = '', url = '' }) {
-  const cleanType = String(contentType).split(';')[0].trim().toLowerCase();
-  if (IMAGE_EXTENSION_BY_TYPE[cleanType]) {
-    return IMAGE_EXTENSION_BY_TYPE[cleanType];
-  }
-
-  const extFromUrl = getExtensionFromUrl(url);
-  if (extFromUrl) return extFromUrl;
-
-  return '';
-}
-
-function buildGoogleDriveCandidateUrls(fileId) {
-  return [
-    `https://drive.google.com/uc?export=download&id=${fileId}`,
-    `https://drive.google.com/uc?export=view&id=${fileId}`,
-    `https://drive.google.com/thumbnail?id=${fileId}&sz=w2000`,
-  ];
+function guessExtension(contentType, url) {
+  const cleanType = String(contentType || '').split(';')[0].trim().toLowerCase();
+  return IMAGE_EXTENSION_BY_TYPE[cleanType] || getExtensionFromUrl(url) || '';
 }
 
 async function fetchImageBinary(url) {
-  const response = await fetch(url, {
+  const response = await fetchWithTimeout(url, {
     redirect: 'follow',
     headers: {
       'User-Agent': 'Mozilla/5.0 AGVN Image Fetcher',
-      'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
+      Accept: 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
     },
-  });
+  }, 45000);
 
-  if (!response.ok) {
-    throw new Error(`HTTP ${response.status}`);
-  }
-
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
   const contentType = String(response.headers.get('content-type') || '').toLowerCase();
   const buffer = Buffer.from(await response.arrayBuffer());
-
-  return {
-    buffer,
-    contentType,
-    finalUrl: response.url || url,
-  };
+  return { buffer, contentType, finalUrl: response.url || url };
 }
 
 async function fetchImageFromAnySupportedSource(sourceUrl) {
   const normalized = toCdnUrl(sourceUrl);
-  const driveFileId = extractGoogleDriveFileId(normalized);
-  const candidates = driveFileId ? buildGoogleDriveCandidateUrls(driveFileId) : [normalized];
+  const driveId = extractGoogleDriveFileId(normalized);
+  const candidates = driveId
+    ? [
+        `https://drive.google.com/uc?export=download&id=${driveId}`,
+        `https://drive.google.com/uc?export=view&id=${driveId}`,
+        `https://drive.google.com/thumbnail?id=${driveId}&sz=w2000`,
+      ]
+    : [normalized];
 
   const errors = [];
-
   for (const candidate of candidates) {
     try {
       const result = await fetchImageBinary(candidate);
-      const cleanType = String(result.contentType || '').split(';')[0].trim().toLowerCase();
-      const ext = guessExtension({ contentType: cleanType, url: result.finalUrl || candidate });
-      const looksLikeImage = cleanType.startsWith('image/') || Boolean(ext);
-
-      if (!looksLikeImage) {
-        throw new Error(`URL không trả về ảnh. Content-Type: ${cleanType || 'unknown'}`);
+      const cleanType = result.contentType.split(';')[0].trim().toLowerCase();
+      const extension = guessExtension(cleanType, result.finalUrl || candidate);
+      if (!cleanType.startsWith('image/') && !extension) {
+        throw new Error(`URL không trả về ảnh (${cleanType || 'unknown'})`);
       }
-
-      return {
-        ...result,
-        contentType: cleanType,
-        extension: ext,
-        effectiveUrl: candidate,
-      };
+      return { ...result, contentType: cleanType, extension };
     } catch (error) {
       errors.push(`${candidate} => ${error.message}`);
     }
   }
-
   throw new Error(errors.join(' | '));
 }
 
 async function ensureLocalImageAsset(sourceUrl, slug, kind, manifest) {
   const rawInput = normalizeAmpersands(sourceUrl);
-
   if (!rawInput) return '';
-
-  if (rawInput.startsWith('data:image/')) {
-    return rawInput;
-  }
-
-  if (isLocalGeneratedImageUrl(rawInput)) {
-    return normalizeLocalGeneratedImageUrl(rawInput);
-  }
+  if (rawInput.startsWith('data:image/')) return rawInput;
+  if (rawInput.startsWith('/assets/generated-images/')) return rawInput;
+  if (rawInput.startsWith('assets/generated-images/')) return `/${rawInput}`;
 
   const normalizedSourceUrl = toCdnUrl(rawInput);
-  if (!/^https?:\/\//i.test(normalizedSourceUrl)) {
-    return normalizedSourceUrl;
-  }
+  if (!/^https?:\/\//i.test(normalizedSourceUrl)) return normalizedSourceUrl;
 
   ensureDirSync(GENERATED_IMAGE_DIR);
-
   const safeKind = sanitizeFilePart(kind || 'image');
   const safeSlug = sanitizeFilePart(slug || 'image');
   const manifestKey = `${safeKind}:${safeSlug}`;
   const existing = manifest.items[manifestKey];
 
   if (
-    existing &&
-    existing.sourceUrl === normalizedSourceUrl &&
+    existing?.sourceUrl === normalizedSourceUrl &&
     existing.localPath &&
     fileExists(path.join(__dirname, existing.localPath))
   ) {
@@ -349,22 +526,17 @@ async function ensureLocalImageAsset(sourceUrl, slug, kind, manifest) {
 
   const fetched = await fetchImageFromAnySupportedSource(normalizedSourceUrl);
   const extension = fetched.extension || 'jpg';
-  const fileBaseName = `${safeKind}-${safeSlug}`;
-  const fileName = `${fileBaseName}.${extension}`;
+  const fileName = `${safeKind}-${safeSlug}.${extension}`;
   const relativeLocalPath = path.posix.join('assets', 'generated-images', fileName);
   const absoluteLocalPath = path.join(__dirname, relativeLocalPath);
   const webPath = `${GENERATED_IMAGE_WEB_PREFIX}/${fileName}`;
 
-  // Xóa file cũ nếu đổi extension hoặc đổi tên
-  if (existing && existing.localPath && existing.localPath !== relativeLocalPath) {
-    const oldAbsolutePath = path.join(__dirname, existing.localPath);
-    if (fileExists(oldAbsolutePath)) {
-      fs.unlinkSync(oldAbsolutePath);
-    }
+  if (existing?.localPath && existing.localPath !== relativeLocalPath) {
+    const oldPath = path.join(__dirname, existing.localPath);
+    if (fileExists(oldPath)) fs.unlinkSync(oldPath);
   }
 
   fs.writeFileSync(absoluteLocalPath, fetched.buffer);
-
   manifest.items[manifestKey] = {
     kind: safeKind,
     slug: safeSlug,
@@ -374,189 +546,139 @@ async function ensureLocalImageAsset(sourceUrl, slug, kind, manifest) {
     contentType: fetched.contentType || '',
     updatedAt: new Date().toISOString(),
   };
-
   return webPath;
 }
 
-// ================================================================
-// BUILD PRODUCTS
-// ================================================================
-
 async function buildProducts(manifest) {
-  try {
-    console.log('📦 Đang lấy dữ liệu sản phẩm từ Google Sheet...');
-    const response = await fetch(API_URL);
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`Không thể kết nối API Opensheet: ${response.status} - ${errorText}`);
-    }
-
-    const products = await response.json();
-
-    if (!Array.isArray(products) || products.length === 0) {
-      console.log('⚠️ Không tìm thấy dòng dữ liệu sản phẩm nào hợp lệ từ Google Sheet.');
-      return;
-    }
-
-    const templatePath = path.join(__dirname, 'product_template.html');
-    const outputDir = path.join(__dirname, 'san-pham');
-
-    ensureDirSync(outputDir);
-
-    if (!fs.existsSync(templatePath)) {
-      console.error('❌ Không tìm thấy file product_template.html ở thư mục gốc.');
-      return;
-    }
-
-    const templateContent = cdnizeHtml(fs.readFileSync(templatePath, 'utf8'));
-
-    for (const product of products) {
-      const rawSlug = product['Slug'] || product['slug'];
-      const finalSlug = extractSlug(rawSlug);
-      const name = product['ProductName'] || product['productname'] || product['Product Name'];
-      const originalImg = product['ImageURL'] || product['imageurl'] || product['Image URL'] || '';
-      const tag = product['ProductTag'] || product['producttag'] || product['Product Tag'];
-      const desc = product['Description'] || product['description'];
-
-      if (!finalSlug) continue;
-
-      console.log(`→ Đang xử lý sản phẩm: ${name || 'Không tên'} (${finalSlug})`);
-
-      let img = '';
-      try {
-        img = await ensureLocalImageAsset(originalImg, finalSlug, 'product', manifest);
-      } catch (error) {
-        console.warn(`  ⚠️ Không tải được ảnh cho sản phẩm ${finalSlug}. Dùng URL gốc/CDN. Chi tiết: ${error.message}`);
-        img = toCdnUrl(originalImg);
-      }
-
-      const formattedDescription = cdnizeHtml(desc || '').replace(/\r?\n/g, '<br>');
-
-      const htmlContent = templateContent
-        .replaceAll('{{ProductName}}', name || '')
-        .replaceAll('{{ImageURL}}', img || TRANSPARENT_PLACEHOLDER)
-        .replaceAll('{{ProductTag}}', tag || 'Nông Nghiệp')
-        .replaceAll('{{Description}}', formattedDescription);
-
-      const outputPath = path.join(outputDir, `${finalSlug}.html`);
-      fs.writeFileSync(outputPath, htmlContent, 'utf8');
-    }
-
-    console.log('✅ Đã xử lý sản phẩm thành công.');
-  } catch (error) {
-    console.error('❌ Đã xảy ra lỗi trong quá trình build sản phẩm:', error);
-    process.exit(1);
+  console.log('\n📦 Đang lấy dữ liệu sản phẩm từ Google Sheet...');
+  const products = await fetchSheetRowsAuto({
+    sheetId: SHEET_ID,
+    preferredGid: PRODUCT_SHEET_GID,
+    preferredNames: PRODUCT_SHEET_NAMES,
+    requiredFields: PRODUCT_REQUIRED_FIELDS,
+    label: 'Sản phẩm',
+  });
+  if (products.length === 0) {
+    console.warn('⚠️ Sheet sản phẩm không có dữ liệu. Giữ nguyên các file hiện tại.');
+    return 0;
   }
+
+  const templatePath = path.join(__dirname, 'product_template.html');
+  const outputDir = path.join(__dirname, 'san-pham');
+  if (!fileExists(templatePath)) throw new Error('Không tìm thấy product_template.html');
+  ensureDirSync(outputDir);
+
+  const template = cdnizeHtml(fs.readFileSync(templatePath, 'utf8'));
+  let generated = 0;
+
+  for (const product of products) {
+    const slug = extractSlug(getRowValue(product, ['Slug']));
+    const name = getRowValue(product, ['ProductName', 'Product Name', 'Tên sản phẩm', 'Ten san pham']);
+    const originalImg = getRowValue(product, ['ImageURL', 'Image URL', 'Hình ảnh', 'Hinh anh']);
+    const tag = getRowValue(product, ['ProductTag', 'Product Tag', 'Danh mục', 'Danh muc']) || 'Nông Nghiệp';
+    const description = getRowValue(product, ['Description', 'Mô tả', 'Mo ta']);
+    if (!slug) continue;
+
+    console.log(`→ Sản phẩm: ${name || 'Không tên'} (${slug})`);
+    let image = '';
+    try {
+      image = await ensureLocalImageAsset(originalImg, slug, 'product', manifest);
+    } catch (error) {
+      console.warn(`  ⚠️ Không tải được ảnh ${slug}; dùng URL gốc. ${error.message}`);
+      image = toCdnUrl(originalImg);
+    }
+
+    const html = template
+      .replaceAll('{{ProductName}}', name)
+      .replaceAll('{{ImageURL}}', image || TRANSPARENT_PLACEHOLDER)
+      .replaceAll('{{ProductTag}}', tag)
+      .replaceAll('{{Description}}', cdnizeHtml(description).replace(/\r?\n/g, '<br>'));
+
+    fs.writeFileSync(path.join(outputDir, `${slug}.html`), html, 'utf8');
+    generated += 1;
+  }
+
+  console.log(`✅ Đã tạo/cập nhật ${generated} trang sản phẩm.`);
+  return generated;
 }
 
-// ================================================================
-// BUILD NEWS
-// ================================================================
-
 async function buildNews(manifest) {
-  if (NEWS_SHEET_ID === 'YOUR_NEWS_SHEET_ID_HERE') {
-    console.log('⏩ Bỏ qua tin tức: chưa có NEWS_SHEET_ID.');
-    return;
+  console.log('\n📰 Đang lấy dữ liệu tin tức từ Google Sheet...');
+  const articles = await fetchSheetRowsAuto({
+    sheetId: NEWS_SHEET_ID,
+    preferredGid: NEWS_SHEET_GID,
+    preferredNames: NEWS_SHEET_NAMES,
+    requiredFields: NEWS_REQUIRED_FIELDS,
+    label: 'Tin tức',
+  });
+  if (articles.length === 0) {
+    console.warn('⚠️ Sheet tin tức không có dữ liệu. Giữ nguyên các file hiện tại.');
+    return 0;
   }
 
-  try {
-    console.log('\n📰 Đang lấy dữ liệu tin tức từ Google Sheet...');
-    const response = await fetch(NEWS_API_URL);
+  const detailTemplatePath = path.join(__dirname, 'news_template.html');
+  const listOutputPath = path.join(__dirname, 'tintuc.html');
+  const dedicatedListTemplate = path.join(__dirname, 'tintuc_template.html');
+  const listTemplatePath = fileExists(dedicatedListTemplate) ? dedicatedListTemplate : listOutputPath;
+  const outputDir = path.join(__dirname, 'tin-tuc');
 
-    if (!response.ok) {
-      throw new Error(`Không thể kết nối API tin tức: ${response.status}`);
+  if (!fileExists(detailTemplatePath)) throw new Error('Không tìm thấy news_template.html');
+  if (!fileExists(listTemplatePath)) throw new Error('Không tìm thấy tintuc_template.html hoặc tintuc.html');
+  ensureDirSync(outputDir);
+
+  const detailTemplate = cdnizeHtml(fs.readFileSync(detailTemplatePath, 'utf8'));
+  const articleData = [];
+
+  for (const article of articles) {
+    const date = getRowValue(article, ['Date', 'Ngày', 'Ngay']);
+    const title = getRowValue(article, ['Title', 'Tiêu đề', 'Tieu de']);
+    const excerpt = getRowValue(article, ['Excerpt', 'Mô tả ngắn', 'Mo ta ngan']);
+    const imgUrl = getRowValue(article, ['ImageURL', 'Image URL', 'Hình ảnh', 'Hinh anh']);
+    const tag = getRowValue(article, ['Tag', 'Danh mục', 'Danh muc']);
+    const author = getRowValue(article, ['Author', 'Tác giả', 'Tac gia']);
+    const content = getRowValue(article, ['Content', 'Nội dung', 'Noi dung']);
+    const slug = extractSlug(getRowValue(article, ['Slug'])) || toSlug(title);
+    if (!title || !slug) continue;
+
+    const tagInfo = TAG_MAP[tag] || { label: tag || 'Tin Tức', color: '#666' };
+    let finalImg = '';
+    try {
+      finalImg = await ensureLocalImageAsset(imgUrl || DEFAULT_NEWS_IMAGE, slug, 'news', manifest);
+    } catch (error) {
+      console.warn(`  ⚠️ Không tải được ảnh bài ${slug}; dùng URL gốc. ${error.message}`);
+      finalImg = toCdnUrl(imgUrl || DEFAULT_NEWS_IMAGE);
     }
 
-    const articles = await response.json();
-    if (!Array.isArray(articles) || articles.length === 0) {
-      console.log('⚠️ Không tìm thấy tin tức từ sheet.');
-      return;
-    }
+    const formattedContent = `<p>${cdnizeHtml(content)
+      .replace(/\r?\n\r?\n/g, '</p><p>')
+      .replace(/\r?\n/g, '<br>')}</p>`;
+    const pageUrl = `https://agvngroup.com/tin-tuc/${slug}.html`;
 
-    const newsDetailTemplatePath = path.join(__dirname, 'news_template.html');
-    const newsListTemplatePath = path.join(__dirname, 'tintuc.html');
-    const newsListSourceTemplatePath = fs.existsSync(path.join(__dirname, 'tintuc_template.html'))
-      ? path.join(__dirname, 'tintuc_template.html')
-      : newsListTemplatePath;
-    const newsOutputDir = path.join(__dirname, 'tin-tuc');
+    const detailHtml = detailTemplate
+      .replaceAll('{{Title}}', title)
+      .replaceAll('{{Date}}', date)
+      .replaceAll('{{Author}}', author)
+      .replaceAll('{{TagDisplay}}', tagInfo.label)
+      .replaceAll('{{ImageURL}}', finalImg || TRANSPARENT_PLACEHOLDER)
+      .replaceAll('{{Content}}', formattedContent)
+      .replaceAll('{{ReadTime}}', estimateReadTime(content))
+      .replaceAll('{{EncodedURL}}', encodeURIComponent(pageUrl));
 
-    ensureDirSync(newsOutputDir);
+    fs.writeFileSync(path.join(outputDir, `${slug}.html`), detailHtml, 'utf8');
+    articleData.push({ date, title, excerpt, finalImg, tag, slug, author, tagInfo, encodedTitle: escapeAttr(title) });
+    console.log(`  📄 tin-tuc/${slug}.html — ${title}`);
+  }
 
-    if (!fs.existsSync(newsDetailTemplatePath)) {
-      console.error('❌ Không tìm thấy news_template.html');
-      return;
-    }
-    if (!fs.existsSync(newsListSourceTemplatePath)) {
-      console.error('❌ Không tìm thấy tintuc.html hoặc tintuc_template.html');
-      return;
-    }
+  if (articleData.length === 0) {
+    console.warn('⚠️ Không có bài viết hợp lệ. Giữ nguyên tintuc.html.');
+    return 0;
+  }
 
-    const detailTemplate = cdnizeHtml(fs.readFileSync(newsDetailTemplatePath, 'utf8'));
-    let articleData = [];
-
-    for (const article of articles) {
-      const date = (article['Date'] || '').trim();
-      const title = (article['Title'] || '').trim();
-      const excerpt = (article['Excerpt'] || '').trim();
-      const imgUrl = (article['ImageURL'] || '').trim();
-      const tag = (article['Tag'] || '').trim();
-      const author = (article['Author'] || '').trim();
-      const content = (article['Content'] || '').trim();
-
-      const rawSlug = (article['Slug'] || article['slug'] || '').trim();
-      const slug = extractSlug(rawSlug) || toSlug(title);
-
-      if (!title || !slug) continue;
-
-      const tagInfo = TAG_MAP[tag] || { label: tag || 'Tin Tức', color: '#666' };
-      const readTime = estimateReadTime(content);
-      const encodedTitle = escapeAttr(title);
-
-      let finalImg = '';
-      try {
-        finalImg = await ensureLocalImageAsset(imgUrl || DEFAULT_NEWS_IMAGE, slug, 'news', manifest);
-      } catch (error) {
-        console.warn(`  ⚠️ Không tải được ảnh cho bài viết ${slug}. Dùng URL gốc/CDN. Chi tiết: ${error.message}`);
-        finalImg = toCdnUrl(imgUrl || DEFAULT_NEWS_IMAGE);
-      }
-
-      let formattedContent = cdnizeHtml(content)
-        .replace(/\r?\n\r?\n/g, '</p><p>')
-        .replace(/\r?\n/g, '<br>');
-      formattedContent = '<p>' + formattedContent + '</p>';
-
-      const pageUrl = `https://agvngroup.com/tin-tuc/${slug}.html`;
-      const encodedUrl = encodeURIComponent(pageUrl);
-
-      const detailHtml = detailTemplate
-        .replaceAll('{{Title}}', title)
-        .replaceAll('{{Date}}', date)
-        .replaceAll('{{Author}}', author)
-        .replaceAll('{{TagDisplay}}', tagInfo.label)
-        .replaceAll('{{ImageURL}}', finalImg || TRANSPARENT_PLACEHOLDER)
-        .replaceAll('{{Content}}', formattedContent)
-        .replaceAll('{{ReadTime}}', readTime)
-        .replaceAll('{{EncodedURL}}', encodedUrl);
-
-      const detailPath = path.join(newsOutputDir, `${slug}.html`);
-      fs.writeFileSync(detailPath, detailHtml, 'utf8');
-      console.log(`  📄 Đã tạo: tin-tuc/${slug}.html — ${title}`);
-
-      articleData.push({ date, title, excerpt, finalImg, tag, slug, author, tagInfo, encodedTitle });
-    }
-
-    const totalArticles = articleData.length;
-    if (totalArticles === 0) {
-      console.log('⚠️ Không có bài viết hợp lệ để hiển thị.');
-      return;
-    }
-
-    const latest = articleData[totalArticles - 1];
-    const latestHtml = `
+  const latest = articleData[articleData.length - 1];
+  const latestHtml = `
             <div class="latest-card" data-aos="fade-up">
                 <div class="latest-card-img">
-                    <img src="${latest.finalImg}" alt="${latest.encodedTitle}" loading="eager" fetchpriority="high" decoding="async">
+                    <img src="${latest.finalImg || TRANSPARENT_PLACEHOLDER}" alt="${latest.encodedTitle}" loading="eager" fetchpriority="high" decoding="async">
                 </div>
                 <div class="latest-card-body">
                     <span class="latest-tag" style="background:${latest.tagInfo.color};">${latest.tagInfo.label}</span>
@@ -566,19 +688,17 @@ async function buildNews(manifest) {
                         <span><i class="fa-regular fa-calendar"></i> ${latest.date}</span>
                         <span><i class="fa-regular fa-user"></i> ${latest.author}</span>
                     </div>
-                    <a href="/tin-tuc/${latest.slug}.html" class="latest-readmore">
-                        Đọc thêm <i class="fa-solid fa-arrow-right"></i>
-                    </a>
+                    <a href="/tin-tuc/${latest.slug}.html" class="latest-readmore">Đọc thêm <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
             </div>`;
 
-    const gridArticles = articleData.slice(0, -1).reverse();
-    let cardsHtml = '';
-    for (const a of gridArticles) {
-      cardsHtml += `
-                    <article class="news-card" data-category="${a.tag}">
+  const cardsHtml = articleData
+    .slice(0, -1)
+    .reverse()
+    .map((a) => `
+                    <article class="news-card" data-category="${escapeAttr(a.tag)}">
                         <div class="news-card-img">
-                            <img src="${a.finalImg}" alt="${a.encodedTitle}" loading="lazy" decoding="async">
+                            <img src="${a.finalImg || TRANSPARENT_PLACEHOLDER}" alt="${a.encodedTitle}" loading="lazy" decoding="async">
                             <span class="news-card-date"><i class="fa-regular fa-calendar"></i> ${a.date}</span>
                             <span class="news-card-tag" style="background:${a.tagInfo.color};">${a.tagInfo.label}</span>
                         </div>
@@ -590,52 +710,56 @@ async function buildNews(manifest) {
                                 <a href="/tin-tuc/${a.slug}.html" class="news-card-link">Đọc tiếp <i class="fa-solid fa-arrow-right"></i></a>
                             </div>
                         </div>
-                    </article>`;
-    }
+                    </article>`)
+    .join('');
 
-    let listTemplate = cdnizeHtml(fs.readFileSync(newsListSourceTemplatePath, 'utf8'));
-    let modified = false;
-
-    if (listTemplate.includes('{{LatestArticle}}')) {
-      listTemplate = listTemplate.replace('{{LatestArticle}}', latestHtml);
-      modified = true;
-    }
-
-    if (listTemplate.includes('{{NewsItems}}')) {
-      listTemplate = listTemplate.replace('{{NewsItems}}', cardsHtml);
-      modified = true;
-    }
-
-    if (modified) {
-      fs.writeFileSync(newsListTemplatePath, listTemplate, 'utf8');
-      console.log(`\n✅ Đã sinh ${totalArticles} bài viết chi tiết vào thư mục tin-tuc/`);
-      console.log(`✅ Bài mới nhất: "${latest.title}" (dòng cuối sheet)`);
-      console.log(`✅ Cập nhật ${gridArticles.length} card vào grid tintuc.html`);
-    } else {
-      console.log('⚠️ Không tìm thấy {{LatestArticle}} hoặc {{NewsItems}} trong template danh sách tin tức.');
-    }
-  } catch (error) {
-    console.error('❌ Lỗi khi xử lý tin tức:', error.message);
+  let listTemplate = cdnizeHtml(fs.readFileSync(listTemplatePath, 'utf8'));
+  if (!listTemplate.includes('{{LatestArticle}}') || !listTemplate.includes('{{NewsItems}}')) {
+    throw new Error('Template danh sách tin tức thiếu {{LatestArticle}} hoặc {{NewsItems}}');
   }
-}
 
-// ================================================================
-// MAIN
-// ================================================================
+  listTemplate = listTemplate
+    .replace('{{LatestArticle}}', latestHtml)
+    .replace('{{NewsItems}}', cardsHtml);
+  fs.writeFileSync(listOutputPath, listTemplate, 'utf8');
+
+  console.log(`✅ Đã tạo/cập nhật ${articleData.length} bài viết.`);
+  console.log(`✅ Bài mới nhất: "${latest.title}" (dòng cuối sheet).`);
+  return articleData.length;
+}
 
 async function main() {
   ensureDirSync(GENERATED_IMAGE_DIR);
   const manifest = loadImageManifest();
+  const failures = [];
 
-  await buildProducts(manifest);
-  await buildNews(manifest);
+  try {
+    await buildProducts(manifest);
+  } catch (error) {
+    failures.push(`Sản phẩm: ${error.message}`);
+    console.error(`❌ Build sản phẩm thất bại: ${error.message}`);
+  }
+
+  try {
+    await buildNews(manifest);
+  } catch (error) {
+    failures.push(`Tin tức: ${error.message}`);
+    console.error(`❌ Build tin tức thất bại: ${error.message}`);
+  }
 
   saveImageManifest(manifest);
 
-  console.log('\n🎉 Hoàn tất! Sản phẩm, tin tức và ảnh nội bộ đã được cập nhật.');
+  if (failures.length > 0) {
+    console.error('\n❌ Đồng bộ chưa hoàn tất:');
+    failures.forEach((failure) => console.error(`- ${failure}`));
+    process.exitCode = 1;
+    return;
+  }
+
+  console.log('\n🎉 Đồng bộ sản phẩm, tin tức và ảnh hoàn tất.');
 }
 
 main().catch((error) => {
-  console.error('❌ Lỗi không mong muốn:', error);
-  process.exit(1);
+  console.error('❌ Lỗi nghiêm trọng:', error);
+  process.exitCode = 1;
 });
