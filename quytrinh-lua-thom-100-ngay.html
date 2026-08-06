@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Quy Trình Canh Tác Lúa Thơm 100 Ngày - AGVN Group</title>
+<meta name="description" content="Quy trình canh tác lúa thơm 100 ngày và ứng dụng bộ sản phẩm AGVN Group trên diện tích 1 hecta, theo định hướng tăng năng suất - giảm chi phí.">
+
+ <link rel="icon" type="image/png" href="/assets/performance/agvn-favicon-64.png" sizes="64x64">
+ <link rel="shortcut icon" type="image/png" href="/assets/performance/agvn-favicon-64.png" sizes="64x64">
+
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <!-- AGVN PERFORMANCE PATCH v1: non-blocking Google Fonts -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" data-agvn-async-css="google-fonts">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;700&display=swap"></noscript>
+
+ <!-- AGVN PERFORMANCE PATCH v1: non-blocking Font Awesome -->
+<link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" onload="this.onload=null;this.rel='stylesheet'" data-agvn-async-css="font-awesome">
+<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+ <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" media="(min-width: 769px)" data-agvn-desktop-only="aos">
+
+ <style id="agvn-aos-desktop-failsafe">
+@media (min-width: 769px) {
+    [data-aos] {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+}
+</style>
+
+ <style>
+ :root {
+ --primary-color: #007A33;
+ --secondary-color: #8DC63F;
+ --accent-color: #FFD700;
+ --text-dark: #222222;
+ --text-light: #FFFFFF;
+ --bg-light: #F4F9F4;
+ --thuoc-color: #FFB81C;
+ --sau-ray-color: #FF4D4D;
+ --dieu-hoa-color: #00A896;
+ }
+
+ * {
+ box-shadow: none;
+ box-sizing: border-box;
+ margin: 0;
+ padding: 0;
+ font-family: 'Lexend', sans-serif;
+ }
+
+ /* ── Body with rice watermark ────────────────────────────── */
+ body {
+ color: var(--text-dark);
+ background-color: #fff;
+ line-height: 1.6;
+ overflow-x: hidden;
+ position: relative;
+ }
+
+ /*
+  * Left / Right rice background: fixed, repeat vertically, very faint.
+  * Uses the real product image from GitHub.
+  */
+ body::before,
+ body::after {
+ content: '';
+ position: fixed;
+ top: 0;
+ bottom: 0;
+ z-index: 0;
+ pointer-events: none;
+ background-repeat: repeat-y;
+ background-size: auto 360px;
+ opacity: 0.06;
+ }
+
+ body::before {
+ left: max(0px, calc((100vw - 1200px) / 2 - 160px));
+ width: 130px;
+ background-image: url('https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@013f96d26fec5d723fc6d74c988599f21ce8465a/images/bonglua.png');
+ background-position: center top;
+ }
+
+ body::after {
+ right: max(0px, calc((100vw - 1200px) / 2 - 160px));
+ width: 130px;
+ background-image: url('https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@013f96d26fec5d723fc6d74c988599f21ce8465a/images/bonglua.png');
+ background-position: center top;
+ transform: scaleX(-1);
+ }
+
+ section {
+ padding: 60px 20px;
+ position: relative;
+ z-index: 1;
+ }
+
+ .container {
+ max-width: 1200px;
+ margin: 0 auto;
+ position: relative;
+ z-index: 1;
+ }
+
+ .section-title {
+ text-align: center;
+ font-size: 2.3rem;
+ color: var(--primary-color);
+ margin-bottom: 15px;
+ position: relative;
+ font-weight: 700;
+ }
+
+ .section-title::after {
+ content: '';
+ display: block;
+ width: 80px;
+ height: 4px;
+ background: var(--secondary-color);
+ margin: 10px auto 0;
+ border-radius: 2px;
+ }
+
+ .section-subtitle {
+ text-align: center;
+ max-width: 800px;
+ margin: -5px auto 40px;
+ color: #555;
+ font-size: 1.05rem;
+ }
+
+ /* HEADER */
+ header {
+ background: var(--text-light);
+ box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+ position: sticky;
+ top: 0;
+ z-index: 1000;
+ padding: 15px 20px;
+ }
+
+ .nav-container {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ max-width: 1200px;
+ margin: 0 auto;
+ }
+
+ .logo {
+ font-size: 1.6rem;
+ font-weight: 700;
+ color: var(--primary-color);
+ text-decoration: none;
+ }
+
+ .logo span {
+ color: var(--secondary-color);
+ }
+
+ .nav-menu {
+ display: flex;
+ list-style: none;
+ gap: 30px;
+ }
+
+ .nav-menu a {
+ text-decoration: none;
+ color: var(--text-dark);
+ font-weight: 600;
+ transition: color 0.3s;
+ }
+
+ .nav-menu a:hover {
+ color: var(--primary-color);
+ }
+
+ .hamburger {
+ display: none;
+ background: none;
+ border: none;
+ font-size: 1.5rem;
+ color: var(--primary-color);
+ cursor: pointer;
+ padding: 5px;
+ }
+
+ .nav-dropdown { position: relative; }
+ .nav-dropdown-toggle { cursor: pointer; display: flex; align-items: center; gap: 4px; }
+ .nav-dropdown-toggle i { font-size: 0.6rem; transition: transform 0.2s; }
+ .nav-dropdown-toggle.active i { transform: rotate(180deg); }
+
+ .nav-dropdown-menu {
+ display: none;
+ position: absolute;
+ top: 100%;
+ left: 0;
+ background: #fff;
+ min-width: 260px;
+ list-style: none;
+ padding: 8px 0;
+ border-radius: 10px;
+ box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+ border: 1px solid #e2e8f0;
+ z-index: 100;
+ }
+ .nav-dropdown-menu.show { display: block; }
+ .nav-dropdown-menu a {
+ display: block;
+ padding: 10px 18px;
+ font-size: 0.85rem;
+ font-weight: 600;
+ color: var(--text-dark);
+ white-space: nowrap;
+ }
+ .nav-dropdown-menu a:hover { background: #f0fdf4; color: var(--primary-color); }
+
+ /* HERO */
+ .hero-page {
+ background: linear-gradient(135deg, #0d2e14 0%, #164a22 100%);
+ color: white;
+ padding: 60px 20px;
+ text-align: center;
+ position: relative;
+ z-index: 1;
+ }
+
+ .hero-page h1 {
+ font-size: 2.5rem;
+ font-weight: 700;
+ margin-bottom: 5px;
+ color: var(--accent-color);
+ }
+
+ .hero-tagline { font-size: 1.2rem; color: #a3cbb1; margin-bottom: 10px; }
+
+ .hero-stats {
+ display: flex;
+ justify-content: center;
+ gap: 40px;
+ margin-top: 20px;
+ flex-wrap: wrap;
+ }
+ .hero-stat-item { text-align: center; }
+ .hero-stat-item .num { font-size: 1.8rem; font-weight: 700; color: var(--accent-color); }
+ .hero-stat-item .label { font-size: 0.85rem; color: #a3cbb1; }
+
+ .breadcrumb {
+ display: flex; justify-content: center; gap: 8px; list-style: none; font-size: 0.95rem; margin-top: 15px;
+ }
+ .breadcrumb a { color: #a3cbb1; text-decoration: none; }
+ .breadcrumb li::after { content: '/'; margin-left: 8px; color: #719b80; }
+ .breadcrumb li:last-child::after { content: ''; }
+
+ /* TABS */
+ .process-tabs {
+ background: #fff;
+ box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+ position: sticky; top: 75px; z-index: 99;
+ padding: 10px 0; border-bottom: 1px solid #edf5e8;
+ }
+ .tabs-container {
+ display: flex; justify-content: center; gap: 20px;
+ max-width: 1200px; margin: 0 auto; padding: 0 20px; flex-wrap: wrap;
+ }
+ .tab-btn {
+ padding: 12px 25px; border: 2px solid var(--primary-color);
+ background: transparent; color: var(--primary-color); font-weight: 700; font-size: 1rem;
+ border-radius: 30px; cursor: pointer; transition: all 0.3s ease;
+ display: flex; align-items: center; gap: 8px;
+ }
+ .tab-btn:hover, .tab-btn.active { background: var(--primary-color); color: white; box-shadow: 0 4px 12px rgba(0,122,51,0.2); }
+
+ /* CARDS */
+ .process-card {
+ background: #fff;
+ border-radius: 16px; border: 1px solid #edf5e8;
+ box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+ padding: 30px; margin-bottom: 40px;
+ }
+ .process-header-block {
+ display: flex; align-items: center; gap: 15px;
+ margin-bottom: 25px; border-bottom: 2px solid #f0fdf4; padding-bottom: 15px;
+ }
+ .process-header-block i { font-size: 2rem; color: var(--secondary-color); }
+ .process-header-block h3 { font-size: 1.6rem; color: var(--primary-color); }
+
+ /* TABLE */
+ .tech-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.9rem; }
+ .tech-table th { background-color: var(--primary-color); color: white; text-align: left; padding: 12px 14px; font-weight: 600; font-size: 0.85rem; }
+ .tech-table td { padding: 12px 14px; border-bottom: 1px solid #edf5e8; vertical-align: top; }
+ .tech-table tr:nth-child(even) { background-color: #f9fdf9; }
+
+ .stage-badge {
+ background: #e6f4ea; color: var(--primary-color);
+ padding: 5px 10px; border-radius: 6px; font-weight: 700; font-size: 0.8rem;
+ display: inline-block; border: 1px solid #c2e7cc; white-space: nowrap;
+ }
+ .stage-badge-fertilizer { background: #ffe8cc; color: #cc7000; border: 1px solid #ffd399; }
+ .stage-badge-spray { background: #e3f2fd; color: #0055aa; border: 1px solid #bbdefb; }
+ .stage-badge-harvest { background: #f3e5f5; color: #7b1fa2; border: 1px solid #e1bee7; }
+
+ .product-tag-link {
+ display: inline-flex; align-items: center; gap: 6px;
+ background: #fffdf2; color: #b7791f;
+ border: 1px dashed var(--thuoc-color);
+ padding: 4px 10px; border-radius: 6px;
+ text-decoration: none; font-weight: 600; font-size: 0.8rem;
+ margin-top: 3px; transition: all 0.2s;
+ }
+ .product-tag-link:hover { background: var(--thuoc-color); color: white; }
+
+ .product-inline { color: var(--primary-color); font-weight: 700; cursor: pointer; transition: color 0.2s; }
+ .product-inline:hover { color: #004d20; text-decoration: underline; }
+ .product-inline-spray { color: #c62828; font-weight: 700; cursor: pointer; transition: color 0.2s; }
+ .product-inline-spray:hover { color: #8e0000; text-decoration: underline; }
+ .product-inline-reg { color: var(--dieu-hoa-color); font-weight: 700; cursor: pointer; transition: color 0.2s; }
+ .product-inline-reg:hover { color: #007b6f; text-decoration: underline; }
+
+ .stage-num {
+ display: inline-flex; align-items: center; justify-content: center;
+ width: 28px; height: 28px; border-radius: 50%;
+ background: var(--primary-color); color: white;
+ font-weight: 700; font-size: 0.85rem; margin-right: 6px;
+ }
+ .stage-num-harvest { background: #7b1fa2; }
+
+ /* TIMELINE */
+ .timeline-vertical { position: relative; margin: 40px 0; padding-left: 30px; }
+ .timeline-vertical::before {
+ content: ''; position: absolute; left: 7px; top: 0;
+ height: 100%; width: 3px; background: #e2f0d9;
+ }
+ .timeline-node { position: relative; margin-bottom: 40px; }
+ .timeline-node::before {
+ content: ''; position: absolute; left: -30px; top: 5px;
+ width: 17px; height: 17px; border-radius: 50%;
+ background: white; border: 4px solid var(--secondary-color); z-index: 2;
+ }
+ .timeline-node.active-node::before { border-color: var(--primary-color); background: var(--accent-color); }
+ .timeline-node-title {
+ font-size: 1.2rem; font-weight: 700; color: var(--primary-color);
+ margin-bottom: 10px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+ }
+ .timeline-node-content { background: var(--bg-light); padding: 20px 24px; border-radius: 12px; border-left: 4px solid var(--secondary-color); }
+ .timeline-node-content p { margin-bottom: 6px; }
+ .timeline-node-content ul { list-style-type: square; padding-left: 20px; margin-top: 6px; }
+ .timeline-node-content ul li { margin-bottom: 6px; }
+
+ /* GOAL */
+ .goal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 40px; }
+ .goal-card { background: var(--bg-light); border-radius: 16px; padding: 30px; border-top: 4px solid var(--primary-color); }
+ .goal-card h3 { font-size: 1.3rem; color: var(--primary-color); margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+ .goal-card ul { list-style: none; padding: 0; }
+ .goal-card ul li { padding: 8px 0; padding-left: 28px; position: relative; border-bottom: 1px solid #e8f5e9; }
+ .goal-card ul li:last-child { border-bottom: none; }
+ .goal-card ul li::before { content: '✓'; position: absolute; left: 0; color: var(--primary-color); font-weight: 700; }
+ .goal-card .section-label { display: inline-block; color: white; padding: 3px 12px; border-radius: 4px; font-size: 0.8rem; font-weight: 700; margin-bottom: 10px; }
+ .goal-card.increase .section-label { background: var(--primary-color); }
+ .goal-card.reduce .section-label { background: #c62828; }
+
+ .note-box {
+ background: #fff9e6; border-left: 4px solid var(--thuoc-color);
+ padding: 20px; border-radius: 0 12px 12px 0; margin-top: 30px;
+ }
+ .note-box h4 { color: #b7791f; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+ .note-box ul { list-style-type: square; padding-left: 20px; margin-top: 5px; }
+ .note-box ul li { margin-bottom: 6px; }
+
+ .product-legend {
+ display: flex; flex-wrap: wrap; gap: 16px;
+ margin: 25px 0; padding: 15px 20px;
+ background: #fafafa; border-radius: 10px; border: 1px solid #eee;
+ }
+ .legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; }
+ .legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+ .legend-dot.green { background: var(--primary-color); }
+ .legend-dot.orange { background: #cc7000; }
+ .legend-dot.blue { background: #0055aa; }
+ .legend-dot.teal { background: var(--dieu-hoa-color); }
+ .legend-dot.purple { background: #7b1fa2; }
+
+ /* FOOTER */
+ footer { background: #11341a; color: #e0f2e5; padding: 60px 20px 20px; position: relative; z-index: 1; }
+ .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; max-width: 1200px; margin: 0 auto; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+ .footer-about h3 { color: #fff; font-size: 1.5rem; margin-bottom: 20px; }
+ .footer-about p { color: #a3cbb1; margin-bottom: 15px; }
+ .footer-links h4, .footer-contact h4 { color: var(--accent-color); font-size: 1.2rem; margin-bottom: 20px; text-transform: uppercase; }
+ .footer-links ul { list-style: none; }
+ .footer-links ul li { margin-bottom: 12px; }
+ .footer-links ul li a { color: #a3cbb1; text-decoration: none; transition: color 0.3s; }
+ .footer-links ul li a:hover { color: #fff; }
+ .footer-contact-item { display: flex; gap: 12px; margin-bottom: 15px; align-items: flex-start; }
+ .footer-contact-item i { color: var(--secondary-color); margin-top: 5px; flex-shrink: 0; }
+ .footer-contact-item a { color: #e0f2e5; text-decoration: none; transition: color 0.3s; word-break: break-word; }
+ .footer-contact-item a:hover { color: var(--accent-color); }
+ .footer-bottom { text-align: center; padding-top: 20px; font-size: 0.9rem; color: #719b80; }
+
+ /* FLOATING */
+ .floating-buttons { position: fixed; bottom: 30px; right: 30px; display: flex; flex-direction: column; gap: 15px; z-index: 9999; }
+ .float-btn { display: flex; align-items: center; justify-content: center; width: 55px; height: 55px; border-radius: 50%; color: white; text-decoration: none; font-size: 1.6rem; box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: transform 0.3s; }
+ .float-btn:hover { transform: scale(1.15); }
+ .float-phone { background: #FF3B30; animation: flash-red 1.8s infinite ease-in-out; }
+ .float-zalo { background: #0068FF; animation: flash-blue 1.8s infinite ease-in-out; animation-delay: 0.3s; }
+ .float-messenger { background: #0084FF; animation: flash-messenger 1.8s infinite ease-in-out; animation-delay: 0.6s; }
+ @keyframes flash-red { 0%,100%{box-shadow:0 0 0 0 rgba(255,59,48,0.7);filter:brightness(1)} 50%{box-shadow:0 0 20px 10px rgba(255,59,48,0);filter:brightness(1.3)} }
+ @keyframes flash-blue { 0%,100%{box-shadow:0 0 0 0 rgba(0,104,255,0.7);filter:brightness(1)} 50%{box-shadow:0 0 20px 10px rgba(0,104,255,0);filter:brightness(1.3)} }
+ @keyframes flash-messenger { 0%,100%{box-shadow:0 0 0 0 rgba(0,132,255,0.7);filter:brightness(1)} 50%{box-shadow:0 0 20px 10px rgba(0,132,255,0);filter:brightness(1.3)} }
+
+ /* RESPONSIVE CHUẨN ĐIỆN THOẠI */
+ @media (max-width: 768px) {
+ .nav-dropdown-menu { position: static; box-shadow: none; border: none; padding-left: 15px; min-width: auto; }
+ .hamburger { display: block; }
+ .nav-menu { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: #fff; flex-direction: column; padding: 20px; gap: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); z-index: 999; }
+ .nav-menu.open { display: flex; }
+ 
+ /* Tối ưu thanh Tabs cuốn ngang mượt mà trên Mobile như App */
+ .process-tabs { top: 65px; padding: 8px 0; }
+ .tabs-container { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; padding: 0 15px; gap: 12px; -webkit-overflow-scrolling: touch; }
+ .tabs-container::-webkit-scrollbar { display: none; } /* Ẩn thanh cuộn xấu xí */
+ .tab-btn { flex: 0 0 auto; width: auto; padding: 8px 16px; font-size: 0.85rem; white-space: nowrap; }
+ 
+ .goal-grid { grid-template-columns: 1fr; gap: 20px; }
+ .process-card { padding: 15px; margin-bottom: 25px; border-radius: 12px; }
+ .process-header-block h3 { font-size: 1.25rem; }
+ 
+ /* ── TỐI ƯU BẢNG BIẾN THÀNH CARD TRÊN MOBILE TRÁNH KÉO QUA LẠI ── */
+ .tech-table, .tech-table thead, .tech-table tbody, .tech-table th, .tech-table td, .tech-table tr { 
+ display: block; 
+ width: 100% !important;
+ }
+ .tech-table thead { 
+ display: none; /* Ẩn tiêu đề bảng truyền thống */
+ }
+ .tech-table tr {
+ background: #ffffff !important;
+ border: 1px solid #edf5e8;
+ border-radius: 12px;
+ padding: 15px;
+ margin-bottom: 18px;
+ box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+ }
+ .tech-table td {
+ padding: 8px 0;
+ border-bottom: 1px dashed #f0fdf4;
+ font-size: 0.9rem;
+ position: relative;
+ text-align: left;
+ }
+ .tech-table td:last-child {
+ border-bottom: none;
+ }
+ /* Tạo nhãn tiêu đề động ở trước nội dung bằng CSS */
+ .tech-table td::before {
+ content: attr(data-label);
+ display: block;
+ font-weight: 700;
+ color: #555;
+ font-size: 0.8rem;
+ text-transform: uppercase;
+ margin-bottom: 4px;
+ }
+ /* Định dạng lại cột số thứ tự và nhãn giai đoạn cho gọn đẹp */
+ .tech-table td:nth-child(1) {
+ display: inline-flex;
+ align-items: center;
+ width: auto !important;
+ border-bottom: none;
+ padding-right: 5px;
+ }
+ .tech-table td:nth-child(1)::before { display: none; }
+ .tech-table td:nth-child(2) {
+ display: inline-flex;
+ align-items: center;
+ width: auto !important;
+ border-bottom: none;
+ }
+ .tech-table td:nth-child(2)::before { display: none; }
+ .tech-table td:nth-child(3) {
+ clear: both;
+ }
+ 
+ .hero-page { padding: 40px 15px; }
+ .hero-page h1 { font-size: 1.6rem; line-height: 1.3; }
+ .hero-tagline { font-size: 1rem; }
+ .section-title { font-size: 1.6rem; }
+ .section-subtitle { font-size: 0.95rem; margin-bottom: 25px; }
+ .hero-stats { gap: 15px; }
+ .hero-stat-item { flex: 1 1 40%; min-width: 100px; }
+ .hero-stat-item .num { font-size: 1.4rem; }
+ 
+ .timeline-vertical { padding-left: 20px; }
+ .timeline-vertical::before { left: 4px; }
+ .timeline-node::before { left: -21px; width: 13px; height: 13px; border-width: 3px; top: 7px; }
+ .timeline-node-title { font-size: 1.05rem; }
+ .timeline-node-content { padding: 15px; border-radius: 8px; font-size: 0.9rem; }
+ 
+ .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+ .floating-buttons { right: 16px; bottom: 16px; gap: 10px; }
+ .float-btn { width: 48px; height: 48px; font-size: 1.25rem; }
+ body::before, body::after { width: 70px; opacity: 0.04; }
+ body::before { left: 0; }
+ body::after { right: 0; }
+ }
+ @media (max-width: 480px) {
+ body::before, body::after { display: none; }
+ .process-header-block { flex-direction: row; align-items: center; gap: 10px; }
+ .process-header-block i { font-size: 1.4rem; }
+ }
+ 
+html,body{width:100%;max-width:100%;overflow-x:hidden;}
+.process-card{overflow:hidden;}
+.table-wrapper{width:100%;}
+@media(max-width:768px){.floating-buttons{right:max(10px,env(safe-area-inset-right));bottom:max(12px,env(safe-area-inset-bottom));gap:8px;}.float-btn{width:48px;height:48px;font-size:1.25rem;}}
+</style>
+
+<!-- AGVN shared header/footer styles are inlined so every page works locally and on GitHub Pages. -->
+<style id="agvn-shared-inline">
+/* =========================================================
+   AGVN shared site chrome
+   Đồng bộ header, footer và nút liên hệ cho toàn bộ website.
+   ========================================================= */
+:root {
+  --agvn-green-900: #064e2f;
+  --agvn-green-800: #08643c;
+  --agvn-green-700: #087a43;
+  --agvn-green-100: #eaf6ee;
+  --agvn-gold: #f2b705;
+  --agvn-ink: #17342a;
+  --agvn-muted: #63766f;
+  --agvn-line: rgba(8, 100, 60, 0.14);
+  --agvn-white: #ffffff;
+}
+
+html { scroll-behavior: smooth; }
+body { overflow-x: hidden; }
+
+/* ---------- Header ---------- */
+header.agvn-site-header {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 10000 !important;
+  width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  color: var(--agvn-ink) !important;
+  background: rgba(255, 255, 255, 0.97) !important;
+  border-bottom: 1px solid var(--agvn-line) !important;
+  box-shadow: 0 8px 26px rgba(9, 72, 44, 0.08) !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.agvn-site-header *,
+.agvn-site-footer * { box-sizing: border-box; }
+
+.agvn-nav-shell {
+  width: min(1240px, calc(100% - 40px));
+  min-height: 74px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+}
+
+.agvn-brand {
+  display: inline-flex !important;
+  align-items: baseline;
+  gap: 7px;
+  flex: 0 0 auto;
+  color: var(--agvn-green-800) !important;
+  text-decoration: none !important;
+  letter-spacing: -0.035em;
+  font-weight: 800 !important;
+  line-height: 1;
+}
+
+.agvn-brand__main { font-size: clamp(1.35rem, 2vw, 1.7rem); }
+.agvn-brand__sub {
+  color: var(--agvn-gold);
+  font-size: clamp(0.9rem, 1.35vw, 1.05rem);
+  letter-spacing: 0.05em;
+}
+
+.agvn-menu-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--agvn-line);
+  border-radius: 12px;
+  color: var(--agvn-green-800);
+  background: var(--agvn-white);
+  cursor: pointer;
+  font-size: 1.25rem;
+}
+
+.agvn-primary-nav { margin-left: auto; }
+.agvn-nav-list {
+  display: flex !important;
+  align-items: center;
+  gap: 5px;
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none !important;
+}
+
+.agvn-nav-item { position: relative; margin: 0 !important; }
+.agvn-nav-link,
+.agvn-dropdown-button {
+  min-height: 42px;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 9px 12px !important;
+  border: 0;
+  border-radius: 11px;
+  color: var(--agvn-ink) !important;
+  background: transparent;
+  text-decoration: none !important;
+  font-size: 0.92rem !important;
+  font-weight: 650 !important;
+  line-height: 1.3;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color .2s ease, background .2s ease, transform .2s ease;
+}
+
+.agvn-nav-link:hover,
+.agvn-nav-link:focus-visible,
+.agvn-nav-link.is-active,
+.agvn-dropdown-button:hover,
+.agvn-dropdown-button:focus-visible {
+  color: var(--agvn-green-800) !important;
+  background: var(--agvn-green-100) !important;
+  outline: none;
+}
+
+.agvn-nav-link.is-active { box-shadow: inset 0 -2px 0 var(--agvn-gold); }
+.agvn-nav-combo { display: flex; align-items: center; }
+.agvn-nav-combo > .agvn-nav-link { padding-right: 5px !important; border-radius: 11px 0 0 11px; }
+.agvn-dropdown-button {
+  width: 32px;
+  padding: 0 !important;
+  border-radius: 0 11px 11px 0;
+  font-size: .72rem !important;
+}
+.agvn-dropdown-button i { transition: transform .2s ease; }
+.agvn-nav-item.is-open .agvn-dropdown-button i { transform: rotate(180deg); }
+
+.agvn-submenu {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  z-index: 10020;
+  min-width: 270px;
+  margin: 0 !important;
+  padding: 9px !important;
+  list-style: none !important;
+  border: 1px solid var(--agvn-line);
+  border-radius: 15px;
+  background: var(--agvn-white);
+  box-shadow: 0 18px 45px rgba(9, 72, 44, .16);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-7px);
+  transition: opacity .2s ease, visibility .2s ease, transform .2s ease;
+}
+.agvn-nav-item:hover > .agvn-submenu,
+.agvn-nav-item:focus-within > .agvn-submenu,
+.agvn-nav-item.is-open > .agvn-submenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.agvn-submenu a {
+  display: flex !important;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 12px !important;
+  border-radius: 10px;
+  color: var(--agvn-ink) !important;
+  text-decoration: none !important;
+  font-size: .9rem !important;
+  font-weight: 600 !important;
+}
+.agvn-submenu a:hover,
+.agvn-submenu a:focus-visible {
+  color: var(--agvn-green-800) !important;
+  background: var(--agvn-green-100) !important;
+  outline: none;
+}
+.agvn-submenu i { width: 18px; color: var(--agvn-green-700); text-align: center; }
+
+/* Tin tức đã có trong mã nguồn nhưng tạm ẩn.
+   Khi cần bật: xóa class "agvn-nav-news--hidden" trong shared header
+   hoặc đổi display bên dưới thành list-item. */
+.agvn-nav-news--hidden { display: none !important; }
+
+/* ---------- Footer ---------- */
+footer.agvn-site-footer {
+  position: relative !important;
+  z-index: 2;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  color: rgba(255,255,255,.86) !important;
+  background:
+    radial-gradient(circle at 85% 0%, rgba(242,183,5,.12), transparent 28%),
+    linear-gradient(145deg, #043823 0%, #075434 56%, #063d29 100%) !important;
+  border: 0 !important;
+}
+.agvn-footer-shell {
+  width: min(1240px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 58px 0 24px;
+}
+.agvn-footer-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 1.05fr .8fr 1.1fr;
+  gap: 34px;
+  align-items: start;
+}
+.agvn-footer-brand {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 7px;
+  margin-bottom: 16px;
+  color: #fff !important;
+  text-decoration: none !important;
+  font-weight: 800;
+}
+.agvn-footer-brand .agvn-brand__sub { color: var(--agvn-gold); }
+.agvn-footer-title {
+  margin: 0 0 15px !important;
+  color: #fff !important;
+  font-size: 1rem !important;
+  line-height: 1.35;
+  font-weight: 750 !important;
+}
+.agvn-footer-text {
+  margin: 0 !important;
+  color: rgba(255,255,255,.74) !important;
+  font-size: .93rem !important;
+  line-height: 1.75 !important;
+}
+.agvn-footer-legal {
+  margin-top: 16px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255,255,255,.12);
+}
+.agvn-footer-legal p { margin: 5px 0 !important; color: rgba(255,255,255,.78) !important; font-size: .88rem !important; }
+.agvn-footer-list {
+  display: grid !important;
+  gap: 9px;
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none !important;
+}
+.agvn-footer-list li { margin: 0 !important; padding: 0 !important; }
+.agvn-footer-list a {
+  display: inline-flex !important;
+  align-items: flex-start;
+  gap: 9px;
+  color: rgba(255,255,255,.78) !important;
+  text-decoration: none !important;
+  font-size: .91rem !important;
+  line-height: 1.55;
+  transition: color .2s ease, transform .2s ease;
+}
+.agvn-footer-list a:hover { color: #fff !important; transform: translateX(3px); }
+.agvn-footer-list i { width: 17px; margin-top: 4px; color: var(--agvn-gold); text-align: center; flex: 0 0 17px; }
+.agvn-social-row { display: flex; gap: 10px; margin-top: 18px; }
+.agvn-social-link {
+  width: 42px;
+  height: 42px;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 12px;
+  color: #fff !important;
+  background: rgba(255,255,255,.08);
+  text-decoration: none !important;
+  transition: transform .2s ease, background .2s ease;
+}
+.agvn-social-link:hover { transform: translateY(-2px); background: rgba(255,255,255,.16); }
+.agvn-footer-bottom {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,.13);
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  color: rgba(255,255,255,.62);
+  font-size: .84rem;
+  line-height: 1.55;
+}
+.agvn-footer-bottom p { margin: 0 !important; color: inherit !important; font-size: inherit !important; }
+
+/* ---------- Floating contact buttons ---------- */
+body .floating-buttons.agvn-floating-buttons {
+  position: fixed !important;
+  right: max(18px, env(safe-area-inset-right)) !important;
+  bottom: max(22px, env(safe-area-inset-bottom)) !important;
+  z-index: 9998 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+body .agvn-floating-buttons .float-btn {
+  width: 50px !important;
+  height: 50px !important;
+  min-width: 50px !important;
+  min-height: 50px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  border: 2px solid rgba(255,255,255,.9) !important;
+  border-radius: 50% !important;
+  color: #fff !important;
+  text-decoration: none !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,.2) !important;
+  font-size: 1.18rem !important;
+  line-height: 1 !important;
+  animation: none !important;
+  transition: transform .2s ease, box-shadow .2s ease !important;
+}
+body .agvn-floating-buttons .float-btn:hover { transform: translateY(-3px) scale(1.04) !important; box-shadow: 0 12px 28px rgba(0,0,0,.25) !important; }
+body .agvn-floating-buttons .float-phone { background: #ef4444 !important; }
+body .agvn-floating-buttons .float-zalo { background: #0068ff !important; font-size: .67rem !important; font-weight: 800 !important; letter-spacing: -.02em; }
+body .agvn-floating-buttons .float-messenger { background: linear-gradient(135deg,#00b2ff,#006aff) !important; }
+
+@media (max-width: 1060px) {
+  .agvn-nav-shell { width: min(100% - 28px, 1240px); min-height: 68px; }
+  .agvn-menu-toggle { display: inline-flex; }
+  .agvn-primary-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: 0;
+    overflow: hidden;
+    margin: 0;
+    background: rgba(255,255,255,.99);
+    border-bottom: 1px solid var(--agvn-line);
+    box-shadow: 0 18px 35px rgba(9,72,44,.13);
+    transition: max-height .28s ease;
+  }
+  .agvn-site-header.is-menu-open .agvn-primary-nav { max-height: min(78vh, 620px); overflow-y: auto; }
+  .agvn-nav-list { display: grid !important; gap: 2px; width: min(100% - 28px, 1240px); margin: 0 auto !important; padding: 12px 0 18px !important; }
+  .agvn-nav-link { width: 100%; justify-content: flex-start; padding: 12px 13px !important; }
+  .agvn-nav-combo { width: 100%; }
+  .agvn-nav-combo > .agvn-nav-link { flex: 1; }
+  .agvn-dropdown-button { width: 46px; height: 46px; flex: 0 0 46px; }
+  .agvn-submenu {
+    position: static;
+    display: none;
+    min-width: 0;
+    margin: 2px 0 7px 14px !important;
+    padding: 6px !important;
+    border-radius: 12px;
+    box-shadow: none;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    background: #f7fbf8;
+  }
+  .agvn-nav-item:hover > .agvn-submenu,
+  .agvn-nav-item:focus-within > .agvn-submenu { display: none; }
+  .agvn-nav-item.is-open > .agvn-submenu { display: block; }
+  .agvn-footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 680px) {
+  .agvn-nav-shell { width: calc(100% - 24px); }
+  .agvn-footer-shell { width: calc(100% - 32px); padding-top: 44px; }
+  .agvn-footer-grid { grid-template-columns: 1fr; gap: 30px; }
+  .agvn-footer-bottom { margin-top: 30px; flex-direction: column; gap: 6px; }
+  body .floating-buttons.agvn-floating-buttons { right: 12px !important; bottom: 14px !important; gap: 8px !important; }
+  body .agvn-floating-buttons .float-btn { width: 46px !important; height: 46px !important; min-width: 46px !important; min-height: 46px !important; }
+}
+</style>
+<!-- AGVN PERFORMANCE PATCH v1: mobile rendering safeguards -->
+<style id="agvn-performance-css">
+.banner-picture{display:block;width:100%;line-height:0}.banner-picture .banner-img{display:block;width:100%;height:auto;aspect-ratio:2532/964}
+@media(max-width:768px){
+  [data-aos]{opacity:1!important;transform:none!important;transition:none!important;animation:none!important}
+  .about-section,.product-section,.testimonial-section,.news-section,.latest-news,footer,.agvn-site-footer{content-visibility:auto;contain-intrinsic-size:1px 850px}
+  .floating-buttons .float-btn,.agvn-floating-buttons .float-btn{animation:none!important}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+
+<style id="agvn-process-switcher-css">
+.agvn-process-switcher-wrap{
+  position:relative;
+  z-index:3;
+  padding:18px 20px 0;
+  background:#fff;
+}
+.agvn-process-switcher{
+  width:min(1180px,100%);
+  margin:0 auto;
+  padding:14px 16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+  border:1px solid #dceee2;
+  border-radius:14px;
+  background:#f7fbf8;
+  box-shadow:0 5px 18px rgba(0,122,51,.06);
+}
+.agvn-process-switcher__label{
+  margin-right:4px;
+  color:#315b3f;
+  font-size:.86rem;
+  font-weight:700;
+}
+.agvn-process-switcher__link{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  padding:9px 14px;
+  border:1px solid #b9ddc4;
+  border-radius:999px;
+  color:#096b31;
+  background:#fff;
+  text-decoration:none;
+  font-size:.86rem;
+  font-weight:700;
+  transition:all .2s ease;
+}
+.agvn-process-switcher__link:hover{
+  color:#fff;
+  background:#007A33;
+  border-color:#007A33;
+  transform:translateY(-1px);
+}
+.agvn-process-switcher__link.is-active{
+  color:#fff;
+  background:#007A33;
+  border-color:#007A33;
+  box-shadow:0 4px 12px rgba(0,122,51,.18);
+}
+.process-source-note{
+  margin:18px 0 0;
+  padding:14px 16px;
+  border-radius:10px;
+  background:#f7fbf8;
+  border:1px solid #dceee2;
+  color:#45614e;
+  font-size:.88rem;
+  line-height:1.65;
+}
+.stage-product-list{
+  margin:0;
+  padding-left:18px;
+}
+.stage-product-list li{
+  margin:0 0 8px;
+  line-height:1.55;
+}
+.stage-product-list li:last-child{margin-bottom:0;}
+.stage-product-list strong{color:#075f2c;}
+.stage-note{
+  margin-top:9px;
+  padding:10px 12px;
+  border-left:3px solid #FFB81C;
+  border-radius:0 8px 8px 0;
+  background:#fff9e8;
+  color:#735817;
+}
+.general-note-list{
+  padding-left:20px;
+  margin-top:10px;
+}
+.general-note-list li{
+  margin-bottom:10px;
+  line-height:1.7;
+}
+@media(max-width:768px){
+  .agvn-process-switcher-wrap{padding:12px 12px 0;}
+  .agvn-process-switcher{
+    justify-content:flex-start;
+    padding:10px;
+    gap:8px;
+  }
+  .agvn-process-switcher__label{
+    width:100%;
+    margin:0 0 2px;
+  }
+  .agvn-process-switcher__link{
+    flex:1 1 145px;
+    padding:9px 10px;
+    font-size:.8rem;
+  }
+}
+</style>
+</head>
+<body>
+
+<header class="agvn-site-header" data-agvn-shared="header">
+  <div class="agvn-nav-shell">
+    <a class="agvn-brand" href="https://agvngroup.com/" aria-label="AGVN Group - Trang chủ">
+      <span class="agvn-brand__main">AGVN</span><span class="agvn-brand__sub">GROUP</span>
+    </a>
+    <button class="agvn-menu-toggle" type="button" aria-label="Mở menu" aria-controls="navMenu" aria-expanded="false">
+      <i class="fa-solid fa-bars" aria-hidden="true"></i>
+    </button>
+    <nav class="agvn-primary-nav" id="navMenu" aria-label="Điều hướng chính">
+      <ul class="agvn-nav-list">
+        <li class="agvn-nav-item"><a class="agvn-nav-link" data-nav="home" href="https://agvngroup.com/">Trang Chủ</a></li>
+        <li class="agvn-nav-item"><a class="agvn-nav-link" data-nav="about" href="https://agvngroup.com/aboutus.html">Giới Thiệu</a></li>
+        <li class="agvn-nav-item agvn-nav-item--products">
+          <div class="agvn-nav-combo">
+            <a class="agvn-nav-link" data-nav="products" href="https://agvngroup.com/AGVN_product.html">Sản Phẩm</a>
+            <button class="agvn-dropdown-button" type="button" aria-label="Mở danh mục sản phẩm" aria-expanded="false">
+              <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+            </button>
+          </div>
+          <ul class="agvn-submenu">
+            <li><a href="https://agvngroup.com/AGVN_product.html"><i class="fa-solid fa-layer-group"></i>Tất cả sản phẩm</a></li>
+            <li><a href="https://agvngroup.com/AGVN_product.html#ctTruBenh"><i class="fa-solid fa-shield-halved"></i>Thuốc Trừ Bệnh</a></li>
+            <li><a href="https://agvngroup.com/AGVN_product.html#ctSauRay"><i class="fa-solid fa-bug"></i>Thuốc Trừ Sâu - Rầy</a></li>
+            <li><a href="https://agvngroup.com/AGVN_product.html#ctDieuHoa"><i class="fa-solid fa-seedling"></i>Điều Hòa Sinh Trưởng</a></li>
+            <li><a href="https://agvngroup.com/AGVN_product.html#ctPhanBon"><i class="fa-solid fa-leaf"></i>Phân Bón</a></li>
+          </ul>
+        </li>
+                <li class="agvn-nav-item agvn-nav-item--process">
+          <div class="agvn-nav-combo">
+            <a class="agvn-nav-link" data-nav="process" href="https://agvngroup.com/quytrinhcanhtaclua.html">Quy Trình Canh Tác Lúa</a>
+            <button class="agvn-dropdown-button agvn-process-dropdown-button" type="button" aria-label="Mở danh sách quy trình canh tác" aria-expanded="false">
+              <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+            </button>
+          </div>
+          <ul class="agvn-submenu agvn-process-submenu">
+            <li><a href="https://agvngroup.com/quytrinhcanhtaclua.html"><i class="fa-solid fa-seedling"></i>Japonica DS1</a></li>
+            <li><a href="https://agvngroup.com/quytrinh-lua-thom-100-ngay.html"><i class="fa-solid fa-wheat-awn"></i>Lúa thơm 100 ngày</a></li>
+          </ul>
+        </li>
+        <!-- Tin tức đã được đặt sẵn trong menu nhưng tạm ẩn. Xóa class agvn-nav-news--hidden để hiển thị. -->
+        <li class="agvn-nav-item agvn-nav-news--hidden" hidden><a class="agvn-nav-link" data-nav="news" href="https://agvngroup.com/tintuc.html">Tin Tức</a></li>
+        <li class="agvn-nav-item"><a class="agvn-nav-link" href="https://agvngroup.com/#footer">Liên Hệ</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<!-- AGVN PROCESS SWITCHER START -->
+<div class="agvn-process-switcher-wrap">
+  <div class="agvn-process-switcher" id="agvn-process-switcher" aria-label="Chọn quy trình canh tác">
+    <span class="agvn-process-switcher__label"><i class="fa-solid fa-layer-group"></i> Chọn quy trình:</span>
+    <a class="agvn-process-switcher__link" href="https://agvngroup.com/quytrinhcanhtaclua.html">
+      <i class="fa-solid fa-seedling"></i> Japonica DS1
+    </a>
+    <a class="agvn-process-switcher__link is-active" href="https://agvngroup.com/quytrinh-lua-thom-100-ngay.html" aria-current="page">
+      <i class="fa-solid fa-wheat-awn"></i> Lúa thơm 100 ngày
+    </a>
+  </div>
+</div>
+<!-- AGVN PROCESS SWITCHER END -->
+
+
+<div class="hero-page">
+  <div class="container">
+    <h1>QUY TRÌNH CANH TÁC LÚA THƠM 100 NGÀY</h1>
+    <p class="hero-tagline"><i class="fa-solid fa-bullseye"></i> Tăng Năng Suất – Giảm Chi Phí</p>
+    <div class="hero-stats">
+      <div class="hero-stat-item"><div class="num">9</div><div class="label">Giai đoạn canh tác</div></div>
+      <div class="hero-stat-item"><div class="num">1 ha</div><div class="label">Diện tích áp dụng</div></div>
+      <div class="hero-stat-item"><div class="num">100 ngày</div><div class="label">Loại giống</div></div>
+      <div class="hero-stat-item"><div class="num">AGVN</div><div class="label">Bộ sản phẩm đồng bộ</div></div>
+    </div>
+    <ul class="breadcrumb">
+      <li><a href="https://agvngroup.com">Trang chủ</a></li>
+      <li><a href="https://agvngroup.com/quytrinhcanhtaclua.html">Quy trình canh tác</a></li>
+      <li>Lúa thơm 100 ngày</li>
+    </ul>
+  </div>
+</div>
+
+<div class="process-tabs">
+  <div class="tabs-container">
+    <button class="tab-btn active" onclick="scrollToSection('tong-quan', this)"><i class="fa-solid fa-bullseye"></i> Mục tiêu canh tác</button>
+    <button class="tab-btn" onclick="scrollToSection('lich-canh-tac', this)"><i class="fa-solid fa-list-check"></i> 9 giai đoạn</button>
+    <button class="tab-btn" onclick="scrollToSection('luu-y-chung', this)"><i class="fa-solid fa-circle-info"></i> Lưu ý chung</button>
+  </div>
+</div>
+
+<section id="tong-quan" class="container">
+  <h2 class="section-title" data-aos="fade-up">MỤC TIÊU & ĐỊNH HƯỚNG CANH TÁC</h2>
+  <p class="section-subtitle" data-aos="fade-up">
+    Quy trình ứng dụng bộ sản phẩm AGVN cho <strong>lúa thơm 100 ngày</strong> trên diện tích
+    <strong>01 hecta (10.000 m²)</strong>, hướng đến mục tiêu “Tăng năng suất – Giảm chi phí”.
+  </p>
+
+  <div class="goal-grid">
+    <div class="goal-card increase" data-aos="fade-right">
+      <div class="section-label"><i class="fa-solid fa-arrow-up"></i> TĂNG NĂNG SUẤT</div>
+      <h3><i class="fa-solid fa-chart-line"></i> Các tiêu chí chính</h3>
+      <ul>
+        <li>Tăng tối đa số lượng đầu bông thông qua việc tập trung đẻ nhánh tối đa; rễ ra nhiều, hút phân mạnh và cắm sâu.</li>
+        <li>Tăng tối đa độ lớn của bông thông qua việc tăng độ lớn của cây lúa; cây nở ngang, hình thành đòng lớn, giúp gié và hạt đóng chặt, tăng số hạt trên bông.</li>
+        <li>Giảm đổ ngã tối đa giúp lúa hạn chế thất thoát.</li>
+        <li>Nuôi hạt tới cậy nhờ cây lúa to, cứng, rễ nhiều, vận chuyển dinh dưỡng nhanh và dài ngày, giữ lúa tươi tới khi cắt.</li>
+        <li>Đầu tư hiệu quả, hạn chế thất thoát lượng phân đã bón vì lúa hấp thu tối đa.</li>
+      </ul>
+    </div>
+
+    <div class="goal-card reduce" data-aos="fade-left">
+      <div class="section-label" style="background:#c62828;"><i class="fa-solid fa-arrow-down"></i> GIẢM CHI PHÍ</div>
+      <h3><i class="fa-solid fa-wallet" style="color:#c62828;"></i> Các tiêu chí chính</h3>
+      <ul>
+        <li>Giảm lượng phân bón nhờ rễ ăn sâu, hút được nhiều phân hơn, cầm phân lâu hơn và có nhiều lông hút.</li>
+        <li>Giảm rủi ro bệnh hại do chủ động phòng ngừa sớm, giảm chi phí phun nhiều lần và nhiều thuốc.</li>
+        <li>Lúa không cao, cây cứng, rễ cắm sâu nên ít đổ ngã, góp phần giảm chi phí cắt lúa.</li>
+        <li>Xử lý hiệu quả các loại côn trùng gây hại làm giảm số lượng bông và hạt trên diện tích canh tác.</li>
+        <li>Quản lý tốt nấm bệnh bằng cách kết hợp thuốc BVTV hiệu quả, đúng nhu cầu, đúng thời điểm để bảo toàn các tiêu chí đã đầu tư.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="process-card" data-aos="fade-up">
+    <div class="process-header-block"><i class="fa-solid fa-circle-info"></i><h3>Thông tin áp dụng</h3></div>
+    <p><strong>Loại giống:</strong> Lúa thơm 100 ngày</p>
+    <p><strong>Diện tích:</strong> 1 hecta (10.000 m²)</p>
+    <p><strong>Định hướng:</strong> Ứng dụng bộ sản phẩm của Tập Đoàn Nông Nghiệp AGVN Group theo từng giai đoạn canh tác.</p>
+  </div>
+</section>
+
+<section id="lich-canh-tac" class="container">
+  <h2 class="section-title" data-aos="fade-up">9 GIAI ĐOẠN CANH TÁC & ỨNG DỤNG SẢN PHẨM AGVN</h2>
+  <p class="section-subtitle" data-aos="fade-up">
+    Sản phẩm, liều lượng, công dụng và lưu ý dưới đây được trình bày theo tài liệu quy trình “Giống 100 ngày”.
+  </p>
+
+  <div class="process-card" data-aos="fade-up">
+    <div class="process-header-block"><i class="fa-solid fa-table-list"></i><h3>Bảng hướng dẫn chi tiết theo giai đoạn</h3></div>
+    <div class="table-wrapper">
+      <table class="tech-table">
+        <thead>
+          <tr>
+            <th style="width:5%;">#</th>
+            <th style="width:18%;">Giai đoạn</th>
+            <th style="width:13%;">Thời điểm</th>
+            <th style="width:46%;">Sản phẩm, liều lượng & công dụng</th>
+            <th style="width:18%;">Lưu ý</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr>
+            <td data-label="#"><span class="stage-num">1</span></td>
+            <td data-label="Giai đoạn"><span class="stage-badge stage-badge-spray">Phun diệt mầm hoặc cỏ cây</span></td>
+            <td data-label="Thời điểm">1 – 10 NSS</td>
+            <td data-label="Sản phẩm, liều lượng & công dụng">
+              <ul class="stage-product-list">
+                <li><strong>TOMA AIMNO 500ml – 1 chai:</strong> dùng chung với thuốc diệt mầm hoặc cỏ cây; giúp lúa non khỏe, xanh sớm, phát triển đồng đều trong giai đoạn mạ, rễ cắm sâu, thân mập; hỗ trợ vô nước sớm để ém cỏ, hạn chế dụm giống do mưa, chết cây do phèn và sượng do thuốc cỏ; góp phần giảm lượng phân bón.</li>
+              </ul>
+            </td>
+            <td data-label="Lưu ý"><div class="stage-note">Không làm giảm tác dụng của thuốc trừ cỏ, đồng thời giúp cỏ chết nhanh do cỏ tăng sự hấp thu.</div></td>
+          </tr>
+
+          <tr>
+            <td data-label="#"><span class="stage-num">2</span></td>
+            <td data-label="Giai đoạn"><span class="stage-badge stage-badge-fertilizer">Đẻ nhánh sớm</span></td>
+            <td data-label="Thời điểm">8 – 12 NSS</td>
+            <td data-label="Sản phẩm, liều lượng & công dụng">
+              <ul class="stage-product-list">
+                <li><strong>HUMIC TOMA – 5 kg:</strong> trộn chung với URE hoặc NPK. Giúp lúa ra rễ mạnh, cắm sâu, nhiều lông hút; giải độc hữu cơ, giải quyết bướu rễ, giải độc phèn; đẻ nhánh sớm, cứng cây, đứng lá, lá màu tranh, không phượt lá.</li>
+                <li><strong>Ưu điểm:</strong> sử dụng dư không gây phượt lá, bổ sung vi sinh giúp phân giải lân khó tiêu trong đất.</li>
+              </ul>
+            </td>
+            <td data-label="Lưu ý"><div class="stage-note">Giai đoạn mạ giảm tối đa lượng phân DAP và KALI nhưng vẫn đảm bảo lúa phát triển tốt.</div></td>
+          </tr>
+
+          <tr>
+            <td data-label="#"><span class="stage-num">3</span></td>
+            <td data-label="Giai đoạn"><span class="stage-badge stage-badge-spray">Phun đẻ nhánh sớm</span></td>
+            <td data-label="Thời điểm">13 – 17 NSS</td>
+            <td data-label="Sản phẩm, liều lượng & công dụng">
+              <ul class="stage-product-list">
+                <li><strong>TOMA AIMNO 500ml – 1 chai:</strong> giúp lúa phát triển bộ rễ mạnh; hỗ trợ khi bị phèn, ngộ độc hữu cơ; lúa nở bụi mạnh, xanh lá, nhẹ phân ngay từ đầu.</li>
+                <li><a href="https://agvngroup.com/san-pham/xong-hoi-b52.html" target="_blank" style="text-decoration:none;"><strong>XÔNG HƠI B52 450ml – 1 chai:</strong></a> xông hơi mạnh, hạn chế sự tập trung của sâu ăn lá, rầy, muỗi hành, bù lạch (bọ trĩ).</li>
+              </ul>
+            </td>
+            <td data-label="Lưu ý"><div class="stage-note">Áp dụng đối với mùa vụ mưa nhiều hoặc những loại giống lúa thơm. Phối trộn các loại thuốc trên để quản lý sớm theo tiêu chí “phòng bệnh hơn trị bệnh”.</div></td>
+          </tr>
+
+          <tr>
+            <td data-label="#"><span class="stage-num">4</span></td>
+            <td data-label="Giai đoạn"><span class="stage-badge stage-badge-spray">Kéo chồi hữu hiệu</span></td>
+            <td data-label="Thời điểm">22 – 32 NSS</td>
+            <td data-label="Sản phẩm, liều lượng & công dụng">
+              <ul class="stage-product-list">
+                <li><a href="https://agvngroup.com/san-pham/lun-luc.html" target="_blank" style="text-decoration:none;"><strong>LÙN LỰC 300ml – 1 chai:</strong></a> giúp lúa cứng cây, ngắn thân rạ, lá đứng, hạn chế phát triển chiều cao thân lúa, tuột lá ủ.</li>
+                <li><a href="https://agvngroup.com/san-pham/dac-tri-dao-on.html" target="_blank" style="text-decoration:none;"><strong>ĐẶC TRỊ ĐẠO ÔN 100gr – 3 gói:</strong></a> quản lý nấm bệnh gây hại như khô vằn, đóm vằn, đốm nâu và đạo ôn lá từ sớm, giúp lúa phát triển mạnh và đồng đều.</li>
+              </ul>
+            </td>
+            <td data-label="Lưu ý"><div class="stage-note">Phối trộn các loại thuốc theo tiêu chí tăng chồi hữu hiệu, hạn chế chiều cao cây và phòng ngừa kịp thời côn trùng, nấm bệnh gây hại.</div></td>
+          </tr>
+
+          <tr>
+            <td data-label="#"><span class="stage-num">5</span></td>
+            <td data-label="Giai đoạn"><span class="stage-badge stage-badge-spray">Quản lý sâu, bệnh, dưỡng đòng</span></td>
+            <td data-label="Thời điểm">38 – 45 NSS</td>
+            <td data-label="Sản phẩm, liều lượng & công dụng">
+              <ul class="stage-product-list">
+                <li><a href="https://agvngroup.com/san-pham/duong-dong-vang.html" target="_blank" style="text-decoration:none;"><strong>DƯỠNG ĐÒNG VÀNG 500ml – 1 chai:</strong></a> cung cấp dinh dưỡng giúp mập đòng, xanh lá, tăng số lượng hạt trên bông.</li>
+                <li><a href="https://agvngroup.com/san-pham/dac-tri-dao-on.html" target="_blank" style="text-decoration:none;"><strong>ĐẶC TRỊ ĐẠO ÔN 100gr – 3 gói:</strong></a> quản lý nấm bệnh như khô vằn, đóm vằn, đốm nâu và đạo ôn lá từ sớm.</li>
+                <li><strong>KUMIN X6 450ml – 1 chai:</strong> phòng ngừa sớm các loại vi khuẩn như sọc trong, bạc lá, cháy bìa lá lúa, vàng lá.</li>
+                <li><a href="https://agvngroup.com/san-pham/xong-hoi-b52.html" target="_blank" style="text-decoration:none;"><strong>XÔNG HƠI B52 450ml – 1 chai:</strong></a> hạn chế sự tập trung của sâu ăn lá, rầy, muỗi hành, bù lạch (bọ trĩ).</li>
+              </ul>
+            </td>
+            <td data-label="Lưu ý"><div class="stage-note">Nên thăm đồng thường xuyên để kịp thời kết hợp các loại thuốc phòng trừ sâu, rầy nhằm đạt hiệu quả cao nhất.</div></td>
+          </tr>
+
+          <tr>
+            <td data-label="#"><span class="stage-num">6</span></td>
+            <td data-label="Giai đoạn"><span class="stage-badge stage-badge-spray">Lúa trổ lẹt xẹt</span></td>
+            <td data-label="Thời điểm">58 – 65 NSS</td>
+            <td data-label="Sản phẩm, liều lượng & công dụng">
+              <ul class="stage-product-list">
+                <li><a href="https://agvngroup.com/san-pham/vang-la.html" target="_blank" style="text-decoration:none;"><strong>VÀNG LÁ 500gr – 1 gói:</strong></a> bảo vệ bộ lá đòng từ bên ngoài, ngăn các bệnh vàng lá chín sớm, bạc lá, cháy bìa lá, vàng lá thối rễ chết cây.</li>
+                <li><strong>VIL 10:</strong> giúp phòng ngừa lem lép hạt, bệnh đạo ôn, khô vằn, đốm vằn, đốm nâu trước khi vết bệnh xuất hiện, giúp giữ bộ lá xanh khỏe.</li>
+                <li><a href="https://agvngroup.com/san-pham/dac-tri-dao-on.html" target="_blank" style="text-decoration:none;"><strong>ĐẶC TRỊ ĐẠO ÔN 100gr – 3 gói:</strong></a> quản lý khô vằn, đóm vằn, đốm nâu, đạo ôn lá, đạo ôn cổ bông và nhánh gié.</li>
+                <li><a href="https://agvngroup.com/san-pham/sach-nam-khuan.html" target="_blank" style="text-decoration:none;"><strong>SẠCH NẤM KHUẨN 100gr – 4 gói:</strong></a> phòng ngừa và chặn đứng vi khuẩn gây bệnh như bạc lá, cháy bìa lá lúa, sọc trong vi khuẩn, lép vàng.</li>
+              </ul>
+            </td>
+            <td data-label="Lưu ý"><div class="stage-note">Trước hoặc đang trổ cần thăm đồng thường xuyên để kết hợp thuốc sâu cuốn lá, đục thân, rầy nâu; theo dõi thời tiết để phun đúng thời điểm. Mưa nhiều cần phun trước khi lúa đã trổ bông.</div></td>
+          </tr>
+
+          <tr>
+            <td data-label="#"><span class="stage-num">7</span></td>
+            <td data-label="Giai đoạn"><span class="stage-badge stage-badge-spray">Lúa trổ đều</span></td>
+            <td data-label="Thời điểm">65 – 72 NSS<br><small>(trổ rộ 70 – 80%)</small></td>
+            <td data-label="Sản phẩm, liều lượng & công dụng">
+              <ul class="stage-product-list">
+                <li><a href="https://agvngroup.com/san-pham/supercol-692.html" target="_blank" style="text-decoration:none;"><strong>SUPERCOL 500gr – 1 gói:</strong></a> quản lý các loại nấm bệnh như đạo ôn lá, khô vằn, đóm vằn; giúp dày lá và bảo vệ bộ lá đòng xanh khỏe.</li>
+                <li><a href="https://agvngroup.com/san-pham/pico-plus-300.html" target="_blank" style="text-decoration:none;"><strong>PICO PLUS 300ml – 1 chai:</strong></a> quản lý lem lép hạt, vàng lá; giúp sáng hạt, giữ xanh bộ lá đòng, tăng khả năng vô gạo nhanh.</li>
+                <li><a href="https://agvngroup.com/san-pham/dao-on-promax.html" target="_blank" style="text-decoration:none;"><strong>ĐẠO ÔN PROMAX 300ml – 1 chai:</strong></a> quản lý đạo ôn lá, đạo ôn cổ bông, đạo ôn nhánh gié; không gây nóng bông.</li>
+                <li><a href="https://agvngroup.com/san-pham/sach-nam-khuan.html" target="_blank" style="text-decoration:none;"><strong>SẠCH NẤM KHUẨN 100gr – 4 gói:</strong></a> phòng ngừa và chặn đứng vi khuẩn gây bệnh như bạc lá, cháy bìa lá lúa, sọc trong vi khuẩn, lép vàng.</li>
+              </ul>
+            </td>
+            <td data-label="Lưu ý"><div class="stage-note">Cần thăm đồng thường xuyên, theo dõi sâu cuốn lá, đục thân, rầy nâu và thời tiết. Mưa nhiều cần phun khi lúa trổ từ 70–90%.</div></td>
+          </tr>
+
+          <tr>
+            <td data-label="#"><span class="stage-num">8</span></td>
+            <td data-label="Giai đoạn"><span class="stage-badge stage-badge-fertilizer">Cong trái me</span></td>
+            <td data-label="Thời điểm">75 – 80 NSS<br><small>(lúa chín nửa bông)</small></td>
+            <td data-label="Sản phẩm, liều lượng & công dụng">
+              <ul class="stage-product-list">
+                <li><a href="https://agvngroup.com/san-pham/number-one.html" target="_blank" style="text-decoration:none;"><strong>NUMBER ONE 20ml – 10 gói:</strong></a> phòng ngừa nấm bệnh phổ rộng trên lá và hạt; hỗ trợ điều hòa sinh trưởng trong thời tiết bất lợi; ức chế Ethylen làm chậm quá trình chín, giúp giữ lá xanh lâu hơn, tăng vô gạo và to hạt.</li>
+                <li><strong>KUMIN X6 450ml – 1 chai:</strong> phòng ngừa sớm các loại vi khuẩn như sọc trong, bạc lá, cháy bìa lá lúa, vàng lá.</li>
+                <li><a href="https://agvngroup.com/san-pham/hat-vang.html" target="_blank" style="text-decoration:none;"><strong>HẠT VÀNG 500ml – 1 chai:</strong></a> cung cấp Kali hữu cơ dạng Fulvate giúp lúa hấp thu nhanh, vào gạo nhanh, to hạt, tăng trọng lượng hạt và tăng năng suất.</li>
+              </ul>
+            </td>
+            <td data-label="Lưu ý"><div class="stage-note">Giai đoạn này cần giữ thể trạng lúa xanh khỏe để giúp vô gạo, tăng tỷ lệ hạt chắc trên bông mẹ và bông con.</div></td>
+          </tr>
+
+          <tr>
+            <td data-label="#"><span class="stage-num stage-num-harvest">9</span></td>
+            <td data-label="Giai đoạn"><span class="stage-badge stage-badge-harvest">Trước khi thu hoạch</span></td>
+            <td data-label="Thời điểm">12 – 17 NSS<br><small>(lúa chín đỏ đuôi)</small></td>
+            <td data-label="Sản phẩm, liều lượng & công dụng">
+              <ul class="stage-product-list">
+                <li><a href="https://agvngroup.com/san-pham/hat-vang.html" target="_blank" style="text-decoration:none;"><strong>HẠT VÀNG 500ml – 1 chai:</strong></a> cung cấp Kali hữu cơ dạng Fulvate giúp lúa hấp thu nhanh, vào gạo nhanh, to hạt, tăng trọng lượng hạt và tăng năng suất.</li>
+                <li><a href="https://agvngroup.com/san-pham/silic-k.html" target="_blank" style="text-decoration:none;"><strong>SILIC K+ 500ml – 1 chai:</strong></a> kích thích ra rễ mới, tăng khả năng hấp thụ nước, hỗ trợ vận chuyển dinh dưỡng; làm dày tế bào thành lá và thân, giúp lúa cứng cây, đứng lá, tăng sức đề kháng, hạn chế sâu bệnh, tăng vô gạo và tỷ lệ hạt chắc.</li>
+              </ul>
+            </td>
+            <td data-label="Lưu ý"><div class="stage-note">Tùy từng chân ruộng mà quyết định ngày phun trước khi thu hoạch để đạt hiệu quả cao. Ví dụ đất gò, đất phèn nên phun trước khi cắt từ 12 ngày.</div></td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="luu-y-chung" class="container">
+  <h2 class="section-title" data-aos="fade-up">CÁC LƯU Ý CHUNG</h2>
+  <div class="process-card" data-aos="fade-up">
+    <div class="process-header-block"><i class="fa-solid fa-triangle-exclamation"></i><h3>Theo dõi đồng ruộng & kỹ thuật phun</h3></div>
+    <ul class="general-note-list">
+      <li>Điều kiện thời tiết và dịch hại diễn biến khó lường, vì vậy cần theo dõi đồng ruộng thường xuyên để kịp thời kết hợp các loại thuốc trừ sâu, rầy vào từng thời điểm thích hợp như khuyến cáo; tùy trường hợp cụ thể cần điều chỉnh các loại thuốc BVTV phù hợp.</li>
+      <li>Cần tuân thủ đúng khuyến cáo về thời điểm phun xịt như sáng sớm hoặc chiều mát và đúng kỹ thuật phối trộn thuốc BVTV: thuốc bột pha trước, thuốc nước pha sau.</li>
+    </ul>
+    <div class="note-box">
+      <h4><i class="fa-solid fa-wheat-awn"></i> AGVN Group</h4>
+      <p><strong>Làm Lúa, Nếp Theo Phong Cách Tập Đoàn Nông Nghiệp AGVN Group.</strong></p>
+      <p>“Tăng năng suất – Giảm chi phí”</p>
+    </div>
+  </div>
+</section>
+
+<footer class="agvn-site-footer" id="footer" data-agvn-shared="footer">
+  <div class="agvn-footer-shell">
+    <div class="agvn-footer-grid">
+      <section aria-label="Giới thiệu AGVN Group">
+        <a class="agvn-footer-brand" href="https://agvngroup.com/">
+          <span class="agvn-brand__main">AGVN</span><span class="agvn-brand__sub">GROUP</span>
+        </a>
+        <p class="agvn-footer-text">Đồng hành cùng nhà nông bằng các giải pháp vật tư nông nghiệp, kỹ thuật canh tác và bộ sản phẩm hướng đến hiệu quả bền vững.</p>
+        <div class="agvn-footer-legal">
+          <p><strong>CÔNG TY TNHH TẬP ĐOÀN NÔNG NGHIỆP AGVN GROUP</strong></p>
+</div>
+      </section>
+      <section aria-label="Liên kết nhanh">
+        <h2 class="agvn-footer-title">Liên Kết Nhanh</h2>
+        <ul class="agvn-footer-list">
+          <li><a href="https://agvngroup.com/"><i class="fa-solid fa-angle-right"></i>Trang Chủ</a></li>
+          <li><a href="https://agvngroup.com/aboutus.html"><i class="fa-solid fa-angle-right"></i>Giới Thiệu</a></li>
+          <li><a href="https://agvngroup.com/AGVN_product.html"><i class="fa-solid fa-angle-right"></i>Sản Phẩm</a></li>
+          <li><a href="https://agvngroup.com/quytrinhcanhtaclua.html"><i class="fa-solid fa-angle-right"></i>Quy Trình Canh Tác Lúa</a></li>
+        </ul>
+      </section>
+      <section aria-label="Danh mục sản phẩm">
+        <h2 class="agvn-footer-title">Danh Mục</h2>
+        <ul class="agvn-footer-list">
+          <li><a href="https://agvngroup.com/AGVN_product.html#ctTruBenh"><i class="fa-solid fa-shield-halved"></i>Thuốc Trừ Bệnh</a></li>
+          <li><a href="https://agvngroup.com/AGVN_product.html#ctSauRay"><i class="fa-solid fa-bug"></i>Thuốc Trừ Sâu - Rầy</a></li>
+          <li><a href="https://agvngroup.com/AGVN_product.html#ctDieuHoa"><i class="fa-solid fa-seedling"></i>Điều Hòa Sinh Trưởng</a></li>
+          <li><a href="https://agvngroup.com/AGVN_product.html#ctPhanBon"><i class="fa-solid fa-leaf"></i>Phân Bón</a></li>
+        </ul>
+      </section>
+      <section aria-label="Thông tin liên hệ">
+        <h2 class="agvn-footer-title">Thông Tin Liên Hệ</h2>
+        <ul class="agvn-footer-list">
+          <li><a href="https://www.google.com/maps/search/?api=1&amp;query=S%E1%BB%91+12+%C4%90%C6%B0%E1%BB%9Dng+D%E1%BB%B1+%C4%90%E1%BB%8Bnh%2C+Kh%C3%B3m+%C4%90%C3%B4ng+Th%E1%BB%8Bnh+9%2C+Ph%C6%B0%E1%BB%9Dng+Long+Xuy%C3%AAn%2C+Long+Xuy%C3%AAn%2C+Vietnam" target="_blank" rel="noopener"><i class="fa-solid fa-location-dot"></i><span>Số 12 Đường Dự Định, Khóm Đông Thịnh 9, Phường Long Xuyên, Long Xuyên, Vietnam</span></a></li>
+          <li><a href="tel:0869980098"><i class="fa-solid fa-phone"></i><span>0869 980 098</span></a></li>
+          <li><a href="tel:0969882442"><i class="fa-solid fa-phone"></i><span>0969 882 442</span></a></li>
+          <li><a href="mailto:agvngroup2025@gmail.com"><i class="fa-solid fa-envelope"></i><span>agvngroup2025@gmail.com</span></a></li>
+        </ul>
+        <div class="agvn-social-row">
+          <a class="agvn-social-link" href="https://www.facebook.com/agvngroup" target="_blank" rel="noopener" aria-label="Facebook AGVN Group"><i class="fa-brands fa-facebook-f"></i></a>
+          <a class="agvn-social-link" href="https://m.me/agvngroup" target="_blank" rel="noopener" aria-label="Messenger AGVN Group"><i class="fa-brands fa-facebook-messenger"></i></a>
+          <a class="agvn-social-link" href="https://zalo.me/2097464190568002454?src=qr" target="_blank" rel="noopener" aria-label="Zalo AGVN Group"><span style="font-size:.67rem;font-weight:800;">ZALO</span></a>
+        </div>
+      </section>
+    </div>
+    <div class="agvn-footer-bottom">
+      <p>© 2026 CÔNG TY TNHH TẬP ĐOÀN NÔNG NGHIỆP AGVN GROUP. Tất cả quyền được bảo lưu.</p>
+      <p>Website: agvngroup.com</p>
+    </div>
+  </div>
+</footer>
+
+<!-- AGVN PERFORMANCE PATCH v1: AOS disabled on mobile and delayed on desktop -->
+<script id="agvn-aos-loader">
+(function(w,d){
+  var opts={duration:700,once:true,offset:60};
+  var pending=opts;
+  w.AOS={init:function(o){pending=o||opts;},refresh:function(){},refreshHard:function(){}};
+  if(!w.matchMedia || w.matchMedia('(max-width: 768px)').matches || w.matchMedia('(prefers-reduced-motion: reduce)').matches){return;}
+  function load(){
+    if(d.getElementById('agvn-aos-lib')) return;
+    var s=d.createElement('script');
+    s.id='agvn-aos-lib';
+    s.src='https://unpkg.com/aos@2.3.1/dist/aos.js';
+    s.defer=true;
+    s.onload=function(){ if(w.AOS && w.AOS.init){ w.AOS.init(pending||opts); } };
+    d.head.appendChild(s);
+  }
+  if('requestIdleCallback' in w){ w.requestIdleCallback(load,{timeout:3500}); }
+  else { w.setTimeout(load,2200); }
+})(window,document);
+</script>
+<script>
+if (window.AOS) AOS.init({duration:1000,once:true});
+function toggleMenu(){var m=document.getElementById('navMenu');m.classList.toggle('open');var i=document.querySelector('.hamburger i');i.classList.toggle('fa-bars');i.classList.toggle('fa-times');}
+document.getElementById('navMenu').addEventListener('click',function(e){if(e.target.tagName==='A'&&!e.target.classList.contains('nav-dropdown-toggle')){this.classList.remove('open');var i=document.querySelector('.hamburger i');if(i){i.classList.remove('fa-times');i.classList.add('fa-bars');}}});
+(function(){var t=document.querySelectorAll('.nav-dropdown-toggle');t.forEach(function(toggle){var menu=toggle.nextElementSibling;if(toggle&&menu){toggle.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();t.forEach(function(ot){if(ot!==toggle){ot.classList.remove('active');if(ot.nextElementSibling)ot.nextElementSibling.classList.remove('show');}});menu.classList.toggle('show');toggle.classList.toggle('active');});}});document.addEventListener('click',function(e){t.forEach(function(toggle){if(!toggle.parentElement.contains(e.target)){var menu=toggle.nextElementSibling;if(menu)menu.classList.remove('show');toggle.classList.remove('active');}});});})();
+function scrollToSection(id,btn){var target=document.getElementById(id);if(target){var offset=140;var targetPosition=target.getBoundingClientRect().top+window.pageYOffset-offset;window.scrollTo({top:targetPosition,behavior:'smooth'});document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');}}
+</script>
+
+<div class="floating-buttons agvn-floating-buttons" aria-label="Liên hệ nhanh">
+  <a class="float-btn float-phone" href="tel:0869980098" aria-label="Gọi AGVN Group: 0869 980 098" title="Gọi 0869 980 098"><i class="fa-solid fa-phone"></i></a>
+  <a class="float-btn float-phone float-phone-secondary" href="tel:0969882442" aria-label="Gọi AGVN Group: 0969 882 442" title="Gọi 0969 882 442"><i class="fa-solid fa-phone"></i></a>
+  <a class="float-btn float-zalo" href="https://zalo.me/2097464190568002454?src=qr" target="_blank" rel="noopener" aria-label="Chat Zalo với AGVN Group" title="Chat Zalo">ZALO</a>
+  <a class="float-btn float-messenger" href="https://m.me/agvngroup" target="_blank" rel="noopener" aria-label="Chat Messenger với AGVN Group" title="Chat Messenger"><i class="fa-brands fa-facebook-messenger"></i></a>
+</div>
+
+<!-- AGVN shared header/footer behavior is inlined to avoid path/deployment errors. -->
+<script id="agvn-shared-inline-script">
+(() => {
+  'use strict';
+
+  const header = document.querySelector('.agvn-site-header');
+  if (!header) return;
+
+  const menuButton = header.querySelector('.agvn-menu-toggle');
+  const nav = header.querySelector('.agvn-primary-nav');
+  const dropdownItem = header.querySelector('.agvn-nav-item--products');
+  const dropdownButton = header.querySelector('.agvn-dropdown-button');
+
+  const closeMenu = () => {
+    header.classList.remove('is-menu-open');
+    if (menuButton) menuButton.setAttribute('aria-expanded', 'false');
+    if (dropdownItem) dropdownItem.classList.remove('is-open');
+    if (dropdownButton) dropdownButton.setAttribute('aria-expanded', 'false');
+  };
+
+  if (menuButton && nav) {
+    menuButton.addEventListener('click', () => {
+      const isOpen = header.classList.toggle('is-menu-open');
+      menuButton.setAttribute('aria-expanded', String(isOpen));
+    });
+  }
+
+  if (dropdownButton && dropdownItem) {
+    dropdownButton.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      const isOpen = dropdownItem.classList.toggle('is-open');
+      dropdownButton.setAttribute('aria-expanded', String(isOpen));
+    });
+  }
+
+  header.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      if (window.matchMedia('(max-width: 1060px)').matches) closeMenu();
+    });
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!header.contains(event.target) && dropdownItem) {
+      dropdownItem.classList.remove('is-open');
+      if (dropdownButton) dropdownButton.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeMenu();
+  });
+
+  window.addEventListener('resize', () => {
+    if (!window.matchMedia('(max-width: 1060px)').matches) closeMenu();
+  });
+
+  const path = window.location.pathname.toLowerCase();
+  let active = 'home';
+  if (path.includes('aboutus')) active = 'about';
+  else if (path.includes('quytrinh')) active = 'process';
+  else if (path.includes('tintuc') || path.includes('/tin-tuc/')) active = 'news';
+  else if (path.includes('/san-pham/') || path.includes('product')) active = 'products';
+
+  const activeLink = header.querySelector(`[data-nav="${active}"]`);
+  if (activeLink) {
+    activeLink.classList.add('is-active');
+    activeLink.setAttribute('aria-current', 'page');
+  }
+})();
+</script>
+
+<!-- AGVN PROCESS DROPDOWN PATCH START -->
+<script id="agvn-process-dropdown-script">
+(() => {
+  'use strict';
+
+  const header = document.querySelector('.agvn-site-header');
+  if (!header) return;
+
+  const processItem = header.querySelector('.agvn-nav-item--process');
+  const processButton = header.querySelector('.agvn-process-dropdown-button');
+  const productItem = header.querySelector('.agvn-nav-item--products');
+
+  if (!processItem || !processButton) return;
+
+  const closeProcess = () => {
+    processItem.classList.remove('is-open');
+    processButton.setAttribute('aria-expanded', 'false');
+  };
+
+  processButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (productItem) {
+      productItem.classList.remove('is-open');
+      const productButton = productItem.querySelector('.agvn-dropdown-button');
+      if (productButton) productButton.setAttribute('aria-expanded', 'false');
+    }
+
+    const isOpen = processItem.classList.toggle('is-open');
+    processButton.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  processItem.querySelectorAll('.agvn-process-submenu a').forEach((link) => {
+    link.addEventListener('click', closeProcess);
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!processItem.contains(event.target)) closeProcess();
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeProcess();
+  });
+
+  window.addEventListener('resize', () => {
+    if (!window.matchMedia('(max-width: 1060px)').matches) closeProcess();
+  });
+})();
+</script>
+<!-- AGVN PROCESS DROPDOWN PATCH END -->
+
+</body>
+</html>
