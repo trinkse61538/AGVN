@@ -988,7 +988,18 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
 <li><a href="https://agvngroup.com/AGVN_product.html#ctPhanBon"><i class="fa-solid fa-leaf"></i>Phân Bón</a></li>
 </ul>
 </li>
-<li class="agvn-nav-item"><a class="agvn-nav-link" data-nav="process" href="https://agvngroup.com/quytrinhcanhtaclua.html">Quy Trình Canh Tác Lúa</a></li>
+        <li class="agvn-nav-item agvn-nav-item--process">
+          <div class="agvn-nav-combo">
+            <a class="agvn-nav-link" data-nav="process" href="https://agvngroup.com/quytrinhcanhtaclua.html">Quy Trình Canh Tác Lúa</a>
+            <button class="agvn-dropdown-button agvn-process-dropdown-button" type="button" aria-label="Mở danh sách quy trình canh tác" aria-expanded="false">
+              <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+            </button>
+          </div>
+          <ul class="agvn-submenu agvn-process-submenu">
+            <li><a href="https://agvngroup.com/quytrinhcanhtaclua.html"><i class="fa-solid fa-seedling"></i>Japonica DS1</a></li>
+            <li><a href="https://agvngroup.com/quytrinh-lua-thom-100-ngay.html"><i class="fa-solid fa-wheat-awn"></i>Lúa thơm 100 ngày</a></li>
+          </ul>
+        </li>
 <!-- Tin tức đã được đặt sẵn trong menu nhưng tạm ẩn. Xóa class agvn-nav-news--hidden để hiển thị. -->
 <li class="agvn-nav-item agvn-nav-news--hidden" hidden><a class="agvn-nav-link" data-nav="news" href="https://agvngroup.com/tintuc.html">Tin Tức</a></li>
 <li class="agvn-nav-item"><a class="agvn-nav-link" href="https://agvngroup.com/#footer">Liên Hệ</a></li>
@@ -1321,5 +1332,58 @@ body .agvn-floating-buttons .float-messenger { background: linear-gradient(135de
   }
 })();
 </script>
+
+<!-- AGVN PROCESS DROPDOWN PATCH START -->
+<script id="agvn-process-dropdown-script">
+(() => {
+  'use strict';
+
+  const header = document.querySelector('.agvn-site-header');
+  if (!header) return;
+
+  const processItem = header.querySelector('.agvn-nav-item--process');
+  const processButton = header.querySelector('.agvn-process-dropdown-button');
+  const productItem = header.querySelector('.agvn-nav-item--products');
+
+  if (!processItem || !processButton) return;
+
+  const closeProcess = () => {
+    processItem.classList.remove('is-open');
+    processButton.setAttribute('aria-expanded', 'false');
+  };
+
+  processButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (productItem) {
+      productItem.classList.remove('is-open');
+      const productButton = productItem.querySelector('.agvn-dropdown-button');
+      if (productButton) productButton.setAttribute('aria-expanded', 'false');
+    }
+
+    const isOpen = processItem.classList.toggle('is-open');
+    processButton.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  processItem.querySelectorAll('.agvn-process-submenu a').forEach((link) => {
+    link.addEventListener('click', closeProcess);
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!processItem.contains(event.target)) closeProcess();
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeProcess();
+  });
+
+  window.addEventListener('resize', () => {
+    if (!window.matchMedia('(max-width: 1060px)').matches) closeProcess();
+  });
+})();
+</script>
+<!-- AGVN PROCESS DROPDOWN PATCH END -->
+
 </body>
 </html>
