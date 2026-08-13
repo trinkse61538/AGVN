@@ -233,6 +233,24 @@
       "localPath": "assets/generated-images/news-nguyenkhai.jpg",
       "contentType": "image/jpeg",
       "updatedAt": "2026-07-12T13:27:19.446Z"
+    },
+    "product:humic-toma": {
+      "kind": "product",
+      "slug": "humic-toma",
+      "sourceUrl": "https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@main/AGVN_webp_image/PhanBon/Humic%20Toma.webp",
+      "webPath": "/assets/generated-images/product-humic-toma.webp",
+      "localPath": "assets/generated-images/product-humic-toma.webp",
+      "contentType": "image/webp",
+      "updatedAt": "2026-08-13T02:10:18.749Z"
+    },
+    "product:canxi-bo": {
+      "kind": "product",
+      "slug": "canxi-bo",
+      "sourceUrl": "https://cdn.jsdelivr.net/gh/trinkse61538/AGVN@main/AGVN_webp_image/PhanBon/Canxi%20Bo.webp",
+      "webPath": "/assets/generated-images/product-canxi-bo.webp",
+      "localPath": "assets/generated-images/product-canxi-bo.webp",
+      "contentType": "image/webp",
+      "updatedAt": "2026-08-13T02:10:19.844Z"
     }
   }
 }
