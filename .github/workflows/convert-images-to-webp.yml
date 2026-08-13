@@ -1,0 +1,144 @@
+name: Convert Images to WebP
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'images/**/*.jpg'
+      - 'images/**/*.jpeg'
+      - 'images/**/*.png'
+      - 'images/**/*.JPG'
+      - 'images/**/*.JPEG'
+      - 'images/**/*.PNG'
+      - '.github/workflows/convert-images-to-webp.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  convert-images-to-webp:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install Sharp
+        run: npm install --no-save sharp
+
+      - name: Convert images from images/ to AGVN_webp_image/
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const path = require('path');
+          const sharp = require('sharp');
+
+          const root = process.cwd();
+          const sourceRoot = path.join(root, 'images');
+          const outputRoot = path.join(root, 'AGVN_webp_image');
+          const allowedExt = new Set(['.jpg', '.jpeg', '.png']);
+
+          function walk(dir, files = []) {
+            if (!fs.existsSync(dir)) return files;
+            for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+              const fullPath = path.join(dir, entry.name);
+              if (entry.isDirectory()) {
+                walk(fullPath, files);
+              } else if (entry.isFile()) {
+                files.push(fullPath);
+              }
+            }
+            return files;
+          }
+
+          function ensureDir(dirPath) {
+            fs.mkdirSync(dirPath, { recursive: true });
+          }
+
+          function toPosix(p) {
+            return p.split(path.sep).join('/');
+          }
+
+          async function main() {
+            if (!fs.existsSync(sourceRoot)) {
+              console.log('No images/ folder found. Nothing to convert.');
+              return;
+            }
+
+            ensureDir(outputRoot);
+
+            const allFiles = walk(sourceRoot);
+            const imageFiles = allFiles.filter(file =>
+              allowedExt.has(path.extname(file).toLowerCase())
+            );
+
+            if (imageFiles.length === 0) {
+              console.log('No JPG/JPEG/PNG files found in images/.');
+              return;
+            }
+
+            let converted = 0;
+            let skipped = 0;
+
+            for (const sourceFile of imageFiles) {
+              const relativePath = path.relative(sourceRoot, sourceFile);
+              const parsed = path.parse(relativePath);
+
+              const outputDir = path.join(outputRoot, parsed.dir);
+              const outputFile = path.join(outputDir, `${parsed.name}.webp`);
+
+              ensureDir(outputDir);
+
+              const sourceStat = fs.statSync(sourceFile);
+              const outputExists = fs.existsSync(outputFile);
+
+              if (outputExists) {
+                const outputStat = fs.statSync(outputFile);
+                if (outputStat.mtimeMs >= sourceStat.mtimeMs) {
+                  console.log(`Skip   : ${toPosix(relativePath)}`);
+                  skipped += 1;
+                  continue;
+                }
+              }
+
+              await sharp(sourceFile)
+                .rotate()
+                .webp({ quality: 82, effort: 6 })
+                .toFile(outputFile);
+
+              console.log(`Convert: ${toPosix(relativePath)} -> ${toPosix(path.relative(root, outputFile))}`);
+              converted += 1;
+            }
+
+            console.log(`Done. Converted: ${converted}, Skipped: ${skipped}`);
+          }
+
+          main().catch(error => {
+            console.error(error);
+            process.exit(1);
+          });
+          NODE
+
+      - name: Commit converted WebP files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add AGVN_webp_image
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git commit -m "chore: convert images to webp"
+          git push
